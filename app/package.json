@@ -1,0 +1,16 @@
+{
+    "name": "Interactive_platform_LBS",
+    "version": "0.0.1",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+        "install" : "node ./node_modules/rapid-core/init.js"
+    },
+    "author": "DevGroup",
+    "dependencies":{
+        "rapid-core" : "*",
+        "rapid-httpserver" : "*",
+        "rapid-mysql" :"*"
+    },
+    "license": "MIT"
+}	
