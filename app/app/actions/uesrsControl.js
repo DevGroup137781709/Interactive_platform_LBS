@@ -4,6 +4,7 @@
 * 本控制器用于处理登录，注册，获取用户信息等用户相关的请求
 * 1.注册信息的处理,
 *               检查用户名是否冲突[完成][中文+英文测试完毕]
+*               登录信息验证[完成][中文+英文测试完毕]
 *
 * AJAX传入json格式如下：
 *        ｛
@@ -21,8 +22,11 @@
 * 传出json格式
 *        {
 *        registerRes:{
-*                      state:0注册失败用户名重复,1注册失败邮箱已经使用过,2注册成功
+*                      state:0注册失败用户名重复,1注册失败邮箱已经使用过,2注册成功,3内部未知错误
 *                       }
+*        loginRes:{
+*                   state: 0未找到用户名 1密码错误 2密码正确
+*               }
 *
 *
 *
@@ -43,6 +47,7 @@ server.defineAction("uesrsControl",['default_request','default_response','cookie
     var resjson;//发送出去的数据
 
 
+
     if(req.method!='POST'){
         //一律用POST提交数据
         res.end('you must use POST for sending');
@@ -50,30 +55,42 @@ server.defineAction("uesrsControl",['default_request','default_response','cookie
 
     req.on('data',function(data){
         reqjson=eval('('+data+')');
-        console.dir(reqjson);
+
         //中文乱码在前端加xmlHttprequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");解决
 
         switch (reqjson.method)
         {
             case 'register':
+                /*
+                * 注册
+                * */
                 var CRegister =  require('./regester.class.js');//加载注册模块
                 var register =new CRegister(reqjson.userInfo.userType,reqjson.userInfo.name,reqjson.userInfo.email,reqjson.userInfo.password);
-
-                register.checkNameIsAble(function(state){
-                    //如果用户名不重复,state为0,重复返回1
-                    if(state==0){
-                        resjson="{'registerRes':{'state':"+state+"}}";
-                        console.log(resjson);
-                        res.write(resjson);//发送数据到缓存区[未真实发送]
-                        res.end();//发送数据
+                register.checkNameAndEmailIsAble(function(flat){
+                    if(flat==2){
+                        //不冲突,开始注册
+                        register.addUser(reqjson);
                     }
-
-
-
+                    resjson="{'registerRes':{'state':"+flat+"}}"
+                    sendDta(res,resjson);
                 });
 
                 break;
             case 'login':
+                /*
+                * 登录
+                * */
+                var Cloginer=require('./login.class.js');
+                var loginer=new Cloginer(reqjson);
+                loginer.doLogin(function(flat){
+                   //flat  0未找到用户名 1密码错误 2密码正确
+                    resjson="{'loginRes':{'state':"+flat+"}}";
+                    console.log(resjson);
+                    sendDta(res,resjson);
+
+                });
+
+
                 break;
             case 'getUserInfo':
                 break;
@@ -92,18 +109,10 @@ server.defineAction("uesrsControl",['default_request','default_response','cookie
 
 
 
-
-
-
-
 });
 
-function addjs(path){
-    var new_element;
-    new_element=document.createElement("script");
-    new_element.setAttribute("type","text/javascript");
-    new_element.setAttribute("src",path);// 在这里引入了其他js
-    document.body.appendChild(new_element);
 
+function sendDta(res,json){
+    res.write(json);//发送数据到缓存区[未真实发送]
+    res.end();//发送数据
 }
-

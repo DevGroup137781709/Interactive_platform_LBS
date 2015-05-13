@@ -72,7 +72,35 @@ Do the following if you're using your customized build of modernizr (http://www.
 		
 		}
 		
+		
+		function login(){
+			if(xmlHttprequest){
+					xmlHttprequest.open('POST',url,true);
+					xmlHttprequest.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+					xmlHttprequest.onreadystatechange=sendNameForCheck;
+					
+					var data;
+					data= "{'method':'login','userInfo':{'userType':1,'name':'"+$('uesrname').value+"','sex':'F','password':'"+$('pw').value+"','email':'"+$('email').value+"'}}";
+					
+					xmlHttprequest.send(data);
+					
+					
+			}else{
+				$('able').innerHtml="浏览器内部严重错误";		
+			}
+		
+		
+		}
+		
 	function sendNameForCheck(){
+			if(xmlHttprequest.readyState==4){
+				//如果成功返回4，代表接收了服务器数据返回
+					$('able').innerHTML=xmlHttprequest.responseText;
+				}
+		
+		}
+		
+		function loginForCheck(){
 			if(xmlHttprequest.readyState==4){
 				//如果成功返回4，代表接收了服务器数据返回
 					$('able').innerHTML=xmlHttprequest.responseText;
@@ -102,8 +130,9 @@ Do the following if you're using your customized build of modernizr (http://www.
       <input type="password" id="pw" name="pw" >
     </p>
     <p>
-      <input type="submit" onclick="checkname();" name="submit" id="submit" value="注册">
-      <input type="button" onclick="checkname();" name="button" id="button" value="提交">
+    	<input type="button" onclick="login();" name="submitLogin" id="submitLogin" value="登录">
+      
+      <input type="button" onclick="checkname();" name="button" id="button" value="注册">
     </p>
     <hr>
     <p>&nbsp;</p>
