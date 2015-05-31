@@ -7,7 +7,7 @@ var sequelize = new Sequelize('host_data', 'root', '1237891379', {host : '127.0.
 // ∂®“Â
 var user = sequelize.define('user_basedata', {
     // auto increment, primaryKey, unique
-    id : {type : Sequelize.INTEGER(5), autoIncrement : true, primaryKey : true, unique : true},
+    ID : {type : Sequelize.INTEGER(5), autoIncrement : true, primaryKey : true, unique : true},
     type : {type : Sequelize.INTEGER(1), allowNull : false, defaultValue : 1},
     name : {type : Sequelize.STRING(15), allowNull : false, comment : 'name'},
     email : {type : Sequelize.STRING(50), allowNull : false,validate:{isEmail:true}},

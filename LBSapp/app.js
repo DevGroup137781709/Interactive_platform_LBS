@@ -3,14 +3,17 @@ var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
+var formidable = require('formidable');//使用中间件 ,用于上传文件
 var bodyParser = require('body-parser');
 var session = require('express-session'); //如果要使用session，需要单独包含这个模块
+
 
 //路由配置
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var register =require('./routes/register');
-var uesrsControl =require('./routes/user/register/uesrsControl');
+var uesrsControl =require('./routes/user/usersControl');
+var partyControl =require('./routes/party/partyControl');
 //路由配置
 var app = express();
 var ejs = require('ejs');
@@ -30,7 +33,8 @@ app.use(session({ secret: 'qianzise',cookie: { maxAge: 60*1000}}));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/register', register);
-app.use('/register/uesrsControl', uesrsControl);
+app.use('/user/', uesrsControl);
+app.use('/party', partyControl);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
