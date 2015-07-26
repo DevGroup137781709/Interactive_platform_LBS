@@ -52,10 +52,27 @@
         邮箱:<%= userEmail %><br>
 
     </div>
+    <% if(userType==0){%>
+    <%#       判断如果是主办方,则显示举办过的晚会和正在办的晚会         #%>
+
+    <div data-dojo-type="dojox.mobile.RoundRect">
+        正在举办的晚会:<%= holdingpartys %><br>
+
+    </div>
+
+    <div data-dojo-type="dojox.mobile.RoundRect">
+        过去举办的晚会:<%= holdedpartys %><br>
+
+    </div>
+    <% }else if(userType==1){ %>
+
+
     <div data-dojo-type="dojox.mobile.RoundRect">
         参加过的晚会:<%= takenpartys %><br>
 
     </div>
+
+    <% } %>
     <div data-dojo-type="dojox.mobile.RoundRect">
         其他<br>
 

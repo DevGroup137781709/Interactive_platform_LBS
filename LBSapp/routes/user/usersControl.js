@@ -252,7 +252,10 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
     if(req.params.type.toLowerCase()=='info') {
+        // info页面
         var user = New(require('./user.class.js'), [req.params.ID]);
+
+
         user.getInfo(function (result) {
 
             var party = New(require('../party/party.class.js'), []);
@@ -263,41 +266,93 @@ router.get('/:type/:ID', function(req, res, next) {
             async.series({
                     one:function(callback_1){
 
+                        if(result.userInfo.type==0){
+                            //举办方,这里处理下晚会数组
 
-                        if(result.userInfo.user_takenpartys.length!=0){
-                            async.each(result.userInfo.user_takenpartys, function (data, callback) {
-                                result.userInfo.user_takenpartys.names = [];
-                                party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                            if(result.userInfo.host_holdedpartys.length==0&&result.userInfo.host_holdingpartys.length==0){
 
-                               result.userInfo.user_takenpartys.names.push(_res.name);
+                                callback_1();
+                            }
 
 
-                                    if(result.userInfo.user_takenpartys.names.length==result.userInfo.user_takenpartys.length){
+                            if(result.userInfo.host_holdingpartys.length!=0){
+                                result.userInfo.host_holdingpartys_names = [];
+                                async.each(result.userInfo.host_holdingpartys, function (data, callback) {
+                                    party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                                        result.userInfo.host_holdingpartys_names.push(_res.name);
 
-                                        callback_1();
-                                    }
+
+
+                                    });
 
 
                                 });
 
+                            }
 
-                            });
+                            if(result.userInfo.host_holdedpartys.length!=0){
+                                result.userInfo.host_holdedpartys_names = [];
+                                async.each(result.userInfo.host_holdedpartys, function (data, callback) {
+                                    party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                                        result.userInfo.host_holdedpartys_names.push(_res.name);
+                                            if(result.userInfo.host_holdedpartys_names.length==result.userInfo.host_holdedpartys.length){
+                                                callback_1();
+                                            }
+                                    });
+                                });
+
+                            }
+
+
+
+
 
                         }else{
+                            //普通用户,这里是处理下晚会数组,
+                            if(result.userInfo.user_takenpartys.length!=0){
+                                async.each(result.userInfo.user_takenpartys, function (data, callback) {
+                                    result.userInfo.user_takenpartys_names = [];
+                                    party.getInfoByID(data, ['ID', 'name'], function (_res) {
 
-                            callback_1();
+                                        result.userInfo.user_takenpartys_names.push(_res.name);
+
+
+                                        if(result.userInfo.user_takenpartys_names.length==result.userInfo.user_takenpartys.length){
+
+                                            callback_1();
+                                        }
+
+
+                                    });
+
+
+                                });
+
+                            }else{
+
+                                callback_1();
+                            }
+
+
                         }
+
 
 
 
                     },
                     two:function(callback_2) {
-                        console.log(result.userInfo.user_takenpartys.names);
+                        console.log(result)
+
+
                            res.render('userinfo', {
                                userName: result.userInfo.name,
+                               userType:result.userInfo.type,
                                userEmail: result.userInfo.email,
                                userSex: result.userInfo.sex,
-                               takenpartys: result.userInfo.user_takenpartys.names
+                               takenpartys: result.userInfo.user_takenpartys_names,
+                               holdingpartys: result.userInfo.host_holdingpartys_names,
+                               holdedpartys:result.userInfo.host_holdedpartys_names
+
                            });
                            res.end();
                         callback_2();
