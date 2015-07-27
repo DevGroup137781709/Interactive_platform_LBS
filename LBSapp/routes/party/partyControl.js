@@ -414,7 +414,8 @@ router.get('/:type/:ID', function(req, res, next) {
             partyPublisher:'1',
             partyHosts:'2,3,4',
             isTaken:1,
-            shows:[1,2,3],
+            shows:[{show:'1111111111111',actors:'222222222222222'},{show:'1',actors:'2'},{show:'1',actors:'2'}],
+            comments:[{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'}],
             posterURL:'/images/parties/2/poster.jpg'
 
 

@@ -137,7 +137,8 @@
         }else{
             for(var i=1;i<=shows.length;i++){ %>
                 <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
-                    节目<%= i %>:
+                  <div align='left'> 节目<%= i %>: <%= shows[i-1].show%></div>
+                    <div align='right'>  演员: <%= shows[i-1].actors%></div>
                 </li>
 
         <%}%>
@@ -146,14 +147,45 @@
     </ul>
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">详情</h2>
     <div data-dojo-type="dojox.mobile.RoundRect">
-        <%= detail %><br>
+        <%= detail %>
+
+        <br>
 
     </div>
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">吐槽区</h2>
     <ul data-dojo-type="dojox.mobile.RoundRectList">
+
+        <% if(comments.length==0){ %>
+        <%# 表示暂无评论 #%>
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
-          用户1:23333333333333
+            居然没有人吐槽?!快来抢沙发
         </li>
+        <%
+
+        }else{
+        for(var i=1;i<=comments.length;i++){ %>
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+
+
+            <% if(i%2==0){%>
+            <div align="right">
+
+            <% }else{%>
+                <div align="left">
+
+            <%}%>
+            <img src='/images/pic/woman.png' width=7% height=7% /> <%= comments[i-1].name %>:<%= comments[i-1].content %>
+            </div>
+        </li>
+
+        <%}%>
+
+        <% } %>
+
+
+
+
+
 
 
 
@@ -168,13 +200,13 @@
     <div data-dojo-type="dojox.mobile.RoundRect" align="center">
         <span class="bold">吐槽手段</span>
 
-            <input type="radio" id="rb1" data-dojo-type="dojox.mobile.RadioButton" name="type" value="Large" checked><label for="rb1">弹幕</label>
-            <input type="radio" id="rb2" data-dojo-type="dojox.mobile.RadioButton" name="type" value="Medium"><label for="rb2">评论</label>
+            <input type="radio" id="rb1" data-dojo-type="dojox.mobile.RadioButton" name="type" value="danmu" checked><label for="rb1">弹幕</label>
+            <input type="radio" id="rb2" data-dojo-type="dojox.mobile.RadioButton" name="type" value="comments"><label for="rb2">评论</label>
 
 
         <hr/>
         <span class="bold">弹幕颜色:</span>
-           <input id="color1" readOnly value="transparent" style="background-color:transparent;"onclick="dijit.byId('colorPicker1').show(this, ['above-centered','below-centered','after','before'])">
+           <input id="color1" readOnly value="默认黑色" style="background-color:transparent;"onclick="dijit.byId('colorPicker1').show(this, ['above-centered','below-centered','after','before'])">
 
         <hr/>
         <span class="bold">弹幕大小:</span>
@@ -183,14 +215,14 @@
         <span class="bold">弹幕样式</span>
         </br>
 
-        <input type="radio" id="rb3" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Large" checked><label for="rb1">滚动弹幕</label>
-        <input type="radio" id="rb4" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Medium"><label for="rb2">顶端弹幕</label>
-        <input type="radio" id="rb5" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Medium"><label for="rb2">底端弹幕</label>
+        <input type="radio" id="rb3" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Scroll" checked><label for="rb3">滚动弹幕</label>
+        <input type="radio" id="rb4" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Top"><label for="rb4">顶端弹幕</label>
+        <input type="radio" id="rb5" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Bottom"><label for="rb5">底端弹幕</label>
 
         </br>
 
         <div id="colorPicker1" data-dojo-type="dojox.mobile.Opener" data-dojo-props="onHide:getColor1">
-            <h1 dojoType="dojox.mobile.Heading" label="Select a Color">
+            <h1 dojoType="dojox.mobile.Heading" label="选择一个颜色">
 			    <span dojoType="dojox.mobile.ToolBarButton" label="Done" class="mblColorBlue" style="position:absolute;width:45px;right:0;"
                   onclick="dijit.byId('colorPicker1').hide(true)"></span>
 			    <span dojoType="dojox.mobile.ToolBarButton" label="Cancel" class="mblColorBlue" style="position:absolute;width:45px;left:0;"
