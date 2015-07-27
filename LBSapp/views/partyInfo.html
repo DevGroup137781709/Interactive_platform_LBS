@@ -31,6 +31,23 @@
         ]);
 
 
+        function changeType(type){
+
+
+            if(type=='danmu'){
+                document.getElementById("danmuArea").style.display='block';
+
+
+
+          }else{
+
+            document.getElementById("danmuArea").style.display='none';
+            }
+
+
+
+        }
+
         function getColor1(node, v){
             if(v === true){ // Done clicked
                 var w = dijit.byId("colorPalette");
@@ -43,6 +60,8 @@
                             + ("0" + (255-parseInt(color.substr(5,2), 16)).toString(16)).slice(-2);
                 }
             }
+
+
         }
     </script>
     <style>
@@ -198,43 +217,56 @@
     </ul>
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">我也来吐槽一下</h2>
     <div data-dojo-type="dojox.mobile.RoundRect" align="center">
-        <span class="bold">吐槽手段</span>
+        <span class="bold">吐槽方式</span>
 
-            <input type="radio" id="rb1" data-dojo-type="dojox.mobile.RadioButton" name="type" value="danmu" checked><label for="rb1">弹幕</label>
-            <input type="radio" id="rb2" data-dojo-type="dojox.mobile.RadioButton" name="type" value="comments"><label for="rb2">评论</label>
+            <input type="radio" id="rb_danmu" data-dojo-type="dojox.mobile.RadioButton" name="type" value="danmu" checked onclick="changeType('danmu');"><label for="rb_danmu">弹幕</label>
+            <input type="radio" id="rb_comments" data-dojo-type="dojox.mobile.RadioButton" name="type" value="comments" onclick="changeType('comments');"><label for="rb_comments">评论</label>
 
-
-        <hr/>
-        <span class="bold">弹幕颜色:</span>
-           <input id="color1" readOnly value="默认黑色" style="background-color:transparent;"onclick="dijit.byId('colorPicker1').show(this, ['above-centered','below-centered','after','before'])">
 
         <hr/>
-        <span class="bold">弹幕大小:</span>
-        <div id="size" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"中", rightLabel:"小", shape:"mblSwRoundShape1"'></div>
-        <hr/>
-        <span class="bold">弹幕样式</span>
-        </br>
 
-        <input type="radio" id="rb3" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Scroll" checked><label for="rb3">滚动弹幕</label>
-        <input type="radio" id="rb4" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Top"><label for="rb4">顶端弹幕</label>
-        <input type="radio" id="rb5" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Bottom"><label for="rb5">底端弹幕</label>
+        <div id="danmuArea" >
+                <span class="bold">弹幕颜色:</span>
+                   <input id="color1" readOnly value="默认黑色" style="background-color:transparent;"onclick="dijit.byId('colorPicker1').show(this, ['above-centered','below-centered','after','before'])">
 
-        </br>
+                <hr/>
+                <span class="bold">弹幕大小:</span>
+                <div id="size" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"中", rightLabel:"小", shape:"mblSwRoundShape1"'></div>
+                <hr/>
+                <span class="bold">弹幕样式</span>
+                </br>
 
-        <div id="colorPicker1" data-dojo-type="dojox.mobile.Opener" data-dojo-props="onHide:getColor1">
-            <h1 dojoType="dojox.mobile.Heading" label="选择一个颜色">
-			    <span dojoType="dojox.mobile.ToolBarButton" label="Done" class="mblColorBlue" style="position:absolute;width:45px;right:0;"
-                  onclick="dijit.byId('colorPicker1').hide(true)"></span>
-			    <span dojoType="dojox.mobile.ToolBarButton" label="Cancel" class="mblColorBlue" style="position:absolute;width:45px;left:0;"
-                  onclick="dijit.byId('colorPicker1').hide(false)"></span>
-            </h1>
-            <div id="colorPalette" dojoType='dijit.ColorPalette'></div>
+                <input type="radio" id="rb3" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Scroll" checked><label for="rb3">滚动弹幕</label>
+                <input type="radio" id="rb4" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Top"><label for="rb4">顶端弹幕</label>
+                <input type="radio" id="rb5" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Bottom"><label for="rb5">底端弹幕</label>
+
+                </br>
+
+                <div id="colorPicker1" data-dojo-type="dojox.mobile.Opener" data-dojo-props="onHide:getColor1">
+                    <h1 dojoType="dojox.mobile.Heading" label="选择一个颜色">
+                        <span dojoType="dojox.mobile.ToolBarButton" label="Done" class="mblColorBlue" style="position:absolute;width:45px;right:0;"
+                          onclick="dijit.byId('colorPicker1').hide(true)"></span>
+                        <span dojoType="dojox.mobile.ToolBarButton" label="Cancel" class="mblColorBlue" style="position:absolute;width:45px;left:0;"
+                          onclick="dijit.byId('colorPicker1').hide(false)"></span>
+                    </h1>
+                    <div id="colorPalette" dojoType='dijit.ColorPalette' data-dojo-props="value:'#000000'" style="height: 400px;"></div>
+                </div>
+
         </div>
 
+        <br>
         <textarea data-dojo-type="dojox.mobile.TextArea" rows="3" cols="20" style="width:100%" onclick="if(this.value=='吐槽点什么好呢')this.value=''">吐槽点什么好呢</textarea>
 
-
+        <button data-dojo-type="dojox.mobile.Button" id="btn5" class="mblBlueButton" style="width:90%" >发送</button>
     </div>
+
+    <script>
+
+
+
+
+
+    </script>
 
 
 
