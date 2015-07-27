@@ -400,8 +400,32 @@ router.post('/:PID', function(req, res, next) {
 });
 
 
-router.get('/', function(req, res, next) {
-    res.end('you must use POST !');
+router.get('/:type/:ID', function(req, res, next) {
+
+    if(req.params.type.toLowerCase()=='info') {
+
+
+        res.render('partyInfo',{
+            partyName:'电子科技大学冬日祭演出12378913791379846465448',
+            partyTime:'2015年7月26日 23:34:13',
+            partyLocation:'成电会堂',
+            partyType:'动漫',
+            detail:'23333333',
+            partyPublisher:'1',
+            partyHosts:'2,3,4',
+            isTaken:1,
+            shows:[1,2,3],
+            posterURL:'/images/parties/2/poster.jpg'
+
+
+
+        });
+
+    }
+
+
+
+
 
 
 });

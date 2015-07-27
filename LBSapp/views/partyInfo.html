@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <link href="/javascripts/dojox/mobile/themes/common/dijit/dijit.css" rel="stylesheet"/>
+    <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','Button','Overlay','Tooltip']" ></script>
+    <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+
+    <script type="text/javascript">
+        require([
+            "dojox/mobile/parser",
+            "dojox/mobile",
+            "dojo/ready",
+            "dojox/mobile/compat",
+            "dojox/mobile/ComboBox",
+            "dojox/mobile/ScrollableView",
+            "dojox/mobile/ListItem",
+            "dojox/mobile/TabBar",
+            "dojox/mobile/Button",
+            "dojox/mobile/RadioButton",
+            "dojox/mobile/TextArea",
+            "dijit/_base/manager",
+            "dojox/mobile/Opener",
+            "dijit/ColorPalette",
+            "dojox/mobile/ToolBarButton",
+
+
+
+        ]);
+
+
+        function getColor1(node, v){
+            if(v === true){ // Done clicked
+                var w = dijit.byId("colorPalette");
+                var color = w.get("value");
+                if(color){
+                    node.value = color;
+                    node.style.backgroundColor = color;
+                    node.style.color =  "#" + ("0" +(255-parseInt(color.substr(1,2), 16)).toString(16)).slice(-2)
+                            + ("0" + (255-parseInt(color.substr(3,2), 16)).toString(16)).slice(-2)
+                            + ("0" + (255-parseInt(color.substr(5,2), 16)).toString(16)).slice(-2);
+                }
+            }
+        }
+    </script>
+    <style>
+        button {
+            width: 120px;
+            margin: 15px 10px 0;
+        }
+        button.customButton {
+            border-color: #cc3333;
+            background-image: url(/javascripts/dojox/mobile/themes/custom/compat/red-button-bg.png);
+            color: #ffffff;
+            height: 27px;
+        }
+        button.customButtonSelected {
+            background-image: url(/javascripts/dojox/mobile/themes/custom/compat/red-button-sel-bg.png);
+        }
+
+
+
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+
+    </style>
+    <title>LBS</title>
+</head>
+<body >
+<div data-dojo-type="dojox.mobile.Heading"
+     data-dojo-props="label: '<%= partyName %>'">
+		<span data-dojo-type="dojox.mobile.ToolBarButton"
+              data-dojo-props="arrow: 'left', icon: 'mblDomButtonWhiteDownArrow', label: '返回'"/>
+</div>
+
+<div id="userinfo" data-dojo-type="dojox.mobile.ScrollableView">
+
+
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory">基本信息</h2>
+    <ul data-dojo-type="dojox.mobile.RoundRectList" >
+        <li   data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='variableHeight:true' >
+         <div > 活动名称:<%= partyName %><br> </div>
+
+        </li>
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+            活动时间:<%= partyTime %>
+        </li>
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+            活动地点:<%= partyLocation %>
+        </li>
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+            类型:<%= partyType %>
+        </li>
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+            发布人:<%= partyPublisher %>
+        </li>
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+            主办方:<%= partyHosts %>
+        </li>
+
+    </ul>
+    <ul data-dojo-type="dojox.mobile.RoundRectList">
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+            <% if(isTaken==1){%>
+            <center> <button data-dojo-type="dojox/mobile/Button" id="btn2" class="mblRedButton" style="width:90%">放弃参加</button></center>
+            <% }else if(isTaken==0){%>
+            <center> <button data-dojo-type="dojox.mobile.Button" id="btn3" class="mblBlueButton" style="width:90%" >我要参加</button></center>
+            <% }%>
+        </li>
+
+
+
+    </ul>
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory">海报</h2>
+    <div data-dojo-type="dojox.mobile.RoundRect">
+
+        <div align="center">
+            <img src=<%= posterURL %> width=100% height=100% />
+        </div>
+
+    </div>
+
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory" data-dojo-props='variableHeight:true'>节目表</h2>
+    <ul data-dojo-type="dojox.mobile.RoundRectList">
+
+        <% if(shows.length==0){ %>
+        <%# 表示暂无节目表 #%>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+                暂无节目表
+            </li>
+        <%
+
+        }else{
+            for(var i=1;i<=shows.length;i++){ %>
+                <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+                    节目<%= i %>:
+                </li>
+
+        <%}%>
+
+        <% } %>
+    </ul>
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory">详情</h2>
+    <div data-dojo-type="dojox.mobile.RoundRect">
+        <%= detail %><br>
+
+    </div>
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory">吐槽区</h2>
+    <ul data-dojo-type="dojox.mobile.RoundRectList">
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+          用户1:23333333333333
+        </li>
+
+
+
+
+    </ul>
+
+
+
+
+    </ul>
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory">我也来吐槽一下</h2>
+    <div data-dojo-type="dojox.mobile.RoundRect" align="center">
+        <span class="bold">吐槽手段</span>
+
+            <input type="radio" id="rb1" data-dojo-type="dojox.mobile.RadioButton" name="type" value="Large" checked><label for="rb1">弹幕</label>
+            <input type="radio" id="rb2" data-dojo-type="dojox.mobile.RadioButton" name="type" value="Medium"><label for="rb2">评论</label>
+
+
+        <hr/>
+        <span class="bold">弹幕颜色:</span>
+           <input id="color1" readOnly value="transparent" style="background-color:transparent;"onclick="dijit.byId('colorPicker1').show(this, ['above-centered','below-centered','after','before'])">
+
+        <hr/>
+        <span class="bold">弹幕大小:</span>
+        <div id="size" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"中", rightLabel:"小", shape:"mblSwRoundShape1"'></div>
+        <hr/>
+        <span class="bold">弹幕样式</span>
+        </br>
+
+        <input type="radio" id="rb3" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Large" checked><label for="rb1">滚动弹幕</label>
+        <input type="radio" id="rb4" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Medium"><label for="rb2">顶端弹幕</label>
+        <input type="radio" id="rb5" data-dojo-type="dojox.mobile.RadioButton" name="danmuType" value="Medium"><label for="rb2">底端弹幕</label>
+
+        </br>
+
+        <div id="colorPicker1" data-dojo-type="dojox.mobile.Opener" data-dojo-props="onHide:getColor1">
+            <h1 dojoType="dojox.mobile.Heading" label="Select a Color">
+			    <span dojoType="dojox.mobile.ToolBarButton" label="Done" class="mblColorBlue" style="position:absolute;width:45px;right:0;"
+                  onclick="dijit.byId('colorPicker1').hide(true)"></span>
+			    <span dojoType="dojox.mobile.ToolBarButton" label="Cancel" class="mblColorBlue" style="position:absolute;width:45px;left:0;"
+                  onclick="dijit.byId('colorPicker1').hide(false)"></span>
+            </h1>
+            <div id="colorPalette" dojoType='dijit.ColorPalette'></div>
+        </div>
+
+        <textarea data-dojo-type="dojox.mobile.TextArea" rows="3" cols="20" style="width:100%" onclick="if(this.value=='吐槽点什么好呢')this.value=''">吐槽点什么好呢</textarea>
+
+
+    </div>
+
+
+
+    <div data-dojo-type="dojox.mobile.RoundRect">
+        猜你喜欢<br>
+
+
+    </div>
+
+
+</div>
+
+</body>
+</html>
