@@ -30,6 +30,12 @@
 
         ]);
 
+        function updateComments(){
+
+
+
+        }
+
 
 
 
@@ -109,11 +115,6 @@
                     }
                 }
                 var deferred = dojo.xhrPost(xhrArgs);
-
-
-
-
-
 
 
 
@@ -288,6 +289,8 @@
 
     </div>
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">吐槽区</h2>
+
+
     <ul data-dojo-type="dojox.mobile.RoundRectList">
 
         <% if(comments.length==0){ %>
@@ -330,7 +333,7 @@
 
 
 
-    </ul>
+
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">我也来吐槽一下</h2>
     <div data-dojo-type="dojox.mobile.RoundRect" align="center">
         <span class="bold">吐槽方式</span>

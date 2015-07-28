@@ -413,25 +413,33 @@ router.get('/:type/:ID', function(req, res, next) {
 
     if(req.params.type.toLowerCase()=='info') {
 
+        var party=New(require('./party.class.js'),[]);
 
-        res.render('partyInfo',{
+        party.getInfoByID(req.params.ID,['name','time','location','type','publisher','show_actors','hostname','poster','detail'],function(result){
+console.log(result);
+            res.render('partyInfo',{
 
-            partyName:'电子科技大学冬日祭演出12378913791379846465448',
-            partyID:'1',
-            partyTime:'2015年7月26日 23:34:13',
-            partyLocation:'成电会堂',
-            partyType:'动漫',
-            detail:'23333333',
-            partyPublisher:'1',
-            partyHosts:'2,3,4',
-            isTaken:1,
-            shows:[{show:'1111111111111',actors:'222222222222222'},{show:'1',actors:'2'},{show:'1',actors:'2'}],
-            comments:[{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'}],
-            posterURL:'/images/parties/2/poster.jpg'
+                partyName:result.name,
+                partyID:req.params.ID,
+                partyTime:result.time,
+                partyLocation:result.location,
+                partyType:result.type,
+                detail:result.detail,
+                partyPublisher:result.publisher,
+                partyHosts:result.hostname,
+                isTaken:1,
+                shows:result.show_actors,
+                comments:[{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'}],
+                posterURL:result.poster
 
 
 
-        });
+            });
+        })
+
+
+
+
 
     }
 
