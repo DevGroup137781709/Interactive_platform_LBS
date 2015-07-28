@@ -351,6 +351,8 @@ var partyclass=Class(object,
 
 
 
+
+
         if(type==1){
             this.msgDb.create({
                 userName:userName,
@@ -383,7 +385,7 @@ var partyclass=Class(object,
 
         }else if(type==0){
 
-            his.msgDb.create({
+            this.msgDb.create({
                 userName:userName,
                 partyID:partyID,
                 type:type,

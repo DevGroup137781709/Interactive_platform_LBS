@@ -178,7 +178,7 @@ var router = express.Router();
 
 
 
-router.post('/:PID', function(req, res, next) {
+router.post('/', function(req, res, next) {
 
 
 
@@ -191,6 +191,13 @@ router.post('/:PID', function(req, res, next) {
     var reqJson=req.body;
     var resJson={};
     var session=req.session;
+
+
+    for(var key in reqJson ){
+        reqJson=JSON.parse(key);
+//这里是对DOJO发过来数据的一些小问题的处理
+    }
+
 
     if(req.originalUrl=='/party/uploadposter') {
 
@@ -341,11 +348,13 @@ router.post('/:PID', function(req, res, next) {
             break;
         case 'sendComment':
             //发送弹幕或者评论
+            console.log('sendComment')
 
             resJson.commentRes={};
 
             if(VMS.isLogin(req.session)){
                 var party=New(require('./party.class.js'),[]);
+
 
 
                 party.comment(reqJson.commentInfo.partyID,req.session.userName,reqJson.commentInfo.type,reqJson.commentInfo.contentInfo,function(state){
@@ -406,7 +415,9 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
         res.render('partyInfo',{
+
             partyName:'电子科技大学冬日祭演出12378913791379846465448',
+            partyID:'1',
             partyTime:'2015年7月26日 23:34:13',
             partyLocation:'成电会堂',
             partyType:'动漫',

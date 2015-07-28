@@ -14,7 +14,7 @@ var msg = sequelize.define('comment', {
     type:{type : Sequelize.INTEGER(1),allowNull:false,validate:{min:0,max:1},defaultValue:0},
     danmuType:{type : Sequelize.INTEGER(1),validate:{min:1,max:4},allowNull:true,defaultValue:1},
     danmuSize:{type : Sequelize.INTEGER(1),validate:{min:1,max:3},allowNull:true,defaultValue:2},
-    danmuColor:{type : Sequelize.STRING(6),validate:{len:[6,6]},allowNull:true,defaultValue:'FFFFFF'},
+    danmuColor:{type : Sequelize.STRING(7),validate:{len:[7,7]},allowNull:true,defaultValue:'#000000'},
     getatable:{type : Sequelize.BOOLEAN(),defaultValue:true},
     time:{type:Sequelize.DATE,allowNull:true,defaultValue:Sequelize.NOW}
 
