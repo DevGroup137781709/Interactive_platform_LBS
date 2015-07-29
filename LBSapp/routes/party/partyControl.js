@@ -379,21 +379,14 @@ router.post('/', function(req, res, next) {
             //获取评论,弹幕
             resJson.commentRes={};
             var party=New(require('./party.class.js'),[]);
-            party.getCommentInfo(reqJson.commentDetail.partyID,reqJson.commentDetail.type,
-                reqJson.commentDetail.obtainedRows,reqJson.commentDetail.row,function(result){
+            var result=  party.getCommentInfo(reqJson.commentDetail.partyID,reqJson.commentDetail.type,reqJson.commentDetail.obtainedRows,reqJson.commentDetail.row);
                     console.log(result);
-
                     resJson.commentRes=result;
                     res.json(resJson);
                     res.end();
                     if(reqJson.commentDetail.type==1){
                         party.updateDanmu(result);
                     }
-
-                });
-
-
-
 
             break;
 
@@ -408,34 +401,65 @@ router.post('/', function(req, res, next) {
 
 });
 
+var async = require('async');
 
 router.get('/:type/:ID', function(req, res, next) {
+
+
+
 
     if(req.params.type.toLowerCase()=='info') {
 
         var party=New(require('./party.class.js'),[]);
+        var comment;
+        async.series({
+            one: function (callback) {
+                //先异步取得晚会评论信息
+                party.getCommentInfo(req.params.ID,0,0,10,function(result){
 
-        party.getInfoByID(req.params.ID,['name','time','location','type','publisher','show_actors','hostname','poster','detail'],function(result){
-console.log(result);
-            res.render('partyInfo',{
+                    comment=result;
+                    console.log(result);
+                    callback();
 
-                partyName:result.name,
-                partyID:req.params.ID,
-                partyTime:result.time,
-                partyLocation:result.location,
-                partyType:result.type,
-                detail:result.detail,
-                partyPublisher:result.publisher,
-                partyHosts:result.hostname,
-                isTaken:1,
-                shows:result.show_actors,
-                comments:[{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'},{name:'yonghu1',content:'23333'}],
-                posterURL:result.poster
+                })
+
+            },
+            two: function (callback) {
+
+                party.getInfoByID(req.params.ID,['name','time','location','type','publisher','show_actors','hostname','poster','detail'],function(result){
+
+                    res.render('partyInfo',{
+
+                        partyName:result.name,
+                        partyID:req.params.ID,
+                        partyTime:result.time,
+                        partyLocation:result.location,
+                        partyType:result.type,
+                        detail:result.detail,
+                        partyPublisher:result.publisher,
+                        partyHosts:result.hostname,
+                        isTaken:1,
+                        shows:result.show_actors,
+                        comments:comment,
+                        posterURL:result.poster
 
 
 
-            });
+                    });
+
+                    callback();
+                })
+
+
+
+
+            }
+
+
         })
+
+
+
 
 
 

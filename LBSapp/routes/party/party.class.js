@@ -430,6 +430,8 @@ var partyclass=Class(object,
                     arr.push(data.dataValues);
                 })
 
+                
+
                 callback(arr);
 
 
@@ -445,7 +447,8 @@ var partyclass=Class(object,
 
 
         }else if(type==0){
-            this.msgDb.findAll({where:{partyID:partyID,type:type},offset:obtainedRows,limit:row,oder:[['updatedAt','ASC']]}).then(function(results){
+            this.msgDb.findAll({where:{partyID:partyID,type:type},attributes:['ID','partyID','userName','content','time'],
+                offset:obtainedRows,limit:row,oder:[['updatedAt','ASC']]}).then(function(results){
                 var arr = [];
 
                 results.forEach(function (data) {
