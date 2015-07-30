@@ -7,7 +7,7 @@
     <link href="/javascripts/dojox/mobile/themes/common/dijit/dijit.css" rel="stylesheet"/>
     <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','Button','Overlay','Tooltip']" ></script>
     <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
-
+    <script src="/javascripts/jquery-2.1.4.js"></script>
     <script type="text/javascript">
         require([
             "dojox/mobile/parser",
@@ -88,33 +88,26 @@
 
                 //发送出去没写,信息已经获得
 
-
-                var xhrArgs = {
-                    url: "/party/",
-                    postData:dojo.toJson({
-                        method: 'sendComment',
-                        commentInfo: {
-                            partyID:partyID,
-                            type:1,
-                            contentInfo:{
-                                content:content,
-                                danmuType:type,         // 1滚动字幕 2 3
-                                danmuSize:size,              //1 2 3三种大小 1最小 2默认 3最大
-                                danmuColor:color             //形如#FFFFFF的十六进制格式
-                            }
-
+                $.post('/party/q',{
+                    method: 'sendComment',
+                    commentInfo: {
+                        partyID:partyID,
+                        type:1,
+                        contentInfo:{
+                            content:content,
+                            danmuType:type,         // 1滚动字幕 2 3
+                            danmuSize:size,              //1 2 3三种大小 1最小 2默认 3最大
+                            danmuColor:color             //形如#FFFFFF的十六进制格式
                         }
-                    }),
-                    handleAs: "javascript",
-                    load: function(data){
-
-                    },
-                    error: function(error){
-
 
                     }
-                }
-                var deferred = dojo.xhrPost(xhrArgs);
+                },function(data,status){
+                    //do something
+
+
+                });
+
+
 
 
 
@@ -129,29 +122,24 @@
                 //发送出去没写,信息已经获得
 
 
-                var xhrArgs = {
-                    url: "/party/",
-                    postData:dojo.toJson({
-                        method: 'sendComment',
-                        commentInfo: {
-                            partyID:partyID,
-                            type:0,
-                            contentInfo:{
-                                content:content
-                            }
-
+                $.post('/party/a',{
+                    method: 'sendComment',
+                    commentInfo: {
+                        partyID:partyID,
+                        type:0,
+                        contentInfo:{
+                            content:content
                         }
-                    }),
-                    handleAs: "javascript",
-                    load: function(data){
-
-                    },
-                    error: function(error){
-
 
                     }
-                }
-                var deferred = dojo.xhrPost(xhrArgs);
+                },function(data,status){
+                    //do something
+
+
+                });
+
+
+
 
             }
 

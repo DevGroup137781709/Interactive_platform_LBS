@@ -178,7 +178,7 @@ var router = express.Router();
 
 
 
-router.post('/', function(req, res, next) {
+router.post('/*', function(req, res, next) {
 
 
 
@@ -193,13 +193,11 @@ router.post('/', function(req, res, next) {
     var session=req.session;
 
 
-    for(var key in reqJson ){
-        reqJson=JSON.parse(key);
-//这里是对DOJO发过来数据的一些小问题的处理
-    }
 
+console.log(reqJson)
 
     if(req.originalUrl=='/party/uploadposter') {
+
 
         var CVMS=require('../VMS/VMS.js');
         var VMS=new CVMS();
@@ -213,7 +211,8 @@ router.post('/', function(req, res, next) {
                     res.clearCookie('posterPath');
                     res.end(0);
                 }
-                res.cookie('posterPath', {path: files.file.path});
+
+                res.cookie('posterPath', {path: files.uploadedfile.path});
                 res.end('1');
             });
 
@@ -401,12 +400,12 @@ router.post('/', function(req, res, next) {
 
 });
 
-var async = require('async');
+
 
 router.get('/:type/:ID', function(req, res, next) {
 
 
-
+    var async = require('async');
 
     if(req.params.type.toLowerCase()=='info') {
 
@@ -463,6 +462,12 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
 
+
+
+    }else if(req.params.type.toLowerCase()=='add'){
+
+
+        res.render('addParty',{})
 
 
     }

@@ -310,6 +310,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
                         }else{
                             //普通用户,这里是处理下晚会数组,
+
                             if(result.userInfo.user_takenpartys.length!=0){
                                 async.each(result.userInfo.user_takenpartys, function (data, callback) {
                                     result.userInfo.user_takenpartys_names = [];
@@ -329,6 +330,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
                                 });
 
+
                             }else{
 
                                 callback_1();
@@ -342,7 +344,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
                     },
                     two:function(callback_2) {
-                        console.log(result)
+
 
 
                            res.render('userinfo', {
@@ -351,10 +353,15 @@ router.get('/:type/:ID', function(req, res, next) {
                                userEmail: result.userInfo.email,
                                userSex: result.userInfo.sex,
                                takenpartys: result.userInfo.user_takenpartys_names,
+                               takenpartys_ID:result.userInfo.user_takenpartys,
                                holdingpartys: result.userInfo.host_holdingpartys_names,
-                               holdedpartys:result.userInfo.host_holdedpartys_names
+                               holdingpartys_ID:result.userInfo.host_holdingpartys,
+                               holdedpartys:result.userInfo.host_holdedpartys_names,
+                               holdedpartys_ID:result.userInfo.host_holdedpartys
 
                            });
+
+
                            res.end();
                         callback_2();
                    }

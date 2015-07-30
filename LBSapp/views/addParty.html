@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','Button']" ></script>
+    <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+    <script src="/javascripts/jquery-2.1.4.js"></script>
+
+
+    <script type="text/javascript">
+        require([
+            "dojox/mobile/parser",
+            "dojox/mobile",
+            "dojo/ready",
+            "dojox/mobile/compat",
+            "dojox/mobile/ComboBox",
+            "dojox/mobile/ScrollableView",
+            "dojox/mobile/ListItem",
+            "dojox/mobile/TabBar",
+                "dojox/mobile/TextArea",
+                "dojox/mobile/Button",
+            "dojox/form/Uploader",
+            "dojox/embed/Flash",
+            "dojox/form/uploader/plugins/IFrame",
+            "dojo/request/xhr",
+            "dijit/_base/manager"
+
+
+        ]);
+
+        function isEmpty(obj){
+
+            if(obj.value==""){
+
+                return true;
+            }else {
+
+                return false;
+
+            }
+
+
+        }
+
+        function newShow(name,actors){
+            var o={};
+            o.name=name;
+            o.actors=actors;
+            return o;
+
+
+        }
+
+
+
+    function send(){
+
+        var showObj=[];
+        var showList= dojo.query(".showList")
+        var len=showList.length;
+        for(var i=0;i<len;i++){
+            alert(showList[i].children[0].children[0].value);
+            if(isEmpty(showList[i].children[0].children[0])==false){
+                showObj.push(newShow(showList[i].children[0].children[0].value,showList[i].children[0].children[1].value))
+            }
+
+        }
+
+
+
+
+
+        $.post('/party/',{
+            method : 'addParty',
+            addPartyInfo : {
+                name : dijit.byId("name").get('value'),
+                time : new Date().toUTCString(),
+                location : dijit.byId("location").get('value'),
+                location_lo_la:"",
+                type:dijit.byId("type").get('value'),
+                show_actors:showObj,
+                hostname:dijit.byId("hosts").get('value') ,
+                detail:dijit.byId("detail").get('value')
+
+            }
+        },function(data,status){
+            //do something
+
+
+        });
+
+
+
+
+
+
+    }
+
+        function clsShowList(){
+
+            var list=dojo.query("input.showName");
+            var len= list.length;
+            for(var i= 0;i<len;i++){
+                list[i].value="";
+            }
+
+            list=dojo.query("input.showActors");
+            len= list.length;
+            for(var i= 0;i<len;i++){
+                list[i].value="";
+            }
+
+
+        }
+
+
+        function addShowList(){
+
+
+            //var node=dijit.byId("showList");
+  //          var node = document.getElementById("showList")
+
+    //        var a = document.createElement('li');
+            a.innerHTML="111";
+
+//node.appendChild(dijit.byId("show"));
+         //   dojo.dom.insertBefore(node, ref, true);
+
+
+
+
+
+
+
+
+        }
+
+
+
+    </script>
+    <style>
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+
+    </style>
+    <title>LBS</title>
+</head>
+<body>
+<div id="userinfo" data-dojo-type="dojox.mobile.ScrollableView">
+    <h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>新晚会信息</h1>
+
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory">基本信息</h2>
+    <div data-dojo-type="dojox.mobile.RoundRect">
+        <center>
+        晚会名称:</br><input id="name" data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" selectOnClick="true"></br>
+        晚会时间:</br><input id="time" data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" selectOnClick="true"></br>
+        晚会地点:</br><input id="location" data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" selectOnClick="true"></br>
+        </center>
+
+    </div>
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory">其他信息</h2>
+    <div data-dojo-type="dojox.mobile.RoundRect">
+        <center>
+        类型:</br><input id="type" data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" selectOnClick="true"><br>
+        主办方:</br><input id="hosts" data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" selectOnClick="true"><br>
+        详细介绍[支持HTML格式]:</br>
+            <textarea id="detail" data-dojo-type="dojox.mobile.TextArea" rows="20" cols="30" >支持HTML格式</textarea>
+
+
+
+            </center>
+    </div>
+        <h2 data-dojo-type="dojox.mobile.RoundRectCategory">节目表</h2>
+
+        <ul data-dojo-type="dojox.mobile.RoundRectList" id="showLists">
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'  >
+            <center>
+
+                节目名称--演员列表
+                </br>
+                 <button data-dojo-type="dojox.mobile.Button" id="cls" class="mblRedButton" onclick="clsShowList();">清空列表</button>
+               <button data-dojo-type="dojox.mobile.Button" id="addshow" class="mblBlueButton" onclick="addShowList();">添加新节目</button>
+            </center>
+
+
+            </li>
+
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
+                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
+                </center>
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
+                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
+                </center>
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
+                <center><input data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
+                </center>
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
+                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
+                </center>
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
+                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
+                </center>
+            </li>
+            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
+                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
+                </center>
+            </li>
+
+
+
+
+
+        </ul>
+
+
+
+
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory">文件上传</h2>
+    <div data-dojo-type="dojox.mobile.RoundRect">
+        <center>
+    <input type="file" multiple="false" dojoType="dojox.form.Uploader"
+           label="选择海报文件" url="/party/uploadposter"
+           uploadOnSelect="true"/>
+        </center>
+    </div>
+
+    <div data-dojo-type="dojox.mobile.RoundRect">
+        <center>
+        <button data-dojo-type="dojox.mobile.Button" id="send" class="mblBlueButton" style="width:90%" onclick="send()">发送</button>
+            </center>
+        </div>
+
+
+</div>
+
+</body>
+</html>

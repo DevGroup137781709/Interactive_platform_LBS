@@ -56,19 +56,37 @@
     <%#       判断如果是主办方,则显示举办过的晚会和正在办的晚会         #%>
 
     <div data-dojo-type="dojox.mobile.RoundRect">
-        正在举办的晚会:<%= holdingpartys %><br>
+        正在举办的晚会:
+        <% for(var i=1;i<=takenpartys.length;i++){%>
+        <a href="../../party/info/<%= holdingpartys_ID[i-1] %>"><%= holdingpartys[i-1] %></a>
+        <% } %>
+
+        <br>
+
 
     </div>
 
     <div data-dojo-type="dojox.mobile.RoundRect">
-        过去举办的晚会:<%= holdedpartys %><br>
+        过去举办的晚会:
+
+        <% for(var i=1;i<=takenpartys.length;i++){%>
+        <a href="../../party/info/<%= holdedpartys_ID[i-1] %>"><%= holdedpartys[i-1] %></a>
+        <% } %>
+
+
+
+        <br>
 
     </div>
     <% }else if(userType==1){ %>
 
 
     <div data-dojo-type="dojox.mobile.RoundRect">
-        参加过的晚会:<%= takenpartys %><br>
+        参加过的晚会:
+        <% for(var i=1;i<=takenpartys.length;i++){%>
+        <a href="../../party/info/<%= takenpartys_ID[i-1] %>"><%= takenpartys[i-1] %></a>
+        <% } %>
+        <br>
 
     </div>
 
