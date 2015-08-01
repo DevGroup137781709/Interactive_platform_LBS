@@ -448,23 +448,23 @@ var partyclass=Class(object,
 
         }else if(type==0){
             this.msgDb.findAll({where:{partyID:partyID,type:type},attributes:['ID','partyID','userName','content','time'],
-                offset:obtainedRows,limit:row,oder:[['updatedAt','ASC']]}).then(function(results){
-                var arr = [];
+            offset:obtainedRows,limit:row,oder:[['updatedAt','ASC']]}).then(function(results){
+            var arr = [];
 
-                results.forEach(function (data) {
-                    arr.push(data.dataValues);
-                })
+            results.forEach(function (data) {
+                arr.push(data.dataValues);
+            })
 
-                callback(arr);
+            callback(arr);
 
         }).catch(function(err){
-                console.error(err);
-                callback([]);
+            console.error(err);
+            callback([]);
 
-            });
+        });
 
 
-        }
+    }
 
     },
 
@@ -490,6 +490,29 @@ var partyclass=Class(object,
 
 
         });
+
+
+    },
+
+    getNewPartys:function(row,callback){
+
+        this.partyDb.findAll({where:{},attributes:['ID','name','time','location','type','poster'],
+            limit:row,oder:[['updatedAt','ASC']]}).then(function(results){
+            var arr = [];
+
+            results.forEach(function (data) {
+                arr.push(data.dataValues);
+            })
+
+            callback(arr);
+
+        }).catch(function(err){
+            console.error(err);
+            callback([]);
+
+        });
+
+
 
 
     }
