@@ -250,11 +250,19 @@ router.post('/', function(req, res, next) {
 
 });
 router.get('/:type/:ID', function(req, res, next) {
+    var ID=req.params.ID;
+    if(req.params.ID==0){
+
+        ID=req.session.userID;
 
 
+    }
+
+
+    console.log(ID)
     if(req.params.type.toLowerCase()=='info') {
         // info页面
-        var user = New(require('./user.class.js'), [req.params.ID]);
+        var user = New(require('./user.class.js'), [ID]);
 
 
         user.getInfo(function (result) {
@@ -270,9 +278,11 @@ router.get('/:type/:ID', function(req, res, next) {
                         if(result.userInfo.type==0){
                             //举办方,这里处理下晚会数组
 
-                            if(result.userInfo.host_holdedpartys.length==0&&result.userInfo.host_holdingpartys.length==0){
+
+                            if((result.userInfo.host_holdedpartys.length==0)&&(result.userInfo.host_holdingpartys.length==0)){
 
                                 callback_1();
+                                return ;
                             }
 
 
@@ -344,6 +354,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
                     },
                     two:function(callback_2) {
+                        console.log(result.userInfo)
 
 
 

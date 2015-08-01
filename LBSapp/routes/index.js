@@ -49,17 +49,13 @@ router.get('/', function(req, res, next) {
 
 
 
-    var party=New(require('/party/party.class.js'),[]);
+    var party=New(require('./party/party.class.js'),[]);
+
 
     party.getNewPartys(3,function(result){
 
 
-
-
-        var obj=[{ID:1,name:'2',type:'3',location:'4',poster:'5',time:'6'},{ID:1,name:'2',type:'3',location:'4',poster:'5',time:'6'},{ID:1,name:'2',type:'3',location:'4',poster:'5',time:'6'}];
-
-
-        res.render('index', {party:obj});
+        res.render('index', {party:result});
 
     })
 
