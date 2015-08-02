@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','Button']" ></script>
+    <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
+    <script src="/javascripts/jquery-2.1.4.js"></script>
+    <script type="text/javascript">
+        require([
+            "dojox/mobile/parser",
+            "dojox/mobile",
+            "dojo/ready",
+            "dojox/mobile/compat",
+            "dojox/mobile/ComboBox",
+            "dojox/mobile/ScrollableView",
+            "dojox/mobile/ListItem",
+            "dojox/mobile/Button",
+            "dojox/mobile/TabBar",
+                "dojox/mobile/TextBox"
+
+        ]);
+    </script>
+    <script>
+        var url='/user/';
+        function enter(){
+            if($('#username').val()=="")
+                $('#sug').text("请输入用户名");
+          else if($('#password').val()=="")
+                $('#sug').text("请输入密码");
+            else
+            $.post(url,{
+                        method:'login',
+                        userInfo:{userType:1,
+                            name:$('#username').val(),
+                            password:$('#password').val(),
+                            email:$('#email').val()}}
+                    ,function(data,status){
+                        if(data.login.state==0)
+                            $('#sug').text("用户名不存在");
+                        if(data.login.state==1)
+                            $('#sug').text("密码错误");
+                        if(data.login.state==2)
+                        {//这里是成功之后的事件。
+                            //然后我们可以提供一个找回密码的渠道，这个后面再说啦。
+                        }
+                    }
+
+            )
+
+
+
+
+        }
+
+        deviceTheme.loadDeviceTheme('Custom')
+
+    </script>
+    <style>
+        html,body{
+            height: 100%;
+            overflow: hidden;
+        }
+
+
+    </style>
+    <title>LBS</title>
+</head>
+<body>
+<div id="login" data-dojo-type="dojox.mobile.ScrollableView">
+    <h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>登录</h1>
+    <ul data-dojo-type="dojox.mobile.RoundRectList" >
+    <center>
+        <li data-dojo-type="dojox.mobile.ListItem" style="font-size:14px" >
+
+            您的账户: <input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true" size="30%"   id="username">
+
+    </li>
+        <li data-dojo-type="dojox.mobile.ListItem" style="font-size:14px">
+
+            输入密码:<input type="password" id="password" size="30%">
+        </li>
+    </center>
+    </ul>
+    <center><label id="sug" style="color: #e50808"></label></center>
+   <center>
+       <button data-dojo-type="dojox/mobile/Button"  id="enter" style="width:70%" onclick="enter()" >登录</button><br><br>
+       <button data-dojo-type="dojox/mobile/Button"  id="forget" style="width:45%" >忘记密码？</button>
+   </center>
+</div>
+
+</body>
+</html>

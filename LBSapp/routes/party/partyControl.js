@@ -470,7 +470,18 @@ router.get('/:type/:ID', function(req, res, next) {
         res.render('addParty',{})
 
 
+    }else if(req.params.type.toLowerCase()=='list'){
+
+
+        res.render('partyList',{})
+
+
     }
+
+
+
+
+    next();
 
 
 

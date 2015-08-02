@@ -12,6 +12,7 @@ var session = require('express-session'); //Èç¹ûÒªÊ¹ÓÃsession£¬ĞèÒªµ¥¶À°üº¬Õâ¸öÄ
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var register =require('./routes/register');
+var login =require('./routes/login');
 var uesrsControl =require('./routes/user/usersControl');
 var partyControl =require('./routes/party/partyControl');
 
@@ -34,6 +35,7 @@ app.use(session({ secret: 'qianzise',cookie: { maxAge: 60*1000}}));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/register', register);
+app.use('/login', login);
 app.use('/user/', uesrsControl);
 app.use('/party/', partyControl);
 
