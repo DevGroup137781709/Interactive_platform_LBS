@@ -8,7 +8,7 @@
 *
 * AJAX传入json格式如下：
 *        ｛
-*         method:'register','login','getUserInfo','logout','changePassword',,                   //如果是登录的话,只需要传一个name或者email,如果两者都有,则默认用户名优先邮箱
+*         method:'register','login','getUserInfo','logout','changePassword','takePartIn',                   //如果是登录的话,只需要传一个name或者email,如果两者都有,则默认用户名优先邮箱
 *         userInfo{
 *                   userType: 0策划者 1观众 默认1
 *                   name:
@@ -18,6 +18,10 @@
 *                   newPassword:
 *                    }
 *         ｝
+*
+*         takePartIn:{
+*                       partyID:
+*         }
 *
 *
 * 传出json格式
@@ -223,7 +227,6 @@ router.post('/', function(req, res, next) {
             res.end();
             break;
         case 'changePassword':
-
             /*
             * 修改密码请求  0修改失败 1修改成功
             * */
@@ -244,6 +247,32 @@ router.post('/', function(req, res, next) {
 
 
             }
+            break;
+
+
+        case 'takePartIn':
+            var user=New(require('./user.class.js'),[req.session.userID]);
+
+            var CVMS=require('../VMS/VMS.js');
+
+            var VMS=new CVMS();
+            if(VMS.isLogin(req.session)) {
+
+                user.takePartIn(reqjson.takePartIn.partyID,reqjson.takePartIn.state,function(state){
+                    res.json({takePartIn:{state:state}});
+                    res.end();
+
+                })
+
+
+            }else{
+                res.json({takePartIn:{state:-1}})
+                res.end();
+            }
+
+
+
+
             break;
 
     }

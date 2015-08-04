@@ -73,12 +73,40 @@
     </ul>
     <ul data-dojo-type="dojox.mobile.RoundRectList">
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
-            <% if(isTaken==1){%>
-            <center> <button data-dojo-type="dojox/mobile/Button" id="btn2" class="mblRedButton" style="width:90%">放弃参加</button></center>
-            <% }else if(isTaken==0){%>
-            <center> <button data-dojo-type="dojox.mobile.Button" id="btn3" class="mblBlueButton" style="width:90%" >我要参加</button></center>
-            <% }%>
+            <!--<% if(isTaken==1){%>-->
+            <!--<center> <button data-dojo-type="dojox/mobile/Button" id="btn2" class="mblRedButton" onclick="takePartIn(<%= partyID %>,0)" style="width:90%">放弃参加</button></center>-->
+            <!--<% }else if(isTaken==0){%>-->
+            <!--<center> <button data-dojo-type="dojox.mobile.Button" id="btn3" class="mblBlueButton" onclick="takePartIn(<%= partyID %>,1)" style="width:90%" >我要参加</button></center>-->
+            <!--<% }else if(isTaken==-1){%>-->
+            <!--<a href="../../"><center> <button data-dojo-type="dojox.mobile.Button"  id="btn4" class="mblBlueButton" style="width:90%" >需要先登录才能参加</button></center></a>-->
+            <!--<% } %>-->
+
+
+
+
+            <center> <button data-dojo-type="dojox/mobile/Button" id="btn2" class="mblRedButton" onclick="takePartIn(<%= partyID %>,0)" style="width:90%;display:none">放弃参加</button></center>
+
+            <center> <button data-dojo-type="dojox.mobile.Button" id="btn3" class="mblBlueButton"  onclick="takePartIn(<%= partyID %>,1)" style="width:90%;display:none" >我要参加</button></center>
+
+            <a href="../../"><center> <button data-dojo-type="dojox.mobile.Button"  id="btn4" class="mblBlueButton" style="width:90%;display:none" >需要先登录才能参加</button></center></a>
+
         </li>
+
+        <script>
+            if(<%= isTaken %>==1){
+
+                document.getElementById("btn2").style.display='block';
+
+            }else if(<%= isTaken %>==0){
+
+                document.getElementById("btn3").style.display='block';
+            }else if(<%= isTaken %>==-1){
+
+                document.getElementById("btn4").style.display='block';
+
+            }
+
+        </script>
 
 
 

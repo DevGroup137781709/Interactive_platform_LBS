@@ -56,6 +56,7 @@ var  userclass =Class(object,
         Create : function(data){
 
 
+
             if(isNaN(data)){//重载
                 this.ID=data.userInfo.ID;
 
@@ -228,7 +229,7 @@ var  userclass =Class(object,
                         resjson.userInfo.sex='男';
                     }
                     if(result.host_holdingpartys==null){
-                        resjson.userInfo.host_holdingpartys='';
+                        resjson.userInfo.host_holdingpartys=[];
 
                     }else{
                         resjson.userInfo.host_holdingpartys=result.host_holdingpartys.split(',');//数组形式传回
@@ -236,7 +237,7 @@ var  userclass =Class(object,
                     }
 
                     if(result.host_holdedpartys==null){
-                        resjson.userInfo.host_holdedpartys='';
+                        resjson.userInfo.host_holdedpartys=[];
 
                     }else{
                         resjson.userInfo.host_holdedpartys=result.host_holdedpartys.split(',');
@@ -245,7 +246,7 @@ var  userclass =Class(object,
 
                     if(result.user_takenpartys==null){
 
-                        resjson.userInfo.user_takenpartys='';
+                        resjson.userInfo.user_takenpartys=[];
 
                     }else{
                         resjson.userInfo.user_takenpartys=result.user_takenpartys.split(',');
@@ -319,6 +320,88 @@ var  userclass =Class(object,
 
 
             });
+        },
+
+        takePartIn:function(partyID,state,callback){
+            var _DB=this.userData;
+
+            if(state==0){
+                //取消参加晚会
+                this.getInfo(function (result){
+                    for(var i = 0;i<result.userInfo.user_takenpartys.length;i++){
+                        if(result.userInfo.user_takenpartys[i]==partyID){
+                            result.userInfo.user_takenpartys.splice(i,1);
+                            break;
+                        }
+                    }
+
+
+
+                    _DB.update({user_takenpartys:result.userInfo.user_takenpartys.toString()},{where:{ID:result.userInfo.ID}}).then(function(affectedRows){
+                        if(affectedRows==0){
+
+                            state=0;
+                        }else{
+
+                            state=1;
+
+                        }
+                        callback(state);
+
+
+
+                    }).catch(function(err){
+                        //未知错误
+                        callback(0)
+
+                    });
+
+
+
+                })
+
+
+
+            }else if(state==1){
+                //参加晚会
+
+                this.getInfo(function (result){
+                    result.userInfo.user_takenpartys.push(partyID);
+
+                    _DB.update({user_takenpartys:result.userInfo.user_takenpartys.toString()},{where:{ID:result.userInfo.ID}}).then(function(affectedRows){
+                        if(affectedRows==0){
+
+                            state=0;
+                        }else{
+
+                            state=1;
+
+                        }
+                        callback(state);
+
+
+
+                    }).catch(function(err){
+                        //未知错误
+                        callback(0)
+
+                    });
+
+
+
+                })
+
+
+
+
+
+
+
+
+            }
+
+
+
         }
 
 

@@ -16,13 +16,13 @@ function reg(){
                     ,function(data,status){
                         //do something
                         if($(data.registerRes.state)==0)
-                            $('#sug').text("????????????");
+                            $('#sug').text("?注册失败,用户名重复");
                         if($(data.registerRes.state)==1)
-                            $('#sug').text("???????????");
+                            $('#sug').text("注册失败,邮箱已被使用");
                         if($(data.registerRes.state)==2)
-                        //????????
+                        //
                             if($(data.registerRes.state)==3)
-                                $('#sug').text("??????????");
+                                $('#sug').text("注册失败,内部错误");
 
 
 
@@ -32,19 +32,19 @@ function reg(){
             }
             else
             {
-                $('#sug').text("????????");
+                $('#sug').text("请输入正确的邮箱格式");
             }
         }
         else
         {
-            $('#sug').text("???????");
+            $('#sug').text("两次密码输入不一致");
         }
 
 
     }
     else
     {
-        $('#sug').text("??????");
+        $('#sug').text("请输入用户名");
     }
 
 

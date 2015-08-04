@@ -94,6 +94,7 @@ function send(){
             //do something
 
 
+
         });
 
 
@@ -122,6 +123,7 @@ function send(){
 
             }
         },function(data,status){
+
             //do something
 
 
@@ -153,5 +155,34 @@ function getColor1(node, v){
         }
     }
 
+
+}
+
+
+function takePartIn(partyID,state){
+
+    $.post('/user/',{
+        method: 'takePartIn',
+        takePartIn: {
+            partyID:partyID,
+            state:state
+        }
+    },function(data,states){
+        //do something
+
+        if(data.takePartIn.state==1&&state==1){
+            document.getElementById("btn3").style.display='none';
+            document.getElementById("btn2").style.display='block';
+
+        }
+
+        if(data.takePartIn.state==1&&state==0){
+            document.getElementById("btn2").style.display='none';
+            document.getElementById("btn3").style.display='block';
+
+        }
+
+
+    });
 
 }

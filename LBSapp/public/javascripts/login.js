@@ -35,8 +35,8 @@ function enter(){
                 {//这里是成功之后的事件。
                     //然后我们可以提供一个找回密码的渠道，这个后面再说啦。
 
-                    //       document.getElementById('partyList').onclick();
-
+                 //          document.getElementById('partyList').onclick();
+                    window.location.href='/';
 
 
 

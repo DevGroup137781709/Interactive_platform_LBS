@@ -429,26 +429,78 @@ router.get('/:type/:ID', function(req, res, next) {
 
                 party.getInfoByID(req.params.ID,['name','time','location','type','publisher','show_actors','hostname','poster','detail'],function(result){
 
-                    res.render('partyInfo',{
+                    if(req.session.userID!=undefined){
 
-                        partyName:result.name,
-                        partyID:req.params.ID,
-                        partyTime:result.time,
-                        partyLocation:result.location,
-                        partyType:result.type,
-                        detail:result.detail,
-                        partyPublisher:result.publisher,
-                        partyHosts:result.hostname,
-                        isTaken:1,
-                        shows:result.show_actors,
-                        comments:comment,
-                        posterURL:result.poster
+                        var user=New(require('../user/user.class.js'),[req.session.userID]);
+                        user.getInfo(function(userResult){
 
 
+                            var isTaken=0;
 
-                    });
 
-                    callback_2();
+                            userResult.userInfo.user_takenpartys.forEach(function(each){
+
+                                if(each==req.params.ID){
+                                    isTaken=1;
+                                }
+
+                            })
+
+
+
+                            res.render('partyInfo',{
+                                partyName:result.name,
+                                partyID:req.params.ID,
+                                partyTime:result.time,
+                                partyLocation:result.location,
+                                partyType:result.type,
+                                detail:result.detail,
+                                partyPublisher:result.publisher,
+                                partyHosts:result.hostname,
+                                isTaken:isTaken,//这里三个状态 0未参加 1已经参加 -1未登录
+                                shows:result.show_actors,
+                                comments:comment,
+                                posterURL:result.poster
+
+                            });
+
+                            callback_2();
+
+
+
+                        });
+
+
+
+                    }else{
+                        res.render('partyInfo',{
+
+                            partyName:result.name,
+                            partyID:req.params.ID,
+                            partyTime:result.time,
+                            partyLocation:result.location,
+                            partyType:result.type,
+                            detail:result.detail,
+                            partyPublisher:result.publisher,
+                            partyHosts:result.hostname,
+                            isTaken:-1,//这里三个状态 0未参加 1已经参加 -1未登录
+                            shows:result.show_actors,
+                            comments:comment,
+                            posterURL:result.poster
+
+                        });
+
+                        callback_2();
+
+
+
+                    }
+
+
+
+
+
+
                 })
 
 
