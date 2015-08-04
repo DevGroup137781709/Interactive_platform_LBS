@@ -291,8 +291,10 @@ var partyclass=Class(object,
     },
 
     getInfoByID:function(partyID,needed,callback){
+
         this.partyDb.findOne({where: {ID:partyID}, attributes: needed}).then(function (result) {
 
+         //   console.log(result);
 
             if(result.dataValues.show_actors!=undefined){
                 result.dataValues.show_actors = JSON.parse(result.dataValues.show_actors);
@@ -430,6 +432,8 @@ var partyclass=Class(object,
                     arr.push(data.dataValues);
                 })
 
+
+
                 
 
                 callback(arr);
@@ -437,6 +441,7 @@ var partyclass=Class(object,
 
 
             }).catch(function(err){
+
                 console.error(err);
                 callback([]);
 

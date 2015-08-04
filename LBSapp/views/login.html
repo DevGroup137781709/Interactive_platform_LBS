@@ -7,6 +7,7 @@
     <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','Button']" ></script>
     <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
     <script src="/javascripts/jquery-2.1.4.js"></script>
+
     <script type="text/javascript">
         require([
             "dojox/mobile/parser",
@@ -21,55 +22,22 @@
                 "dojox/mobile/TextBox"
 
         ]);
-    </script>
-    <script>
-        var url='/user/';
-        function enter(){
-            if($('#username').val()=="")
-                $('#sug').text("请输入用户名");
-          else if($('#password').val()=="")
-                $('#sug').text("请输入密码");
-            else
-            $.post(url,{
-                        method:'login',
-                        userInfo:{userType:1,
-                            name:$('#username').val(),
-                            password:$('#password').val(),
-                            email:$('#email').val()}}
-                    ,function(data,status){
-                        if(data.login.state==0)
-                            $('#sug').text("用户名不存在");
-                        if(data.login.state==1)
-                            $('#sug').text("密码错误");
-                        if(data.login.state==2)
-                        {//这里是成功之后的事件。
-                            //然后我们可以提供一个找回密码的渠道，这个后面再说啦。
-                        }
-                    }
 
-            )
-
-
-
-
-        }
-
-        deviceTheme.loadDeviceTheme('Custom')
 
     </script>
+    <script src="/javascripts/login.js"></script>
     <style>
         html,body{
             height: 100%;
             overflow: hidden;
         }
 
-
     </style>
     <title>LBS</title>
 </head>
 <body>
 <div id="login" data-dojo-type="dojox.mobile.ScrollableView">
-    <h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>登录</h1>
+    <!--<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>登录</h1>-->
     <ul data-dojo-type="dojox.mobile.RoundRectList" >
     <center>
         <li data-dojo-type="dojox.mobile.ListItem" style="font-size:14px" >
@@ -85,9 +53,23 @@
     </ul>
     <center><label id="sug" style="color: #e50808"></label></center>
    <center>
-       <button data-dojo-type="dojox/mobile/Button"  id="enter" style="width:70%" onclick="enter()" >登录</button><br><br>
-       <button data-dojo-type="dojox/mobile/Button"  id="forget" style="width:45%" >忘记密码？</button>
+       <!--<button data-dojo-type="dojox/mobile/Button"  id="enter" style="width:70%" onclick="enter()" >登录</button><br><br>-->
+       <!--<button data-dojo-type="dojox/mobile/Button" data-dojo-props='url:"register"' id="register" style="width:45%" onclick="loadJS('/javascripts/register.js')">你说你没有帐号?</button>-->
+       <!--<button data-dojo-type="dojox/mobile/Button"  id="forget" style="width:45%" >忘记密码？</button>-->
    </center>
+    <ul data-dojo-type="dojox.mobile.RoundRectList">
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"' id="enter" onclick="enter()">
+            登录
+        </li>
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='url:"register"'  id="register_page" onclick="loadJS('/javascripts/register.js')">
+            你说你没有帐号?
+        </li>
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='moveTo:"#"'>
+            忘记密码？
+        </li>
+
+    </ul>
+
 </div>
 
 </body>

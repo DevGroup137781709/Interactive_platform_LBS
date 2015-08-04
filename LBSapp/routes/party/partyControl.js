@@ -412,18 +412,20 @@ router.get('/:type/:ID', function(req, res, next) {
         var party=New(require('./party.class.js'),[]);
         var comment;
         async.series({
-            one: function (callback) {
+            one: function (callback_1) {
                 //先异步取得晚会评论信息
+
                 party.getCommentInfo(req.params.ID,0,0,10,function(result){
 
                     comment=result;
-                    console.log(result);
-                    callback();
+
+                    callback_1();
 
                 })
 
             },
-            two: function (callback) {
+            two: function (callback_2) {
+
 
                 party.getInfoByID(req.params.ID,['name','time','location','type','publisher','show_actors','hostname','poster','detail'],function(result){
 
@@ -446,7 +448,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
                     });
 
-                    callback();
+                    callback_2();
                 })
 
 
@@ -481,7 +483,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
 
-    next();
+
 
 
 
