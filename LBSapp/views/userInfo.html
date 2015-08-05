@@ -30,7 +30,7 @@
 </head>
 <body>
 <div id="userinfo" data-dojo-type="dojox.mobile.ScrollableView">
-    <h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>用户信息</h1>
+    <!--<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>用户信息</h1>-->
     <div data-dojo-type="dojox.mobile.RoundRect" style="height: 60px">
         <iframe style="width: 50px;height: 50px;float: left" id="headicon"></iframe><div style="padding:15px">昵称:<br><label><%= userName %></label></div><br>
 
@@ -60,6 +60,10 @@
 
         <br>
 
+        <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='url:"party/add/1"'  id="addParty_page" onclick="loadJS('/javascripts/addParty.js')">
+            新建晚会
+        </li>
+
 
     </div>
 
@@ -71,7 +75,6 @@
         <% } %>
 
 
-
         <br>
 
     </div>
@@ -80,14 +83,19 @@
 
     <div data-dojo-type="dojox.mobile.RoundRect">
         参加过的晚会:
-        <% for(var i=1;i<=takenpartys.length;i++){%>
+
+        <% for(var i=1;i<=takenpartys.length;i++){ %>
         <a href="../../party/info/<%= takenpartys_ID[i-1] %>"><%= takenpartys[i-1] %></a>
         <% } %>
+
         <br>
 
     </div>
 
     <% } %>
+
+
+
     <div data-dojo-type="dojox.mobile.RoundRect">
         其他<br>
 

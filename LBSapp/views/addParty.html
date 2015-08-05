@@ -8,138 +8,12 @@
     <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
     <script src="/javascripts/jquery-2.1.4.js"></script>
 
-
-    <script type="text/javascript">
-        require([
-            "dojox/mobile/parser",
-            "dojox/mobile",
-            "dojo/ready",
-            "dojox/mobile/compat",
-            "dojox/mobile/ComboBox",
-            "dojox/mobile/ScrollableView",
-            "dojox/mobile/ListItem",
-            "dojox/mobile/TabBar",
-                "dojox/mobile/TextArea",
-                "dojox/mobile/Button",
-            "dojox/form/Uploader",
-            "dojox/embed/Flash",
-            "dojox/form/uploader/plugins/IFrame",
-            "dojo/request/xhr",
-            "dijit/_base/manager"
-
-
-        ]);
-
-        function isEmpty(obj){
-
-            if(obj.value==""){
-
-                return true;
-            }else {
-
-                return false;
-
-            }
-
-
-        }
-
-        function newShow(name,actors){
-            var o={};
-            o.name=name;
-            o.actors=actors;
-            return o;
-
-
-        }
-
-
-
-    function send(){
-
-        var showObj=[];
-        var showList= dojo.query(".showList")
-        var len=showList.length;
-        for(var i=0;i<len;i++){
-            alert(showList[i].children[0].children[0].value);
-            if(isEmpty(showList[i].children[0].children[0])==false){
-                showObj.push(newShow(showList[i].children[0].children[0].value,showList[i].children[0].children[1].value))
-            }
-
-        }
-
-
-
-
-
-        $.post('/party/',{
-            method : 'addParty',
-            addPartyInfo : {
-                name : dijit.byId("name").get('value'),
-                time : new Date().toUTCString(),
-                location : dijit.byId("location").get('value'),
-                location_lo_la:"",
-                type:dijit.byId("type").get('value'),
-                show_actors:showObj,
-                hostname:dijit.byId("hosts").get('value') ,
-                detail:dijit.byId("detail").get('value')
-
-            }
-        },function(data,status){
-            //do something
-
-
-        });
-
-
-
-
-
-
-    }
-
-        function clsShowList(){
-
-            var list=dojo.query("input.showName");
-            var len= list.length;
-            for(var i= 0;i<len;i++){
-                list[i].value="";
-            }
-
-            list=dojo.query("input.showActors");
-            len= list.length;
-            for(var i= 0;i<len;i++){
-                list[i].value="";
-            }
-
-
-        }
-
-
-        function addShowList(){
-
-
-            //var node=dijit.byId("showList");
-  //          var node = document.getElementById("showList")
-
-    //        var a = document.createElement('li');
-            a.innerHTML="111";
-
-//node.appendChild(dijit.byId("show"));
-         //   dojo.dom.insertBefore(node, ref, true);
-
-
-
-
-
-
-
-
-        }
-
-
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2f0fwiWAc4xm8mdCDkXUrFUs"></script>
+    <script type="text/javascript" src="/javascripts/addParty.js" >
 
     </script>
+
+
     <style>
         html,body{
             height: 100%;
@@ -150,8 +24,11 @@
     <title>LBS</title>
 </head>
 <body>
-<div id="userinfo" data-dojo-type="dojox.mobile.ScrollableView">
-    <h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>新晚会信息</h1>
+<div id="allmap"></div>
+<div  data-dojo-type="dojox.mobile.ScrollableView">
+    <!--<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>新晚会信息</h1>-->
+
+
 
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">基本信息</h2>
     <div data-dojo-type="dojox.mobile.RoundRect">
@@ -242,4 +119,30 @@
 </div>
 
 </body>
+
+<script>
+    //        var geolocation = new BMap.Geolocation();
+    //        geolocation.getCurrentPosition(function(r){
+    //            if(this.getStatus() == BMAP_STATUS_SUCCESS){
+    //                alert('您的位置：'+r.point.lng+','+r.point.lat);
+    //            }
+    //            else {
+    //                alert('failed'+this.getStatus());
+    //            }
+    //        },{enableHighAccuracy: true})
+
+    // 百度地图API功能
+    var map = new BMap.Map("allmap");    // 创建Map实例
+    map.centerAndZoom(new BMap.Point(116.404, 39.915), 11);  // 初始化地图,设置中心点坐标和地图级别
+    map.addControl(new BMap.MapTypeControl());   //添加地图类型控件
+    map.setCurrentCity("北京");          // 设置地图显示的城市 此项是必须设置的
+    map.enableScrollWheelZoom(true);     //开启鼠标滚轮缩放
+
+
+
+
+
+</script>
+
+
 </html>

@@ -37,9 +37,11 @@
 <body>
 <div id="register" data-dojo-type="dojox.mobile.ScrollableView">
     <!--<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>注册</h1>-->
+    <center> 账户类型<div id="type" data-dojo-type="dojox/mobile/Switch" data-dojo-props='value:"on", leftLabel:"用户", rightLabel:"举办方", shape:"mblSwRoundShape1"'></div></center>
+
     <ul data-dojo-type="dojox.mobile.RoundRectList" >
        <center><li data-dojo-type="dojox.mobile.ListItem" style="font-size:14px" >
-        您的账户:<input type="text" size="30%"   id="newusername">
+        用户名:<input type="text" size="30%"   id="newusername">
     </li>
     <li data-dojo-type="dojox.mobile.ListItem" style="font-size:14px">
         输入密码:<input type="password" id="password1" size="30%">

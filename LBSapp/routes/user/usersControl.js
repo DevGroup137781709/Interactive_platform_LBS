@@ -309,7 +309,8 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
                             if((result.userInfo.host_holdedpartys.length==0)&&(result.userInfo.host_holdingpartys.length==0)){
-
+                                result.userInfo.host_holdingpartys_names = [];
+                                result.userInfo.host_holdedpartys_names = [];
                                 callback_1();
                                 return ;
                             }
@@ -371,7 +372,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
                             }else{
-
+                                result.userInfo.user_takenpartys_names = []
                                 callback_1();
                             }
 

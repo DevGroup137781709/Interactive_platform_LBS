@@ -36,6 +36,9 @@ function enter(){
                     //然后我们可以提供一个找回密码的渠道，这个后面再说啦。
 
                  //          document.getElementById('partyList').onclick();
+                    document.getElementById("login_page").url='user/info/0';
+                    loadJS('/javascripts/userInfo.js')
+
                     window.location.href='/';
 
 

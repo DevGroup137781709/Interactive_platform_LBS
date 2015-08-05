@@ -6,7 +6,22 @@ var test = express.Router();
 
 /* GET home page. */
 test.get('/', function(req, res, next) {
-    res.render('login',{});
+
+    var CVMS=require('./VMS/VMS.js');
+
+    var VMS=new CVMS();
+
+
+
+    if(VMS.isLogin(req.session)){
+        res.redirect('user/info/0');
+
+
+    }else{
+        res.render('login',{});
+
+    }
+
 
 });
 
