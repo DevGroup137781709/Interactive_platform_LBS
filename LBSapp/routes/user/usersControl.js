@@ -384,7 +384,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
                     },
                     two:function(callback_2) {
-                        console.log(result.userInfo)
+                   //     console.log(result.userInfo)
 
 
 

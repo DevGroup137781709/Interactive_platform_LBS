@@ -193,6 +193,9 @@ router.post('/*', function(req, res, next) {
     var session=req.session;
 
 
+    console.log(session);
+
+
 
 
 

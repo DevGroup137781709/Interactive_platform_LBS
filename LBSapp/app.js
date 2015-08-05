@@ -15,7 +15,7 @@ var register =require('./routes/register');
 var login =require('./routes/login');
 var uesrsControl =require('./routes/user/usersControl');
 var partyControl =require('./routes/party/partyControl');
-
+var map =require('./routes/map');
 //Â·ÓÉÅäÖÃ
 var app = express();
 var ejs = require('ejs');
@@ -31,13 +31,14 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'qianzise',cookie: { maxAge: 60*1000}}));
+app.use(session({ secret: 'qianzise',cookie: { maxAge: 600*1000}}));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/register', register);
 app.use('/login', login);
 app.use('/user/', uesrsControl);
 app.use('/party/', partyControl);
+app.use('/map', map);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
