@@ -521,8 +521,44 @@ var partyclass=Class(object,
 
 
 
-    }
+    },
 
+    getPartyInDistanceAroundPoint:function(point,distance,row,obtainedRows,callback){
+        console.log(distance);
+
+        var Ctool = require('../tool/tool.js');
+        var tool = new Ctool();
+
+
+        this.partyDb.findAll({where:{},attributes:['ID','name','time','location','location_lo_la','type','poster'],
+            limit:row,offset:obtainedRows,oder:[['updatedAt','ASC']]}).then(function(results){
+            var arr = [];
+
+            results.forEach(function (data) {
+
+                var lng=data.dataValues.location_lo_la.split(',')[0];
+                var lat=data.dataValues.location_lo_la.split(',')[1];
+                var point2={};
+                point2.lng=lng;
+                point2.lat=lat;
+                if(tool.getDistance(point,point2)<distance){
+                    arr.push(data.dataValues);
+                }
+
+            });
+
+
+            callback(arr);
+
+        }).catch(function(err){
+            console.error(err);
+            callback([]);
+
+        });
+
+
+
+    }
 
 }
 

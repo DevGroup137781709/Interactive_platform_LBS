@@ -50,8 +50,18 @@
         .releaseToUpdate > div > div:before {
             content: "Release to update";
         }
-
-
+        .windows_theme .mblSlider {
+            margin: 0 15px;
+            width: 150px !important;
+        }
+        #sh{
+            width: 50%;
+            height: 10px;
+            background: rgba(60, 114, 230, .8);
+            border: 1px solid #bbffbb;
+            -webkit-border-radius:5px
+        -webkit-appearance: none !important;
+        }
 
 
     </style>
@@ -72,8 +82,13 @@
     <div id="pullToRefreshPanel" style="display: none;">
         <div><div></div></div>
     </div>
+
     <div id="topMessage" data-dojo-type="dojox.mobile.RoundRect">
-        晚会列表
+        <center>
+                搜索范围(米):<input id="sh" name="shb" type="range" value="1000" min="0" max="10000" step="1" onchange="document.getElementById('range').innerHTML=this.value"><br>
+            <div id="range" style="font-size: small">1000</div>
+            <div id="massage">晚会列表</div>
+        </center>
     </div>
     <ul data-dojo-type="dojox.mobile.RoundRectList" id="list">
 
@@ -82,5 +97,6 @@
 
     </ul>
 </div>
+<div id="allmap"></div>
 </body>
 </html>

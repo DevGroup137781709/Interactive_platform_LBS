@@ -1,3 +1,6 @@
+
+var position={lat:0,lng:0};
+
 require([
     "dojo/ready",
     "dojo/on",
@@ -11,7 +14,9 @@ require([
     "dojox/mobile/ScrollableView",
     "dojox/mobile/Heading",
     "dojox/mobile/RoundRect",
-    "dojox/mobile/RoundRectList"
+    "dojox/mobile/RoundRectList",
+    "dojox/mobile/Slider"
+
 ], function(ready, on, dom, domClass, registry,ListItem){
     ready(function(){
         var pullToRefreshPanel = dom.byId("pullToRefreshPanel");
@@ -100,6 +105,24 @@ require([
 
 
 
+        function getPosition(){
+            var map = new BMap.Map("allmap");
+            var geolocation = new BMap.Geolocation();
+            geolocation.getCurrentPosition(function(r){
+                if(this.getStatus() == BMAP_STATUS_SUCCESS){
+                   position.lat=r.point.lat;
+                   position.lng=r.point.lng;
+                }
+                else {
+                    alert('failed'+this.getStatus());
+                }
+            },{enableHighAccuracy: true})
+
+
+        }
+
+
+getPosition();
 
 
 
@@ -109,9 +132,10 @@ require([
 
             dateObj = new Date()
             $.post('/party/',{
-                method:'getPartyInfo',
-                detail:{
-                    location:'成都',
+                method:'getNearbyParty',
+                getNearbyParty:{
+                    point:position,
+                    distance:document.getElementById('range').innerHTML,
                     newOrOld:'old',
                     type:'歌舞',
                     obtainedRows:numOfParty,//这个参数用在 newOrold为new时,传递给后台你现在所拿到信息的条数
@@ -130,7 +154,7 @@ require([
                 }
 
                 numOfParty=numOfParty+numOfUpdata;
-                topMessage.innerHTML = "更新了 " + numOfUpdata + " 个晚会 !";
+                document.getElementById('massage').innerHTML = "更新了 " + numOfUpdata + " 个晚会 !";
 
 
 
