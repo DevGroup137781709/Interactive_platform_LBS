@@ -16,9 +16,9 @@ require([
 var url='/user/';
 function enter(){
     if($('#username').val()=="")
-        $('#sug').text("请输入用户名");
+        $('#logsug').text("请输入用户名");
     else if($('#password').val()=="")
-        $('#sug').text("请输入密码");
+        $('#logsug').text("请输入密码");
     else
         $.post(url,{
                 method:'login',

@@ -201,23 +201,48 @@ router.post('/*', function(req, res, next) {
 
     if(req.originalUrl=='/party/uploadposter') {
 
-
+        var MAXSIZE=1*1024*1024;
         var CVMS=require('../VMS/VMS.js');
         var VMS=new CVMS();
 
         if(VMS.isLogin(req.session,'host')){
-
             var form = new formidable.IncomingForm();
             form.uploadDir = "../temp/poster/";
-            form.parse(req, function (err, fields, files) {
-                if (err) {
-                    res.clearCookie('posterPath');
-                    res.end(0);
+            var size = req.headers['content-length'];
+
+            form.on('fileBegin', function(name, file){
+                var type = file.type;
+                type = type.split('/');
+                type = type[1];
+
+                if(type != 'jpeg' && type != 'png' && type != 'gif')
+                {
+                    res.end('-2');
                 }
 
-                res.cookie('posterPath', {path: files.uploadedfile.path});
-                res.end('1');
             });
+
+
+            if(size>MAXSIZE){
+                res.end('-1');
+            }else{
+
+                form.parse(req, function (err, fields, files) {
+                    if (err) {
+                        res.clearCookie('posterPath');
+                        res.end(0);
+                    }
+
+                    res.cookie('posterPath', {path: files.uploadedfile.path});
+                    res.end('1');
+                });
+
+
+            }
+
+
+
+
 
         }else{
             res.end('0');
@@ -397,7 +422,7 @@ router.post('/*', function(req, res, next) {
 
         case 'getNearbyParty':
             var party=New(require('./party.class.js'),[]);
-            party.getPartyInDistanceAroundPoint(reqJson.getNearbyParty.point,reqJson.getNearbyParty.distance,reqJson.getNearbyParty.rows,reqJson.getNearbyParty.obtainedRows,function(result){
+            party.getPartyInDistanceAroundPoint(reqJson.getNeapoint,reqJson.getNearbyParty.distance,reqJson.getNearbyParty.rows,reqJson.getNearbyParty.obtainedRows,function(result){
                 resJson.partyInfo=[];
                 resJson.partyInfo=result;
                 res.json(resJson);

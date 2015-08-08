@@ -90,8 +90,6 @@ require([
             var HTML='<table border="0" width="100%" ><tr><th rowspan="4" ><img src="'+poster+'" width=100%  /></th><td width="70%">'+name+'</td></tr><tr><td width="30%">'+type+'</td></tr><tr><td width="30%">'+time+'</td></tr><tr><td width="30%" >'+location+'</td></tr></table> '
 
 
-
-
             var item=new ListItem({
                 moveTo: "#",
                 innerHTML: HTML,

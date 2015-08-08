@@ -18,7 +18,7 @@ require([
 
 
 ]);
-
+deviceTheme.loadDeviceTheme('Custom')
 function updateComments(){
 
 

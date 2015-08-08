@@ -46,13 +46,13 @@ function reg(){
                     ,function(data,status){
                         //do something
                         if($(data.registerRes.state)==0)
-                            $('#sug').text("?注册失败,用户名重复");
+                            $('#regsug').text("?注册失败,用户名重复");
                         if($(data.registerRes.state)==1)
-                            $('#sug').text("注册失败,邮箱已被使用");
+                            $('#regsug').text("注册失败,邮箱已被使用");
                         if($(data.registerRes.state)==2)
                         //
                             if($(data.registerRes.state)==3)
-                                $('#sug').text("注册失败,内部错误");
+                                $('#regsug').text("注册失败,内部错误");
 
 
 

@@ -1,14 +1,16 @@
 /**
  * Created by qianzise on 2015/8/4.
  */
+
 require([
     "dojox/mobile/parser",
     "dojox/mobile",
     "dojo/ready",
+    "dojox/mobile/ListItem",
+    "dijit/registry",
     "dojox/mobile/compat",
     "dojox/mobile/ComboBox",
     "dojox/mobile/ScrollableView",
-    "dojox/mobile/ListItem",
     "dojox/mobile/TabBar",
     "dojox/mobile/TextArea",
     "dojox/mobile/Button",
@@ -19,7 +21,59 @@ require([
     "dijit/_base/manager"
 
 
-]);
+],function(parser,moblie,ready,ListItem,registry){
+
+
+ready(function(){
+    registry.byId('loader').on('onClick',function(loader){
+        alert('111');
+
+    });
+
+
+
+
+
+    var showListItem={};
+    var ListStore= dijit.byId('showLists');
+    var b_add= dijit.byId('addshow');
+    b_add.on('onclick',function(evt){
+        alert('11');
+
+    })
+
+
+
+    showListItem=ListItem;
+    var addShowList=function(){
+        var item=new ListItem({
+            innerHTML:' <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true"> </center>'
+        });
+
+        ListStore.addChild(item);
+
+
+
+
+    }
+
+
+
+})
+
+
+
+
+
+
+
+
+
+});
+
+
+
+
 
 function isEmpty(obj){
 
@@ -37,7 +91,7 @@ function isEmpty(obj){
 
 function newShow(name,actors){
     var o={};
-    o.name=name;
+    o.show=name;
     o.actors=actors;
     return o;
 
@@ -76,6 +130,21 @@ function send(){
         }
     },function(data,status){
         //do something
+        if(data.addPartyRes.state==-1){
+            //没登录
+            alert('没登录')
+
+        }else if(data.addPartyRes.state==0){
+            //未知错误
+            alert('未知错误')
+
+        }else if(data.addPartyRes.state==1){
+            //成功
+            alert('成功')
+
+        }
+
+
 
 
     });
@@ -105,21 +174,6 @@ function clsShowList(){
 }
 
 
-function addShowList(){
-
-
-    //var node=dijit.byId("showList");
-    //          var node = document.getElementById("showList")
-
-    //        var a = document.createElement('li');
-    a.innerHTML="111";
-
-//node.appendChild(dijit.byId("show"));
-    //   dojo.dom.insertBefore(node, ref, true);
-
-    
-
-}
 
 
 function getCookie(name)

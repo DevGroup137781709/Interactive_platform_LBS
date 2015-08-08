@@ -503,7 +503,7 @@ var partyclass=Class(object,
     getNewPartys:function(row,callback){
 
         this.partyDb.findAll({where:{},attributes:['ID','name','time','location','type','poster'],
-            limit:row,oder:[['updatedAt','ASC']]}).then(function(results){
+                limit:row,oder:[['updatedAt','DESC']]}).then(function(results){
             var arr = [];
 
             results.forEach(function (data) {
