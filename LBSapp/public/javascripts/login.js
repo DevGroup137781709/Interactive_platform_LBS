@@ -1,4 +1,5 @@
 require([
+    "dojo/dom",
     "dojox/mobile/parser",
     "dojox/mobile",
     "dojo/ready",
@@ -8,9 +9,13 @@ require([
     "dojox/mobile/ListItem",
     "dojox/mobile/Button",
     "dojox/mobile/TabBar",
-    "dojox/mobile/TextBox"
+    "dojox/mobile/TextBox",
+    "dijit/_base/manager"
 
 ]);
+
+
+
 
 
 var url='/user/';

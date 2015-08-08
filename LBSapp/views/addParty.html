@@ -66,7 +66,7 @@
                 节目名称--演员列表
                 </br>
                  <button data-dojo-type="dojox.mobile.Button" id="cls" class="mblRedButton" onclick="clsShowList();">清空列表</button>
-               <button data-dojo-type="dojox.mobile.Button" id="addshow" class="mblBlueButton" onclick="addShowList();">添加新节目</button>
+               <button data-dojo-type="dojox.mobile.Button" id="addshow" class="mblBlueButton" >添加新节目</button>
             </center>
 
 
@@ -110,7 +110,7 @@
     <div data-dojo-type="dojox.mobile.RoundRect">
         <center>
     <input id="loader" type="file" multiple="false" dojoType="dojox.form.Uploader"
-           label="选择海报文件" url="/party/uploadposter"
+           label="选择海报文件(小于1M)" url="/party/uploadposter"
            uploadOnSelect="true"/>
         </center>
     </div>

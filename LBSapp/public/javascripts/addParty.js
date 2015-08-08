@@ -8,6 +8,7 @@ require([
     "dojo/ready",
     "dojox/mobile/ListItem",
     "dijit/registry",
+    "dojo/dom",
     "dojox/mobile/compat",
     "dojox/mobile/ComboBox",
     "dojox/mobile/ScrollableView",
@@ -21,30 +22,30 @@ require([
     "dijit/_base/manager"
 
 
-],function(parser,moblie,ready,ListItem,registry){
+],function(parser,moblie,ready,ListItem,registry,dom){
 
 
 ready(function(){
-    registry.byId('loader').on('onClick',function(loader){
-        alert('111');
-
-    });
-
-
 
 
 
     var showListItem={};
-    var ListStore= dijit.byId('showLists');
-    var b_add= dijit.byId('addshow');
-    b_add.on('onclick',function(evt){
-        alert('11');
+    var ListStore= registry.byId('showLists');
+    var addBotton=dom.byId('addshow');
+    dojo.connect(addBotton,'onclick',function(evt){
+        addShowList();
 
     })
+  //  var loader=registry.byId()
+
+    //var b_add = registry.byId('forget')
+    //dojo.connect(b_add,'onclick',function(evt){
+    //
+    //    alert('aaa');
+    //})
 
 
 
-    showListItem=ListItem;
     var addShowList=function(){
         var item=new ListItem({
             innerHTML:' <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true"> </center>'
