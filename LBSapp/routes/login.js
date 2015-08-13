@@ -13,8 +13,9 @@ test.get('/', function(req, res, next) {
 
 
 
+    console.log(VMS.isLogin(req.session));
     if(VMS.isLogin(req.session)){
-        res.redirect('user/info/0');
+        res.redirect(301,'user/info/0');
 
 
     }else{
