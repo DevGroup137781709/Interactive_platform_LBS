@@ -5,19 +5,19 @@ var express = require('express');
 var test = express.Router();
 
 /* GET home page. */
-test.get('/', function(req, res, next) {
+test.get('/*', function(req, res, next) {
 
     var CVMS=require('./VMS/VMS.js');
 
     var VMS=new CVMS();
 
-    console.log(req);
 
-    console.log(VMS.isLogin(req.session));
+
+    console.log(req.session);
     if(VMS.isLogin(req.session)){
      //   res.location('user/info/0');
 
-        res.redirect('user/info/0');
+        res.redirect('../user/info/0');
 
 
     }else{
