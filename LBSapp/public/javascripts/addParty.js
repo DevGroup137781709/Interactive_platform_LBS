@@ -36,12 +36,13 @@ ready(function(){
         addShowList();
 
     })
-  //  var loader=registry.byId()
+//    var loader=dom.byId('loader');//无法获得loader传文件后 回传信息
 
-    //var b_add = registry.byId('forget')
-    //dojo.connect(b_add,'onclick',function(evt){
     //
-    //    alert('aaa');
+    //
+    //dojo.connect(loader,'onCancel',function(evt){
+    //
+    //    alert('onCancel');
     //})
 
 
@@ -141,7 +142,8 @@ function send(){
 
         }else if(data.addPartyRes.state==1){
             //成功
-            alert('成功')
+            alert('成功');
+            window.location.href='/';
 
         }
 

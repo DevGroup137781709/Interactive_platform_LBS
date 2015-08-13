@@ -222,7 +222,7 @@ var partyclass=Class(object,
 
                     var Ctool = require('../tool/tool.js');
                     var tool = new Ctool();
-                    tool.dealPoster(party.ID, party.poster, function (state) {
+                    tool.dealPoster(party.ID,'parties', party.poster, function (state) {
                         if (state == 0) {
                             callback(0);
                         } else {

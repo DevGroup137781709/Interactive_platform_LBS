@@ -13,10 +13,10 @@ tool.prototype.uploadPoster=function(){
 }
 
 
-tool.prototype.dealPoster=function(ID,address,callback){
+tool.prototype.dealPoster=function(ID,type,address,callback){
    var fs=require('fs');
     var readStream=fs.createReadStream(address);
-    fs.mkdirSync(__dirname+'/../../public/images/parties/'+ID);//提前新建文件夹,否则报错
+    fs.mkdirSync(__dirname+'/../../public/images/'+type+'/'+ID);//提前新建文件夹,否则报错
     var writeStream=fs.createWriteStream(__dirname+'/../../public/images/parties/'+ID+'/poster.jpg');
     readStream.pipe(writeStream);
     readStream.on('end',function(){

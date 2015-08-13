@@ -126,6 +126,9 @@ router.post('/', function(req, res, next) {
 
 
 
+
+
+
     switch (reqjson.method)
     {
         case 'register':
