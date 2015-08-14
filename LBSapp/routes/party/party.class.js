@@ -508,7 +508,7 @@ var partyclass=Class(object,
             var arr = [];
 
             results.forEach(function (data) {
-                console.log(data.dataValues.ID);
+
                 arr.push(data.dataValues);
             })
 
@@ -526,14 +526,14 @@ var partyclass=Class(object,
     },
 
     getPartyInDistanceAroundPoint:function(point,distance,row,obtainedRows,callback){
-        console.log(distance);
+
 
         var Ctool = require('../tool/tool.js');
         var tool = new Ctool();
 
 
         this.partyDb.findAll({where:{},attributes:['ID','name','time','location','location_lo_la','type','poster'],
-            limit:row,offset:obtainedRows,oder:[['updatedAt','ASC']]}).then(function(results){
+           limit:row,oder:[['updatedAt','ASC']]}).then(function(results){
             var arr = [];
 
             results.forEach(function (data) {
@@ -547,7 +547,13 @@ var partyclass=Class(object,
                     arr.push(data.dataValues);
                 }
 
+
             });
+
+            for(var i = 0;i<obtainedRows;i++){
+
+                arr.pop();
+            }
 
 
             callback(arr);

@@ -59,7 +59,7 @@ tool.prototype.getDistance=function(point1,point2){
             Math.cos(radLat1)*Math.cos(radLat2)*Math.pow(Math.sin(b/2),2)));
     s = s * EARTH_RADIUS;
     s = Math.round(s * 10000) / 10000;
-    console.log(s*1000);
+
     return s*1000;
 
 

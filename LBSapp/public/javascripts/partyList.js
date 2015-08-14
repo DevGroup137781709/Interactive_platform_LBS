@@ -65,21 +65,22 @@ require([
             }
         });
 
+
+
         scrollableView.on("touchend", function(evt){
             // We're done scrolling:
             // - hide the pullToRefreshPanel if it is displayed
             // - perform refresh if specified
+
+
             if(pullToRefreshPanelDisplayed){
                 hidePullToRefreshPanel();
             }
             if(refreshOnTouchEnd){
-                addNewParty();
+
                 refreshOnTouchEnd = false;
 
-
-
-
-
+                addNewParty();
 
 
             }
@@ -112,7 +113,7 @@ require([
                    position.lng=r.point.lng;
                 }
                 else {
-                    alert('failed'+this.getStatus());
+                    alert('定位失败'+this.getStatus());
                 }
             },{enableHighAccuracy: true})
 
@@ -122,41 +123,58 @@ require([
 
 getPosition();
 
-
+var party_list_isSend=false;
 
 
 
         function addNewParty(){
+            if(party_list_isSend==false){
 
-            dateObj = new Date()
-            $.post('/party/',{
-                method:'getNearbyParty',
-                getNearbyParty:{
-                    point:position,
-                    distance:document.getElementById('range').innerHTML,
-                    newOrOld:'old',
-                    type:'歌舞',
-                    obtainedRows:numOfParty,//这个参数用在 newOrold为new时,传递给后台你现在所拿到信息的条数
-                    rows:10,//这个参数只在 newOrold为old 有用,用于指定需要后台返回晚会信息的条数
-                    partyDate:dateObj.toUTCString(),
-                    needed:['ID','name','time','location','type','poster']
+               for(var i=0;i<100;i++){
 
-
-                }},function(data,status){
-                //拿到相应信息
-                numOfUpdata=0;
-                for(var i=0;i<data.partyInfo.length;i++){
-                    numOfUpdata++;
-
-                    addNewList(data.partyInfo[i].ID,data.partyInfo[i].name,data.partyInfo[i].time,data.partyInfo[i].location,data.partyInfo[i].type,data.partyInfo[i].poster);
-                }
-
-                numOfParty=numOfParty+numOfUpdata;
-                document.getElementById('massage').innerHTML = "更新了 " + numOfUpdata + " 个晚会 !";
+               }
+                party_list_isSend=true;
+            }
 
 
 
-            });
+
+
+                dateObj = new Date()
+                $.post('/party/',{
+                    method:'getNearbyParty',
+                    getNearbyParty:{
+                        point:position,
+                        distance:document.getElementById('range').innerHTML,
+                        newOrOld:'old',
+                        type:'歌舞',
+                        obtainedRows:numOfParty,//这个参数用在 newOrold为new时,传递给后台你现在所拿到信息的条数
+                        rows:10,//这个参数只在 newOrold为old 有用,用于指定需要后台返回晚会信息的条数
+                        partyDate:dateObj.toUTCString(),
+                        needed:['ID','name','time','location','type','poster']
+
+
+                    }},function(data,status){
+                    //拿到相应信息
+                    numOfUpdata=0;
+                    for(var i=0;i<data.partyInfo.length;i++){
+                        numOfUpdata++;
+
+                        addNewList(data.partyInfo[i].ID,data.partyInfo[i].name,data.partyInfo[i].time,data.partyInfo[i].location,data.partyInfo[i].type,data.partyInfo[i].poster);
+                    }
+
+                    numOfParty=numOfParty+numOfUpdata;
+
+                    document.getElementById('massage').innerHTML = "更新了 " + numOfUpdata + " 个晚会 !";
+
+
+
+                });
+
+
+
+
+
 
 
 

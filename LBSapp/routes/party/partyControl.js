@@ -422,22 +422,21 @@ router.post('/*', function(req, res, next) {
 
         case 'getNearbyParty':
 
-            console.log(reqJson);
+
+
+
+
+
             var party=New(require('./party.class.js'),[]);
             party.getPartyInDistanceAroundPoint(reqJson.getNearbyParty.point,reqJson.getNearbyParty.distance,reqJson.getNearbyParty.rows,reqJson.getNearbyParty.obtainedRows,function(result){
                 resJson.partyInfo=[];
                 resJson.partyInfo=result;
                 res.json(resJson);
                 res.end();
-                console.log(result);
+
 
             })
-            //party.getPartyInDistanceAroundPoint({lng:109.099595,lat:21.484221},100,20,function(result){
-            //
-            //    console.log(result);
-            //
-            //
-            //})
+
 
 
             break;

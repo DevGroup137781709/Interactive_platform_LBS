@@ -25,7 +25,7 @@
         <entry file="file://$PROJECT_DIR$/routes/party/partyControl.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="417" column="18" selection-start-line="417" selection-start-column="18" selection-end-line="417" selection-end-column="18" />
+              <caret line="424" column="0" selection-start-line="424" selection-start-column="0" selection-end-line="424" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -34,8 +34,30 @@
       <file leaf-file-name="party.class.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/routes/party/party.class.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.74242425">
-              <caret line="506" column="41" selection-start-line="506" selection-start-column="41" selection-end-line="506" selection-end-column="41" />
+            <state vertical-scroll-proportion="0.5021645">
+              <caret line="552" column="35" selection-start-line="552" selection-start-column="35" selection-end-line="552" selection-end-column="35" />
+              <folding>
+                <element signature="e#11976#12486#0" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="partyList.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/views/partyList.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.65625">
+              <caret line="80" column="48" selection-start-line="80" selection-start-column="41" selection-end-line="80" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="partyList.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/public/javascripts/partyList.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="150" column="47" selection-start-line="150" selection-start-column="24" selection-end-line="150" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -124,13 +146,11 @@
         <option value="$PROJECT_DIR$/views/map.html" />
         <option value="$PROJECT_DIR$/app.js" />
         <option value="$PROJECT_DIR$/views/partyList.html" />
-        <option value="$PROJECT_DIR$/public/javascripts/partyList.js" />
         <option value="$PROJECT_DIR$/public/javascripts/register.js" />
         <option value="$PROJECT_DIR$/views/register.html" />
         <option value="$PROJECT_DIR$/views/partyInfo.html" />
         <option value="$PROJECT_DIR$/public/javascripts/partyInfo.js" />
         <option value="$PROJECT_DIR$/views/addParty.html" />
-        <option value="$PROJECT_DIR$/routes/tool/tool.js" />
         <option value="$PROJECT_DIR$/routes/user/usersControl.js" />
         <option value="$PROJECT_DIR$/public/javascripts/addParty.js" />
         <option value="$PROJECT_DIR$/routes/party/party/model_parties.js" />
@@ -138,11 +158,13 @@
         <option value="$PROJECT_DIR$/public/javascripts/userInfo.js" />
         <option value="$PROJECT_DIR$/public/javascripts/login.js" />
         <option value="$PROJECT_DIR$/views/userInfo.html" />
-        <option value="$PROJECT_DIR$/routes/party/partyControl.js" />
         <option value="$PROJECT_DIR$/views/login.html" />
         <option value="$PROJECT_DIR$/routes/login.js" />
         <option value="$PROJECT_DIR$/views/index.html" />
         <option value="$PROJECT_DIR$/routes/index.js" />
+        <option value="$PROJECT_DIR$/routes/tool/tool.js" />
+        <option value="$PROJECT_DIR$/public/javascripts/partyList.js" />
+        <option value="$PROJECT_DIR$/routes/party/partyControl.js" />
         <option value="$PROJECT_DIR$/routes/party/party.class.js" />
       </list>
     </option>
@@ -432,7 +454,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="0" width="1612" height="876" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21616541" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -670,13 +692,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/partyList.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33197555">
-          <caret line="80" column="48" selection-start-line="80" selection-start-column="41" selection-end-line="80" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/routes/register.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -709,13 +724,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="57" column="26" selection-start-line="57" selection-start-column="26" selection-end-line="57" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/routes/tool/tool.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="23" column="20" selection-start-line="23" selection-start-column="20" selection-end-line="23" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -790,22 +798,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/routes/party/partyControl.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="417" column="18" selection-start-line="417" selection-start-column="18" selection-end-line="417" selection-end-column="18" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/javascripts/partyList.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7467533">
-          <caret line="140" column="30" selection-start-line="140" selection-start-column="30" selection-end-line="140" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/views/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.1627907">
@@ -838,11 +830,45 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/routes/tool/tool.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.44805196">
+          <caret line="61" column="2" selection-start-line="61" selection-start-column="2" selection-end-line="61" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/partyList.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.65625">
+          <caret line="80" column="48" selection-start-line="80" selection-start-column="41" selection-end-line="80" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/javascripts/partyList.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="150" column="47" selection-start-line="150" selection-start-column="24" selection-end-line="150" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/routes/party/partyControl.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="424" column="0" selection-start-line="424" selection-start-column="0" selection-end-line="424" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/routes/party/party.class.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.74242425">
-          <caret line="506" column="41" selection-start-line="506" selection-start-column="41" selection-end-line="506" selection-end-column="41" />
-          <folding />
+        <state vertical-scroll-proportion="0.5021645">
+          <caret line="552" column="35" selection-start-line="552" selection-start-column="35" selection-end-line="552" selection-end-column="35" />
+          <folding>
+            <element signature="e#11976#12486#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
