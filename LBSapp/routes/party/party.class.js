@@ -454,7 +454,7 @@ var partyclass=Class(object,
 
         }else if(type==0){
             this.msgDb.findAll({where:{partyID:partyID,type:type},attributes:['ID','partyID','userName','content','time'],
-            offset:obtainedRows,limit:row,oder:[['updatedAt','ASC']]}).then(function(results){
+            offset:obtainedRows,limit:row,order:[['updatedAt','ASC']]}).then(function(results){
             var arr = [];
 
             results.forEach(function (data) {
@@ -501,12 +501,14 @@ var partyclass=Class(object,
     },
 
     getNewPartys:function(row,callback){
+        var dateObj = new Date();
 
-        this.partyDb.findAll({where:{},attributes:['ID','name','time','location','type','poster'],
-                limit:row,oder:[['updatedAt','DESC']]}).then(function(results){
+        this.partyDb.findAll({where:{time:{$gte:dateObj}},attributes:['ID','name','time','location','type','poster'],
+               order:[['createdAt', 'DESC']], limit:row}).then(function(results){
             var arr = [];
 
             results.forEach(function (data) {
+                console.log(data.dataValues.ID);
                 arr.push(data.dataValues);
             })
 

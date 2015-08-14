@@ -48,7 +48,7 @@ router.get('/', function(req, res, next) {
 
 
 
-    console.log(req.session);
+
     var party=New(require('./party/party.class.js'),[]);
 
 
