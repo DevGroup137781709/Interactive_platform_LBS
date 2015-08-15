@@ -160,6 +160,19 @@ var object =    //����Сд��object�����࣬����ʵ�
     }
 };
 
+function New(aClass, aParams)   //创建对象的函数，用于任意类的对象创建
+{
+    function new_()     //创建对象的临时函数壳
+    {
+        this.Type = aClass;    //我们也给每一个对象约定一个Type属性，据此可以访问到对象所属的类
+        if (aClass.Create)
+            aClass.Create.apply(this, aParams);   //我们约定所有类的构造函数都叫Create，这和DELPHI比较相似
+    };
+    new_.prototype = aClass;
+    return new new_();
+};
+
+
 function Class(aBaseClass, aClassDefine)    //������ĺ��������������༰�̳й�ϵ
 {
     function class_()   //���������ʱ������
@@ -182,7 +195,7 @@ var partyclass=Class(object,
 
     },
 
-    addParty: function (json, hostname, callback) {
+    addParty: function (json, hostname,hostID, callback) {
         /*
          * ��������Ϣ,����json�еĺ�����ַΪ֮ǰ�ϴ�����ʱ�ļ�
          *
@@ -231,7 +244,14 @@ var partyclass=Class(object,
                                     callback(0);
 
                                 } else {
-                                    callback(1);
+                                    var user=New(require('../user/user.class.js'),[hostID]);
+                                    user.holdParty(party.ID,function(){
+
+                                        callback(1);
+
+                                    })
+
+
 
                                 }
 

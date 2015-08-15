@@ -290,7 +290,10 @@ router.post('/*', function(req, res, next) {
                 }
 
 
-                party.addParty(reqJson.addPartyInfo,req.session.userName, function (state) {
+                party.addParty(reqJson.addPartyInfo,req.session.userName,req.session.userID, function (state) {
+
+
+
 
                     resJson.addPartyRes={};
                     resJson.addPartyRes.state=state;
@@ -456,6 +459,9 @@ router.post('/*', function(req, res, next) {
 
 router.get('/:type/:ID', function(req, res, next) {
 
+    var CVMS=require('../VMS/VMS.js');
+    var VMS=new CVMS();
+
 
     var async = require('async');
 
@@ -482,7 +488,7 @@ router.get('/:type/:ID', function(req, res, next) {
                 party.getInfoByID(req.params.ID,['name','time','location','type','publisher','show_actors','hostname','poster','detail'],function(result){
 
                     if(req.session.userID!=undefined){
-
+                        //已经登录
                         var user=New(require('../user/user.class.js'),[req.session.userID]);
                         user.getInfo(function(userResult){
 
@@ -498,6 +504,26 @@ router.get('/:type/:ID', function(req, res, next) {
 
                             })
 
+                            var isPublisher=0;
+                            VMS.isPartyPublicer(req.session.userName,req.params.ID,function(state){
+
+                                if(state==1){
+                                    //可以修改
+                                    isPublisher=1;
+
+
+                                }else{
+                                    //不可修改
+                                    isPublisher=0;
+
+
+
+                                }
+                            });
+
+
+
+
 
 
                             res.render('partyInfo',{
@@ -510,6 +536,7 @@ router.get('/:type/:ID', function(req, res, next) {
                                 partyPublisher:result.publisher,
                                 partyHosts:result.hostname,
                                 isTaken:isTaken,//这里三个状态 0未参加 1已经参加 -1未登录
+                                isPublisher:isPublisher,
                                 shows:result.show_actors,
                                 comments:comment,
                                 posterURL:result.poster
@@ -525,6 +552,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
                     }else{
+                        //未登录
                         res.render('partyInfo',{
 
                             partyName:result.name,
@@ -536,6 +564,7 @@ router.get('/:type/:ID', function(req, res, next) {
                             partyPublisher:result.publisher,
                             partyHosts:result.hostname,
                             isTaken:-1,//这里三个状态 0未参加 1已经参加 -1未登录
+                            isPublisher:0,
                             shows:result.show_actors,
                             comments:comment,
                             posterURL:result.poster
