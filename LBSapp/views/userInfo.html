@@ -54,7 +54,7 @@
 
     <div data-dojo-type="dojox.mobile.RoundRect">
         正在举办的晚会:
-        <% for(var i=1;i<=holdingpartys.length;i++){%>
+        <% for(var i=1;i<=holdingpartys_ID.length;i++){%>
         <a href="../../party/info/<%= holdingpartys_ID[i-1] %>"><%= holdingpartys[i-1] %></a>
         <% } %>
 
@@ -70,7 +70,7 @@
     <div data-dojo-type="dojox.mobile.RoundRect">
         过去举办的晚会:
 
-        <% for(var i=1;i<=holdedpartys.length;i++){%>
+        <% for(var i=1;i<=holdedpartys_ID.length;i++){%>
         <a href="../../party/info/<%= holdedpartys_ID[i-1] %>"><%= holdedpartys[i-1] %></a>
         <% } %>
 
@@ -84,7 +84,7 @@
     <div data-dojo-type="dojox.mobile.RoundRect">
         参加过的晚会:
 
-        <% for(var i=1;i<=takenpartys.length;i++){ %>
+        <% for(var i=1;i<=takenpartys_ID.length;i++){ %>
         <a href="../../party/info/<%= takenpartys_ID[i-1] %>"><%= takenpartys[i-1] %></a>
         <% } %>
 

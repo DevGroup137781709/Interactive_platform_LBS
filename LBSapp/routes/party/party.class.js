@@ -245,9 +245,9 @@ var partyclass=Class(object,
 
                                 } else {
                                     var user=New(require('../user/user.class.js'),[hostID]);
-                                    user.holdParty(party.ID,function(){
+                                    user.holdParty(party.ID,function(state){
 
-                                        callback(1);
+                                        callback(state);
 
                                     })
 

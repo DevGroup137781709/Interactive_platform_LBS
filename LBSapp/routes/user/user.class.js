@@ -214,6 +214,8 @@ var userclass = Class(object,
             this.userData.findOne({where: {id: _ID}}).then(function (result) {
 
 
+
+
                 if (result == null) {
                     throw new Error('怎么可能,这里不应该出错的');
                 } else {
@@ -230,15 +232,15 @@ var userclass = Class(object,
                     } else if (result.sex == 1) {
                         resjson.userInfo.sex = '男';
                     }
-                    if (result.host_holdingpartys == null) {
+                    if (""==result.host_holdingpartys||result.host_holdingpartys==null) {
                         resjson.userInfo.host_holdingpartys = [];
 
                     } else {
-                        resjson.userInfo.host_holdingpartys = JSON.parse(host_holdingpartys);//数组形式传回
-                  //      JSON.parse(result.dataValues.hostname);
+                        resjson.userInfo.host_holdingpartys = JSON.parse(result.host_holdingpartys);//数组形式传回
+
                     }
 
-                    if (result.host_holdedpartys == null) {
+                    if (""==result.host_holdedpartys||result.host_holdedpartys==null){
                         resjson.userInfo.host_holdedpartys = [];
 
                     } else {
@@ -246,7 +248,7 @@ var userclass = Class(object,
 
                     }
 
-                    if (result.user_takenpartys == null) {
+                    if (""==result.user_takenpartys||result.user_takenpartys==null) {
 
                         resjson.userInfo.user_takenpartys = [];
 
@@ -257,6 +259,8 @@ var userclass = Class(object,
 
 
                     resjson.userInfo.registerTime = result.registerTime;
+
+
 
                     callback(resjson);
 
@@ -396,21 +400,38 @@ var userclass = Class(object,
 
         holdParty: function (partyID,callback) {
             var _ID=this.ID;
+            var _userDB=this.userData;
             this.userData.findOne({where: {ID:_ID}}).then(function (result) {
 
 
-                if(result.dataValues.show_actors!=undefined){
-                    result.dataValues.show_actors = JSON.parse(result.dataValues.show_actors);
+                if(result.dataValues.host_holdingpartys!=undefined){
+                    result.dataValues.host_holdingpartys = JSON.parse(result.dataValues.host_holdingpartys);
                 }
 
-                if( result.dataValues.hostname!=undefined){
-                    result.dataValues.hostname = JSON.parse(result.dataValues.hostname);
-                }
+                result.dataValues.host_holdingpartys.push(partyID);
+
+                _userDB.update({host_holdingpartys: JSON.stringify(result.dataValues.host_holdingpartys)}, {
+                    where: {ID: _ID}}).then(function (affectedRows) {
+                    var state;
+                    if (affectedRows == 0) {
+                        //失败
+                        state = 0;
+                    } else {
+                        //成功
+
+                        state = 1;
+
+                    }
+                    callback(state);
 
 
+                }).catch(function (err) {
+                    //未知错误
+                    callback(0)
+
+                });
 
 
-                callback(1);
 
 
             }).catch(function (err) {

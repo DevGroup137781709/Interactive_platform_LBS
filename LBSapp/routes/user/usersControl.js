@@ -306,6 +306,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
             async.series({
                     one:function(callback_1){
+                        result.userInfo.user_takenpartys=[];//不显示策划者参加的晚会
 
                         if(result.userInfo.type==0){
                             //举办方,这里处理下晚会数组
@@ -316,15 +317,23 @@ router.get('/:type/:ID', function(req, res, next) {
                                 result.userInfo.host_holdedpartys_names = [];
                                 callback_1();
                                 return ;
-                            }
-
-
-                            if(result.userInfo.host_holdingpartys.length!=0){
+                            }else if(result.userInfo.host_holdingpartys.length!=0&&result.userInfo.host_holdedpartys.length!=0){
                                 result.userInfo.host_holdingpartys_names = [];
                                 async.each(result.userInfo.host_holdingpartys, function (data, callback) {
                                     party.getInfoByID(data, ['ID', 'name'], function (_res) {
                                         result.userInfo.host_holdingpartys_names.push(_res.name);
+                                        if(result.userInfo.host_holdingpartys_names.length==result.userInfo.host_holdingpartys.length){
+                                            result.userInfo.host_holdedpartys_names = [];
+                                            async.each(result.userInfo.host_holdedpartys, function (data, callback) {
+                                                party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                                                    result.userInfo.host_holdedpartys_names.push(_res.name);
+                                                    if(result.userInfo.host_holdedpartys_names.length==result.userInfo.host_holdedpartys.length){
+                                                        callback_1();
+                                                    }
+                                                });
+                                            });
 
+                                        }
 
 
                                     });
@@ -332,9 +341,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
                                 });
 
-                            }
-
-                            if(result.userInfo.host_holdedpartys.length!=0){
+                            }else if(result.userInfo.host_holdedpartys.length!=0&&result.userInfo.host_holdingpartys.length==0){
                                 result.userInfo.host_holdedpartys_names = [];
                                 async.each(result.userInfo.host_holdedpartys, function (data, callback) {
                                     party.getInfoByID(data, ['ID', 'name'], function (_res) {
@@ -345,9 +352,24 @@ router.get('/:type/:ID', function(req, res, next) {
                                     });
                                 });
 
+                            }else if(result.userInfo.host_holdedpartys.length==0&&result.userInfo.host_holdingpartys.length!=0){
+                                result.userInfo.host_holdingpartys_names = [];
+                                async.each(result.userInfo.host_holdingpartys, function (data, callback) {
+                                    party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                                        result.userInfo.host_holdingpartys_names.push(_res.name);
+                                        if(result.userInfo.host_holdingpartys_names.length==result.userInfo.host_holdingpartys.length){
+                                            callback_1();
+
+                                        }
+
+
+                                    });
+
+                                });
+
+
+
                             }
-
-
 
 
 
@@ -387,7 +409,9 @@ router.get('/:type/:ID', function(req, res, next) {
 
                     },
                     two:function(callback_2) {
-                   //     console.log(result.userInfo)
+                        console.log(result.userInfo)
+
+
 
 
 
@@ -410,6 +434,9 @@ router.get('/:type/:ID', function(req, res, next) {
                         callback_2();
                    }
         }),function(err,result){
+
+                console.error(err);
+
 
 
             };
