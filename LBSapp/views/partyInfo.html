@@ -41,11 +41,13 @@
 
 <div data-dojo-type="dojox.mobile.Heading"
      data-dojo-props="label: '<%= partyName %>'">
-		<span data-dojo-type="dojox.mobile.ToolBarButton"
-              data-dojo-props="arrow: 'left', icon: 'mblDomButtonWhiteDownArrow', label: '返回'"  onclick="javascript:history.back(-1);" ></span>
+		<span data-dojo-type="dojox.mobile.ToolBarButton" id="back"
+              data-dojo-props="arrow: 'left', icon: 'mblDomButtonWhiteDownArrow', label: '返回'" style="display:block" onclick="javascript:history.back(-1);" ></span>
 
+    <span data-dojo-type="dojox.mobile.ToolBarButton" id="renew"
+      data-dojo-props="arrow: 'left', icon: 'mblDomButtonWhiteDownArrow', label: '提交修改'" style="display:none" onclick="renew();" ></span>
 <% if(isPublisher==1){ %>
-    <span data-dojo-type="dojox.mobile.ToolBarButton" data-dojo-props='label:"修改"' style="float:right;"></span>
+    <span data-dojo-type="dojox.mobile.ToolBarButton" data-dojo-props='label:"修改"' style="float:right;" onclick="changeEditMode();"></span>
 <% } %>
 
 
@@ -59,23 +61,24 @@
     <ul data-dojo-type="dojox.mobile.RoundRectList" >
         <li   data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='variableHeight:true' >
             <div id="party" hidden><%= partyID %></div>
-         <div > 活动名称:<%= partyName %> </div>
+          活动名称:<div class="info"><%= partyName %></div><input id="new_name" data-dojo-type="dojox/mobile/TextBox" value="<%= partyName %>" intermediateChanges="true" selectOnClick="true" class="edit" style="width:100%;display:none">
 
         </li>
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
-            活动时间:<%= partyTime %>
+            活动时间: <div class="info"><%= partyTime %></div><input id="new_time" data-dojo-type="dojox/mobile/TextBox" value="<%= partyTime %>" intermediateChanges="true" selectOnClick="true" class="edit" style="width:100%;display:none">
         </li>
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
-            活动地点:<%= partyLocation %>
+            活动地点:<div class="info"><%= partyLocation %></div><input id="new_location" data-dojo-type="dojox/mobile/TextBox" value="<%= partyLocation_lo_la %>" intermediateChanges="true" selectOnClick="true" value="点击选择地点" class="edit" style="width:100%;display:none" onclick="window.open('/map'); ">
+            <div class="edit" style="display:none"><br><div id="new_location_detail"><%= partyLocation%></div> </div>
         </li>
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
-            类型:<%= partyType %>
+            类型:<div class="info"><%= partyType %></div><input id="new_type" data-dojo-type="dojox/mobile/TextBox" value="<%= partyType %>" intermediateChanges="true" selectOnClick="true" class="edit" style="width:100%;display:none">
         </li>
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
-            发布人:<%= partyPublisher %>
+            发布人:<div ><%= partyPublisher %></div>
         </li>
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
-            主办方:<%= partyHosts %>
+            主办方:<div class="info_"><%= partyHosts %></div><input id="new_hosts" data-dojo-type="dojox/mobile/TextBox" value="<%= partyHosts %>" intermediateChanges="true" selectOnClick="true" class="edit_" style="width:100%;display:none">
         </li>
 
     </ul>
@@ -141,19 +144,26 @@
         }else{
             for(var i=1;i<=shows.length;i++){ %>
                 <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
+                    <div class="info">
                   <div align='left'> 节目<%= i %>: <%= shows[i-1].show%></div>
                     <div align='right'>  演员: <%= shows[i-1].actors%></div>
+                    </div>
+
+                    <div class="edit" style="width:100%;display:none">
+                    <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" value="<%= shows[i-1].show%>" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" value="<%= shows[i-1].actors%>" selectOnClick="true"></center>
+                    </div>
                 </li>
 
-        <%}%>
+        <% } %>
 
         <% } %>
     </ul>
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">详情</h2>
     <div data-dojo-type="dojox.mobile.RoundRect">
-        <%= detail %>
+      <div class="info">  <%= detail %></div>
 
         <br>
+        <div class="edit" style="display:none"> <center><textarea id="new_detail" data-dojo-type="dojox.mobile.TextArea" rows="20" cols="30" style="width:90%"  ><%= detail %></textarea> </center> </div>
 
     </div>
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">吐槽区</h2>

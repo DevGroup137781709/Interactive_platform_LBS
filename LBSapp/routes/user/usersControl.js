@@ -119,6 +119,8 @@ router.post('/', function(req, res, next) {
  //   reqjson=JSON.parse(req.body.data);
     var resjson={};//发送出去的数据
 
+console.log(reqjson)
+
 
 
 
@@ -293,7 +295,16 @@ router.get('/:type/:ID', function(req, res, next) {
 
     console.log(ID)
     if(req.params.type.toLowerCase()=='info') {
-        // info页面
+
+        /**
+         *
+         *  info页面
+         *  url地址 /user/info/
+         *
+         *
+         *
+         */
+
         var user = New(require('./user.class.js'), [ID]);
 
 

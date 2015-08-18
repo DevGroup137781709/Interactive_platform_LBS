@@ -182,6 +182,8 @@ router.post('/*', function(req, res, next) {
 
 
 
+
+
     /*
      * 处理上传海报,返回服务器海报储存地址,到时候前台一起返回给后台储存
      *
@@ -344,6 +346,7 @@ router.post('/*', function(req, res, next) {
 
             resJson.reNewRes={};
 
+
             if(VMS.isLogin(req.session,'host')){
 
                 VMS.isPartyPublicer(req.session.userName,reqJson.reNewPartyInfo.ID,function(state){
@@ -354,28 +357,35 @@ router.post('/*', function(req, res, next) {
 
                         party.reNew(reqJson.reNewPartyInfo.ID,reqJson.reNewPartyInfo,function(state){
                             resJson.reNewRes=state;
+                            console.log('11')
                             res.json(resJson);
                             res.end();
 
                         });
+
                     }else{
                         //不可修改
                         resJson.reNewRes=-1;
                         res.json(resJson);
+                        console.log('22')
                         res.end();
 
                     }
                 });
+
+
             }else{
                 //不可修改
                 resJson.reNewRes=-1;
                 res.json(resJson);
+                console.log('33')
                 res.end();
             }
 
 
 
             break;
+
         case 'sendComment':
             //发送弹幕或者评论
             console.log('sendComment')
@@ -467,6 +477,15 @@ router.get('/:type/:ID', function(req, res, next) {
 
     if(req.params.type.toLowerCase()=='info') {
 
+        /**
+         *
+         *晚会info页面
+         * url: /party/info/ID
+         *
+         *
+         */
+
+
         var party=New(require('./party.class.js'),[]);
         var comment;
         async.series({
@@ -485,7 +504,7 @@ router.get('/:type/:ID', function(req, res, next) {
             two: function (callback_2) {
 
 
-                party.getInfoByID(req.params.ID,['name','time','location','type','publisher','show_actors','hostname','poster','detail'],function(result){
+                party.getInfoByID(req.params.ID,['name','time','location','location_lo_la','type','publisher','show_actors','hostname','poster','detail'],function(result){
 
                     if(req.session.userID!=undefined){
                         //已经登录
@@ -506,45 +525,36 @@ router.get('/:type/:ID', function(req, res, next) {
 
                             var isPublisher=0;
                             VMS.isPartyPublicer(req.session.userName,req.params.ID,function(state){
-
                                 if(state==1){
                                     //可以修改
                                     isPublisher=1;
-
-
                                 }else{
                                     //不可修改
                                     isPublisher=0;
-
-
-
                                 }
+
+
+                                res.render('partyInfo',{
+                                    partyName:result.name,
+                                    partyID:req.params.ID,
+                                    partyTime:result.time,
+                                    partyLocation:result.location,
+                                    partyLocation_lo_la:result.location_lo_la,
+                                    partyType:result.type,
+                                    detail:result.detail,
+                                    partyPublisher:result.publisher,
+                                    partyHosts:result.hostname,
+                                    isTaken:isTaken,//这里三个状态 0未参加 1已经参加 -1未登录
+                                    isPublisher:isPublisher,
+                                    shows:result.show_actors,
+                                    comments:comment,
+                                    posterURL:result.poster
+
+                                });
+
+                                callback_2();
+
                             });
-
-
-
-
-
-
-                            res.render('partyInfo',{
-                                partyName:result.name,
-                                partyID:req.params.ID,
-                                partyTime:result.time,
-                                partyLocation:result.location,
-                                partyType:result.type,
-                                detail:result.detail,
-                                partyPublisher:result.publisher,
-                                partyHosts:result.hostname,
-                                isTaken:isTaken,//这里三个状态 0未参加 1已经参加 -1未登录
-                                isPublisher:isPublisher,
-                                shows:result.show_actors,
-                                comments:comment,
-                                posterURL:result.poster
-
-                            });
-
-                            callback_2();
-
 
 
                         });
@@ -559,6 +569,7 @@ router.get('/:type/:ID', function(req, res, next) {
                             partyID:req.params.ID,
                             partyTime:result.time,
                             partyLocation:result.location,
+                            partyLocation_lo_la:result.location_lo_la,
                             partyType:result.type,
                             detail:result.detail,
                             partyPublisher:result.publisher,
@@ -600,6 +611,10 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
     }else if(req.params.type.toLowerCase()=='add'){
+        /*
+        *
+        * 添加晚会页面
+        * */
 
 
         res.render('addParty',{})

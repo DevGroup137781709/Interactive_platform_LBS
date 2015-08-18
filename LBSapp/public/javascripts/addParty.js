@@ -143,6 +143,9 @@ function send(){
         }else if(data.addPartyRes.state==1){
             //成功
             alert('成功');
+            delCookie('newPartyLng');
+            delCookie('newPartyLat');
+            delCookie('newLocation');
             window.location.href='/';
 
         }
@@ -174,6 +177,16 @@ function clsShowList(){
     }
 
 
+}
+
+
+function delCookie(name)
+{
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null)
+        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
 }
 
 

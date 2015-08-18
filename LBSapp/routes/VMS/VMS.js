@@ -42,18 +42,19 @@ VMS.prototype.isPartyPublicer=function(userName,PartyID,callback){
 
             var hostList=[];
             hostList=JSON.parse(partyInfo.hostname);
+            var able=0;
 
             hostList.forEach(function(data){
 
                 if(data==userName){
-                    callback(1);
+                    able=1;
                     return ;
                 }
 
 
             });
 
-            callback(0);
+            callback(able);
 
         }).catch(function(err){
             console.error(err);

@@ -14,7 +14,8 @@ require([
     "dojox/mobile/Opener",
     "dijit/ColorPalette",
     "dojox/mobile/ToolBarButton",
-    "dojo/request/xhr"
+    "dojo/request/xhr",
+    "dijit/_base/manager"
 
 
 ]);
@@ -37,6 +38,7 @@ function changeType(type){
         document.getElementById("danmuArea").style.display='none';
     }
 }
+
 
 function send(){
     var partyID=document.getElementById("party").innerHTML;
@@ -186,3 +188,148 @@ function takePartIn(partyID,state){
     });
 
 }
+
+
+function changeEditMode(){
+    if(document.getElementById("back").style.display=='none'){
+        //正常查看信息模式
+        document.getElementById("back").style.display='block';
+        document.getElementById("renew").style.display='none';
+       var infoMode= dojo.query(".info");
+        for(var i=0;i<infoMode.length;i++){
+            infoMode[i].style.display='block';
+
+
+        }
+        var editMode= dojo.query(".edit");
+        for(var i=0;i<editMode.length;i++){
+            editMode[i].style.display='none';
+
+
+        }
+
+        return 0;
+
+    }else if(document.getElementById("back").style.display=='block'){
+        //编辑模式
+        document.getElementById("back").style.display='none';
+        document.getElementById("renew").style.display='block';
+        var infoMode= dojo.query(".info");
+        for(var i=0;i<infoMode.length;i++){
+            infoMode[i].style.display='none';
+
+
+        }
+
+        var editMode= dojo.query(".edit");
+        for(var i=0;i<editMode.length;i++){
+            editMode[i].style.display='block';
+
+
+        }
+
+        return 0;
+    }
+
+
+
+
+}
+
+
+
+
+function renew(){
+
+    var showObj=[];
+    var showList= dojo.query(".showList");
+    var len=showList.length;
+    for(var i=0;i<len;i++){
+
+        if(isEmpty(showList[i].children[0].children[0])==false){
+            showObj.push(newShow(showList[i].children[0].children[0].value,showList[i].children[0].children[1].value));
+        }
+
+    }
+
+
+
+    $.post('/party/',{
+        method : 'renewPartyInfo',
+        reNewPartyInfo : {
+            ID:document.getElementById("party").innerHTML,
+            name : dijit.byId("new_name").get('value'),
+            time : dijit.byId("new_time").get('value'),
+            location : document.getElementById("new_location_detail").innerHTML,
+            location_lo_la: dijit.byId("new_location").get('value'),
+            type:dijit.byId("new_type").get('value'),
+            show_actors:showObj,
+            detail:dijit.byId("new_detail").get('value')
+
+        }
+    },function(data,status){
+        //do something
+        if(data.addPartyRes.state==-1){
+            //没登录
+            alert('没登录')
+
+        }else if(data.addPartyRes.state==0){
+            //未知错误
+            alert('未知错误')
+
+        }else if(data.addPartyRes.state==1){
+            //成功
+            alert('成功');
+            delCookie('newPartyLng');
+            delCookie('newPartyLat');
+            delCookie('newLocation');
+            window.location.href='/';
+
+        }
+
+
+
+
+    });
+
+
+
+
+}
+
+
+
+function delCookie(name)
+{
+    var exp = new Date();
+    exp.setTime(exp.getTime() - 1);
+    var cval=getCookie(name);
+    if(cval!=null)
+        document.cookie= name + "="+cval+";expires="+exp.toGMTString();
+}
+
+
+
+
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+
+    if(arr=document.cookie.match(reg))
+
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
+setInterval(function(){
+    var arr=[];
+    if(getCookie('newPartyLng')!=null&&getCookie('newPartyLat')!=null){
+        arr.push(getCookie('newPartyLng'));
+        arr.push(getCookie('newPartyLat'));
+        dijit.byId("new_location").set('value',arr);
+        document.getElementById('new_location_detail').innerHTML=getCookie('newLocation');
+
+    }
+
+},2000);
