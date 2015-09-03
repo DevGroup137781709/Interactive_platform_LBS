@@ -1,3 +1,4 @@
+document.getElementById('topHead').innerHTML="登录";
 require([
     "dojo/dom",
     "dojox/mobile/parser",

@@ -118,18 +118,7 @@ router.post('/', function(req, res, next) {
 
  //   reqjson=JSON.parse(req.body.data);
     var resjson={};//发送出去的数据
-
-console.log(reqjson)
-
-
-
-
     resjson.userInfo={};
-
-
-
-
-
 
     switch (reqjson.method)
     {
@@ -139,8 +128,7 @@ console.log(reqjson)
              * */
 
 
-        //    var CRegister =  require('./user.class.js');//加载注册模块
-        //    var register =new CRegister(reqjson);
+
             var user=New(require('./user.class.js'),[reqjson]);
             resjson.registerRes={};
             user.checkNameAndEmailIsAble(function(flat){
@@ -286,14 +274,11 @@ console.log(reqjson)
 router.get('/:type/:ID', function(req, res, next) {
     var ID=req.params.ID;
     if(req.params.ID==0){
-
+        //ID为0自动转换为用户自身ID
         ID=req.session.userID;
-
 
     }
 
-
-    console.log(ID)
     if(req.params.type.toLowerCase()=='info') {
 
         /**
@@ -420,10 +405,6 @@ router.get('/:type/:ID', function(req, res, next) {
 
                     },
                     two:function(callback_2) {
-                        console.log(result.userInfo)
-
-
-
 
 
                            res.render('userinfo', {

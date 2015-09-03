@@ -71,10 +71,10 @@ var userclass = Class(object,
         },
 
         doLogin: function (callback) {
-
+            //用户登录函数
             var flat = 0;//用于标记是否成功验证登录信息   0未找到用户名 1密码错误 2密码正确
             if (this.userJson.userInfo.name == null && this.userJson.userInfo.email == null) {
-                console.log('err');
+                console.error('err');
                 //未处理
             } else {
                 //用户名登录
@@ -114,7 +114,7 @@ var userclass = Class(object,
         },
 
         checkNameAndEmailIsAble: function (callback) {
-
+            //检查邮箱和用户名是否可用
             var _name = this.userJson.userInfo.name;
             var _email = this.userJson.userInfo.email;
 
@@ -197,7 +197,6 @@ var userclass = Class(object,
                 }
             }).catch(function (err) {
                 console.error(err);
-
                 if (err) {
                     callback(0);
                 }
@@ -212,9 +211,6 @@ var userclass = Class(object,
             var _ID = this.ID;
 
             this.userData.findOne({where: {id: _ID}}).then(function (result) {
-
-
-
 
                 if (result == null) {
                     throw new Error('怎么可能,这里不应该出错的');
@@ -273,6 +269,7 @@ var userclass = Class(object,
         },
 
         changeInfo: function (field, oldValue, newValue, callback) {
+            //修改用户信息函数,这里只实现了密码的修改
 
             var state = 0;//0密码错误 1密码正确
 
@@ -330,6 +327,7 @@ var userclass = Class(object,
         },
 
         takePartIn: function (partyID, state, callback) {
+            //用户参加(取消参加)晚会函数
             var _DB = this.userData;
 
             if (state == 0) {
@@ -399,6 +397,7 @@ var userclass = Class(object,
         },
 
         holdParty: function (partyID,callback) {
+            //用户更新所添加的晚会信息函数
             var _ID=this.ID;
             var _userDB=this.userData;
             this.userData.findOne({where: {ID:_ID}}).then(function (result) {

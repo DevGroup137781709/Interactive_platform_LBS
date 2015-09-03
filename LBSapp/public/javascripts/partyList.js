@@ -1,4 +1,4 @@
-
+document.getElementById('topHead').innerHTML="附近晚会";
 var position={lat:0,lng:0};
 
 require([
@@ -28,6 +28,7 @@ require([
         var numberOfUpdates = 0;
         var numOfParty=0;
         var numOfUpdata=0;
+
         var displayPullToRefreshPanel = function() {
             pullToRefreshPanelDisplayed = true;
             pullToRefreshPanel.style.display="block";
@@ -88,7 +89,7 @@ require([
 
         var addNewList =function (ID,name,time,location,type,poster){
 
-            var HTML='<table border="0" width="100%" ><tr><th rowspan="4" ><img src="'+poster+'" width=100%  /></th><td width="70%">'+name+'</td></tr><tr><td width="30%">'+type+'</td></tr><tr><td width="30%">'+time+'</td></tr><tr><td width="30%" >'+location+'</td></tr></table> '
+            var HTML='<table border="0" width="100%" ><tr><th rowspan="4" ><img src="'+poster+'" width=100%  /></th><td width="70%">'+name+'</td></tr><tr><td width="30%">'+type+'</td></tr><tr><td width="30%">'+time+'</td></tr><tr><td width="30%" >'+location+'</td></tr></table> ';
 
 
             var item=new ListItem({
@@ -100,7 +101,7 @@ require([
             });
             list.addChild(item);
 
-        }
+        };
 
 
 
@@ -140,7 +141,7 @@ var party_list_isSend=false;
 
 
 
-                dateObj = new Date()
+                dateObj = new Date();
                 $.post('/party/',{
                     method:'getNearbyParty',
                     getNearbyParty:{
@@ -179,18 +180,7 @@ var party_list_isSend=false;
 
 
 
-        };
-
-
-
-
-
-
-
-
-
-
-
+        }
     });
 });
 
