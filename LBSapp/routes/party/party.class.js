@@ -32,13 +32,13 @@ function New(aClass, aParams)   //创建对象的函数，用于任意类的对�
 };
 
 
-function Class(aBaseClass, aClassDefine)    //������ĺ��������������༰�̳й�ϵ
+function Class(aBaseClass, aClassDefine)
 {
-    function class_()   //���������ʱ������
+    function class_()
     {
-        this.Type = aBaseClass;    //���Ǹ�ÿһ����Լ��һ��Type���ԣ�������̳е���
+        this.Type = aBaseClass;
         for(var member in aClassDefine)
-            this[member] = aClassDefine[member];    //�������ȫ�����嵽��ǰ��������
+            this[member] = aClassDefine[member];
     };
     class_.prototype = aBaseClass;
     return new class_();
@@ -49,6 +49,7 @@ var partyclass=Class(object,
 
 
     Create: function () {
+        //初始化数据库连接
         this.partyDb = require('./party/model_parties.js');
         this.msgDb = require('./party/model_msg.js');
 
@@ -56,12 +57,12 @@ var partyclass=Class(object,
 
     addParty: function (json, hostname,hostID, callback) {
         /*
-         * ��������Ϣ,����json�еĺ�����ַΪ֮ǰ�ϴ�����ʱ�ļ�
+         * 添加晚会信息,
          *
          * */
 
         var _hostname = (json.hostname).toString().split(',');
-        //���û�����hostnameȥ��
+        //拆分hostname为数组形式,此处无论主办方列表中是否有发起人,自动添加
 
         for (var i = 0; i < _hostname.length; i++) {
             if (_hostname[i] == hostname) {
@@ -72,8 +73,9 @@ var partyclass=Class(object,
         json.hostname = [hostname].concat(json.hostname);
 
 
-        var Db = this.partyDb;
 
+        var Db = this.partyDb;
+        //创建新的晚会信息到数据库
         this.partyDb.create({
             name: json.name,
             time: json.time,
@@ -87,22 +89,28 @@ var partyclass=Class(object,
             detail: json.detail
         })
             .then(function (party) {
-
+            //检查是否创建成功
                 if (party == null) {
+                    //创建失败
                     callback(0);
                 } else {
+                    //创建成功
 
                     var Ctool = require('../tool/tool.js');
                     var tool = new Ctool();
                     tool.dealPoster(party.ID,'parties', party.poster, function (state) {
                         if (state == 0) {
+                            //海报处理失败
                             callback(0);
                         } else {
+                            //海报处理成功,存入海报地址
                             Db.update({poster: '/images/parties/' + party.ID + '/poster.jpg'}, {where: {ID: party.ID}}).then(function (affectedRows) {
                                 if (affectedRows == 0) {
+                                    //添加海报地址失败
                                     callback(0);
 
                                 } else {
+                                    //添加晚会成功,更新主办方主持晚会列表信息
                                     var user=New(require('../user/user.class.js'),[hostID]);
                                     user.holdParty(party.ID,function(state){
 
@@ -135,6 +143,7 @@ var partyclass=Class(object,
     },
 
     getInfo: function (detail, callback) {
+        //获得晚会信息,用于更新
         this.partyDb.findAll({
             where: {
                 location: detail.location, type: detail.type,
@@ -171,7 +180,7 @@ var partyclass=Class(object,
     },
 
     getInfoByID:function(partyID,needed,callback){
-
+        //通过ID获取晚会信息
         this.partyDb.findOne({where: {ID:partyID}, attributes: needed}).then(function (result) {
 
          //   console.log(result);
@@ -183,9 +192,6 @@ var partyclass=Class(object,
             if( result.dataValues.hostname!=undefined){
                 result.dataValues.hostname = JSON.parse(result.dataValues.hostname);
             }
-
-
-
 
             callback(result.dataValues);
 
@@ -199,6 +205,7 @@ var partyclass=Class(object,
     },
 
     reNew: function (partyID, info, callback) {
+        //更新晚会信息
         var state = 0;
         this.partyDb.update({
             name:info.name, time: info.time, location: info.location, location_lo_la: info.location_lo_la,
@@ -229,13 +236,10 @@ var partyclass=Class(object,
     },
 
     comment:function (partyID,userName,type,contentInfo,callback){
-        //typeΪ0ʱ��������,1ʱ�ǵ�Ļ
-
-
-
-
+        //type为1表示是弹幕.0是正常评论
 
         if(type==1){
+            //弹幕
             this.msgDb.create({
                 userName:userName,
                 partyID:partyID,
@@ -266,7 +270,7 @@ var partyclass=Class(object,
 
 
         }else if(type==0){
-
+            //评论
             this.msgDb.create({
                 userName:userName,
                 partyID:partyID,
@@ -299,7 +303,7 @@ var partyclass=Class(object,
     getCommentInfo:function (partyID,type,obtainedRows,row,callback){
 
         if(type==1){
-            //��Ļ,һ��ȡ��û����ʾ�ĵ�Ļ
+            //获取弹幕
             this.msgDb.findAll({where:{
                 partyID:partyID,
                 type:type,
@@ -307,29 +311,16 @@ var partyclass=Class(object,
 
             },attributes:['ID','partyID','userName','content','danmuType','danmuSize','danmuColor','time'],order:[['updatedAt','ASC']] }).then(function(results){
                 var arr = [];
-
                 results.forEach(function (data) {
                     arr.push(data.dataValues);
                 })
-
-
-
-                
-
                 callback(arr);
 
-
-
             }).catch(function(err){
-
                 console.error(err);
                 callback([]);
 
             })
-
-
-
-
 
         }else if(type==0){
             this.msgDb.findAll({where:{partyID:partyID,type:type},attributes:['ID','partyID','userName','content','time'],
@@ -354,6 +345,7 @@ var partyclass=Class(object,
     },
 
     updateDanmu:function(msgs){
+        //此函数用于更新弹幕,当弹幕被读取完后,更新getatable参数为false0
         var _Db=this.msgDb;
         var state=0;
 
@@ -380,6 +372,7 @@ var partyclass=Class(object,
     },
 
     getNewPartys:function(row,callback){
+        //获取最新添加的晚会信息
         var dateObj = new Date();
 
         this.partyDb.findAll({where:{time:{$gte:dateObj}},attributes:['ID','name','time','location','type','poster'],
@@ -405,7 +398,7 @@ var partyclass=Class(object,
     },
 
     getPartyInDistanceAroundPoint:function(point,distance,row,obtainedRows,callback){
-
+        //用于获取在一定半径内的晚会信息
 
         var Ctool = require('../tool/tool.js');
         var tool = new Ctool();
