@@ -17,18 +17,7 @@ require([
 
 
 
-function loginOut(){
 
-    $.post(url,{
-            method:'logout'
-        }
-    );
-    window.location.href='/';
-
-
-
-
-}
 
 var url='/user/';
 function enter(){
