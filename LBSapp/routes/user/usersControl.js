@@ -263,8 +263,28 @@ router.post('/', function(req, res, next) {
                 res.end();
             }
 
+            break;
 
 
+
+
+        case 'vote':
+            var user=New(require('./user.class.js'),[req.session.userID]);
+
+            var CVMS=require('../VMS/VMS.js');
+
+            var VMS=new CVMS();
+            if(VMS.isLogin(req.session)) {
+                //用户已经登录
+                user.getListofRow(1,'votes',function(status){
+
+
+                })
+
+
+            }else{
+
+            }
 
             break;
 

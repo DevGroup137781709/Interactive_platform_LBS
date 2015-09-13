@@ -1,6 +1,68 @@
-extends layout
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!--<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">-->
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
+  <meta name="apple-mobile-web-app-capable" content="yes"/>
 
-block content
-  h1= message
-  h2= error.status
-  pre #{error.stack}
+  <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','PageIndicator']" ></script>
+  <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
+  <link rel="stylesheet" type="text/css" href="/stylesheets/error/dandelion.css"  media="screen" />
+
+  <script type="text/javascript">
+    require([
+      "dojo/_base/connect",
+      "dojo/dom",
+      "dojo/ready",
+      "dojox/mobile/parser",
+      "dojox/mobile",
+      "dojox/mobile/compat",
+      "dojox/mobile/ComboBox",
+      "dojox/mobile/ScrollableView",
+      "dojox/mobile/IconContainer",
+      "dojox/mobile/pageTurningUtils",
+      "dojox/mobile/TabBar",
+      "dojox/mobile/SwapView",
+      "dojox/mobile/PageIndicator",
+
+    ]);
+    deviceTheme.loadDeviceTheme('Custom');
+  </script>
+</head>
+<body>
+<h1 id="topHead" data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>你确定你来对地方了么？</h1>
+  <div  data-dojo-type="dojox.mobile.ScrollableView">
+    <div id="da-wrapper" class="fluid">
+
+      <!-- Content -->
+      <div id="da-content">
+
+        <!-- Container -->
+        <div class="da-container clearfix">
+
+          <div id="da-error-wrapper">
+
+            <div id="da-error-pin"></div>
+            <div id="da-error-code">
+              error <span>404</span>                    </div>
+
+            <h1 class="da-error-heading">哎哟喂！页面让狗狗叼走了！</h1>
+            <p>大家可以到狗狗没有叼过的地方看看！ </p>
+           <div style="font-size: 40px"><center><a style="color: #0000f6" href="/"> 返回首页 </a></center></div>
+
+
+
+          </div>
+        </div>
+      </div>
+
+
+
+    </div>
+
+
+
+  </div>
+</body>
+</html>

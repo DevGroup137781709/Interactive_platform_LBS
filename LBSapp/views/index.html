@@ -25,7 +25,7 @@
 			"dojox/mobile/TabBar",
 			"dojox/mobile/SwapView",
 			"dojox/mobile/PageIndicator",
-
+			"dojox/mobile/ScrollablePane"
 		]);
 
 
@@ -78,6 +78,7 @@
 <h1 id="topHead" data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>主页</h1>
 <div id="home" data-dojo-type="dojox.mobile.ScrollableView">
 
+
 	<% for(var i=1;i<=party.length;i++){ %>
 
 		<div data-dojo-type="dojox.mobile.SwapView"  data-dojo-props='variableHeight:true' >
@@ -90,22 +91,14 @@
 				<div>地点:<%= party[i-1].location %></div>
 				<div>类型:<%= party[i-1].type %></div>
 			</div>
-
 		</div>
-
-
 
 	<% } %>
 
 
-
-
-
-
-
 </div>
 <ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='fixed:"bottom"' style="border-bottom:none;">
-	<li  data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"/javascripts/dojox/mobile/tests/images/i-icon-3.png", icon2:"/javascripts/dojox/mobile/tests/images/i-icon-1.png",selected:true, moveTo:"home" ' onclick="	document.getElementById('topHead').innerHTML='主页'">主页</li>
+	<li  data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"/javascripts/dojox/mobile/tests/images/i-icon-3.png", icon2:"/javascripts/dojox/mobile/tests/images/i-icon-1.png",selected:true, moveTo:"home" ' onclick="document.getElementById('topHead').innerHTML='主页'">主页</li>
 	<li id="partyList_page" data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"/javascripts/dojox/mobile/tests/images/i-icon-3.png", icon2:"/javascripts/dojox/mobile/tests/images/i-icon-1.png",url:"party/list/1" ' onclick="loadJS('/javascripts/partyList.js')">晚会信息</li>
 	<!--<li id="login_page" data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"/images/users/userbtm.png", icon2:"/images/users/userbtm.png",url:"login"' onclick="loadJS('/javascripts/login.js');">个人信息</li>-->
 <script>

@@ -16,6 +16,7 @@ var login =require('./routes/login');
 var uesrsControl =require('./routes/user/usersControl');
 var partyControl =require('./routes/party/partyControl');
 var map =require('./routes/map');
+var test =require('./routes/test');
 //Â·ÓÉÅäÖÃ
 var app = express();
 var ejs = require('ejs');
@@ -39,6 +40,7 @@ app.use('/login', login);
 app.use('/user/', uesrsControl);
 app.use('/party/', partyControl);
 app.use('/map', map);
+app.use('/test', test);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

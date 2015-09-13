@@ -440,6 +440,23 @@ var userclass = Class(object,
             });
 
 
+        },
+
+        getListofRow:function(userID,row,callback){
+            var _result=[];
+            this.userData.findOne({where:{ID:userID},attributes:[row]}).then(function(result){
+                if(result==null||result==''){
+                    callback(_result);
+                }else{
+                    result=result.dataValues;
+                    console.log(result['votes']);
+                }
+
+            }).catch(function(err){
+               console.error(err);
+                callback(_result);
+            });
+
         }
 
 

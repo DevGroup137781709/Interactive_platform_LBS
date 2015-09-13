@@ -17,6 +17,7 @@ var user = sequelize.define('user_basedata', {
     host_holdingpartys : {type : Sequelize.TEXT, allowNull : true},
     host_holdedpartys : {type : Sequelize.TEXT, allowNull : true},
     user_takenpartys : {type : Sequelize.TEXT, allowNull : true},
+    votes:{type : Sequelize.TEXT, allowNull : true},
     registerTime : {type : Sequelize.DATE, defaultValue : Sequelize.NOW}
 
 },{ timestamps: false,freezeTableName: true});
