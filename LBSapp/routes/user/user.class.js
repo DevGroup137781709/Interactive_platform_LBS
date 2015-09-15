@@ -448,8 +448,9 @@ var userclass = Class(object,
                 if(result==null||result==''){
                     callback(_result);
                 }else{
-                    result=result.dataValues;
-                    console.log(result['votes']);
+                    JSON.parse
+                    _result=JSON.parse(result.dataValues[row]);
+                    callback(_result);
                 }
 
             }).catch(function(err){
@@ -457,7 +458,66 @@ var userclass = Class(object,
                 callback(_result);
             });
 
+        },
+
+
+        voteForParty:function(partyID,userID,staues,callback){
+            var _DB = this.userData;
+
+            if(staues==0){
+                //取消投票
+
+            }else if(staues==1){
+                //投票
+                this.getListofRow(userID,"votes",function(result){
+                    var hasVoted=false;
+                    result.forEach(function(data){
+                        if(data==partyID){
+                            //已经投票过了
+                            hasVoted=true;
+                            callback(0);
+                            return;
+                        }
+                    })
+
+                    if(!hasVoted){
+                        //没投票
+                        result.push(partyID);
+                        _DB.update({votes:JSON.stringify(result)}, {where: {ID: userID}}).then(function (affectedRows) {
+
+                            var flag=0;
+                            if(affectedRows){
+
+                                var party=New(require("../party/party.class.js"),[]);
+                                party.vote(partyID,function(){
+
+
+                                });
+                                flag=1;
+                            }
+                            callback(flag);
+                        }).catch(function (err) {
+                            //未知错误
+                            console.error("voteForParty出错");
+                            callback(2);
+                        });
+
+                    }
+
+
+
+                });
+
+
+
+            }
+
+
         }
+
+
+
+        
 
 
     });

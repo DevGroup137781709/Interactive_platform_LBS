@@ -438,8 +438,44 @@ var partyclass=Class(object,
 
 
 
-    }
+    },
 
+    vote:function(partyID,callback){
+
+        var _Db=this.partyDb;
+        this.partyDb.findOne({where:{ID:partyID},attributes:['ID','votes']})
+            .then(function(result){
+                if(result){
+                    _Db.update({votes:++result.dataValues.votes},{where:{ID:result.dataValues.ID}})
+                        .then(function(affectedRows){
+
+                            if(affectedRows){
+
+                                callback(1);
+
+                            }else{
+
+                                callback(0);
+                            }
+
+
+                        })
+
+                }else{
+                    console.error("vote函数错误");
+                    callback(0);
+
+                }
+
+
+
+            }).catch(function(err){
+
+
+        })
+
+
+    }
 }
 
 );

@@ -15,6 +15,7 @@ var party = sequelize.define('party', {
     publisher:{type:Sequelize.CHAR(50),allowNull:false},
     show_actors:{type:Sequelize.TEXT,allowNull:true},
     hostname:{type:Sequelize.CHAR(100),allowNull:false},
+    votes:{type:Sequelize.INTEGER,allowNull:false,defaultValue:0},
     poster:{type:Sequelize.TEXT,allowNull:true},
     detail:{type:Sequelize.TEXT,allowNull:true}
 

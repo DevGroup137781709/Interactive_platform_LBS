@@ -8,7 +8,7 @@
 *
 * AJAX传入json格式如下：
 *        ｛
-*         method:'register','login','getUserInfo','logout','changePassword','takePartIn',                   //如果是登录的话,只需要传一个name或者email,如果两者都有,则默认用户名优先邮箱
+*         method:'register','login','getUserInfo','logout','changePassword','takePartIn', 'vote'                  //如果是登录的话,只需要传一个name或者email,如果两者都有,则默认用户名优先邮箱
 *         userInfo{
 *                   userType: 0策划者 1观众 默认1
 *                   name:
@@ -22,6 +22,10 @@
 *         takePartIn:{
 *                       partyID:
 *         }
+*         vote:{
+*               partyID:
+*         }
+*
 *
 *
 * 传出json格式
@@ -48,11 +52,6 @@
 *                               state:0 修改失败 1成功
 *
 *                           }
-*
-*
-*
-*
-*
 *
 *        }
 *
@@ -270,16 +269,27 @@ router.post('/', function(req, res, next) {
 
         case 'vote':
             var user=New(require('./user.class.js'),[req.session.userID]);
+            reqjson.vote.partyID=parseInt(reqjson.vote.partyID);
 
             var CVMS=require('../VMS/VMS.js');
 
             var VMS=new CVMS();
             if(VMS.isLogin(req.session)) {
                 //用户已经登录
-                user.getListofRow(1,'votes',function(status){
 
+                user.voteForParty(reqjson.vote.partyID,req.session.userID,1,function(stutes){
+                    if(stutes==1){
+                        resjson.vote={};
+                        resjson.vote.stutes=1;
+                    }else{
+                        resjson.vote={};
+                        resjson.vote.stutes=0;
+                    }
 
-                })
+                    res.json(resjson);
+                    res.end();
+
+                });
 
 
             }else{
