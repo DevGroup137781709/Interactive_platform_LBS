@@ -112,6 +112,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.post('/', function(req, res, next) {
+
     var reqjson;//取回来的数据
     reqjson=req.body;
 
@@ -125,7 +126,6 @@ router.post('/', function(req, res, next) {
             /*
              * 注册  此处可做个优化,有空再说, 用findOrCreate函数
              * */
-
 
 
             var user=New(require('./user.class.js'),[reqjson]);
@@ -214,8 +214,9 @@ router.post('/', function(req, res, next) {
             /*
             * 退出登录
             * */
-
+            console.log('111');
             req.session.destroy();//销毁session
+            console.log('2222');
             res.end();
             break;
         case 'changePassword':

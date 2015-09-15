@@ -6,9 +6,11 @@ function loginOut(){
 
     $.post('/user/',{
             method:'logout'
+        },function(data,status){
+            window.location.href='/';
         }
     );
-    window.location.href='/';
+
 
 
 
