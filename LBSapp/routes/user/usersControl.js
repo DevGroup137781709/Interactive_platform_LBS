@@ -269,7 +269,7 @@ router.post('/', function(req, res, next) {
 
 
         case 'vote':
-            var user=New(require('./user.class.js'),[req.session.userID]);
+
             reqjson.vote.partyID=parseInt(reqjson.vote.partyID);
 
             var CVMS=require('../VMS/VMS.js');
@@ -277,8 +277,9 @@ router.post('/', function(req, res, next) {
             var VMS=new CVMS();
             if(VMS.isLogin(req.session)) {
                 //用户已经登录
-
+                var user=New(require('./user.class.js'),[req.session.userID]);
                 user.voteForParty(reqjson.vote.partyID,req.session.userID,1,function(stutes){
+
                     if(stutes==1){
                         resjson.vote={};
                         resjson.vote.stutes=1;
@@ -294,6 +295,13 @@ router.post('/', function(req, res, next) {
 
 
             }else{
+
+                console.log('111111111111111111111111111111111111111111111111111111111');
+                resjson.vote={};
+                resjson.vote.stutes=-1;
+                res.json(resjson);
+                res.end();
+
 
             }
 

@@ -184,6 +184,8 @@ router.post('/*', function(req, res, next) {
 
 
 
+
+
     /*
      * 处理上传海报,返回服务器海报储存地址,到时候前台一起返回给后台储存
      *
@@ -193,11 +195,6 @@ router.post('/*', function(req, res, next) {
     var reqJson=req.body;
     var resJson={};
     var session=req.session;
-
-
-
-
-
 
 
 
@@ -504,7 +501,7 @@ router.get('/:type/:ID', function(req, res, next) {
             two: function (callback_2) {
 
 
-                party.getInfoByID(req.params.ID,['name','time','location','location_lo_la','type','publisher','show_actors','hostname','poster','detail'],function(result){
+                party.getInfoByID(req.params.ID,['name','time','location','location_lo_la','type','publisher','show_actors','hostname','poster','detail','votes'],function(result){
 
                     if(req.session.userID!=undefined){
                         //已经登录
@@ -534,9 +531,12 @@ router.get('/:type/:ID', function(req, res, next) {
                                 }
 
 
+
+
                                 res.render('partyInfo',{
                                     partyName:result.name,
                                     partyID:req.params.ID,
+                                    votes:result.votes,
                                     partyTime:result.time,
                                     partyLocation:result.location,
                                     partyLocation_lo_la:result.location_lo_la,
@@ -568,6 +568,7 @@ router.get('/:type/:ID', function(req, res, next) {
                             partyName:result.name,
                             partyID:req.params.ID,
                             partyTime:result.time,
+                            votes:result.votes,
                             partyLocation:result.location,
                             partyLocation_lo_la:result.location_lo_la,
                             partyType:result.type,

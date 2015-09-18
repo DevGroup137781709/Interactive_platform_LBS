@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <link href="/javascripts/dojox/mobile/themes/common/dijit/dijit.css" rel="stylesheet"/>
-    <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','Button','Overlay','Tooltip']" ></script>
+    <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','Button','Overlay','Tooltip','IconContainer']" ></script>
     <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
     <script src="/javascripts/jquery-2.1.4.js"></script>
     <script type="text/javascript" src="/javascripts/partyInfo.js">
@@ -33,6 +33,10 @@
             height: 100%;
             overflow: hidden;
         }
+
+
+
+
 
     </style>
     <title>LBS</title>
@@ -91,8 +95,6 @@
             <!--<% }else if(isTaken==-1){%>-->
             <!--<a href="../../"><center> <button data-dojo-type="dojox.mobile.Button"  id="btn4" class="mblBlueButton" style="width:90%" >需要先登录才能参加</button></center></a>-->
             <!--<% } %>-->
-
-
 
 
             <center> <button data-dojo-type="dojox/mobile/Button" id="btn2" class="mblRedButton" onclick="takePartIn(<%= partyID %>,0)" style="width:90%;display:none">放弃参加</button></center>
@@ -160,12 +162,22 @@
     </ul>
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">详情</h2>
     <div data-dojo-type="dojox.mobile.RoundRect">
-      <div class="info">  <%= detail %></div>
+        <div class="info">  <%= detail %></div>
 
         <br>
         <div class="edit" style="display:none"> <center><textarea id="new_detail" data-dojo-type="dojox.mobile.TextArea" rows="20" cols="30" style="width:90%"  ><%= detail %></textarea> </center> </div>
 
     </div>
+
+    <h2 data-dojo-type="dojox.mobile.RoundRectCategory">投票区</h2>
+    <div data-dojo-type="dojox.mobile.RoundRect">
+    <center>
+        <input name="vote" id="vote" type="image" onclick="vote()" src="/javascripts/dojox/mobile/tests/images/tab-icon-21.png" /><div id="vote_num">当前票数:<%= votes %></div>
+
+    </center>
+    </div>
+
+
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">吐槽区</h2>
 
 

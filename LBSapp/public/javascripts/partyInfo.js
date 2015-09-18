@@ -15,7 +15,9 @@ require([
     "dijit/ColorPalette",
     "dojox/mobile/ToolBarButton",
     "dojo/request/xhr",
-    "dijit/_base/manager"
+    "dijit/_base/manager",
+
+    "dojox/mobile/IconContainer",
 
 
 ]);
@@ -26,6 +28,36 @@ function updateComments(){
 
 }
 
+
+function vote(){
+    var partyID=document.getElementById("party").innerHTML;
+    $.post('/user/',{
+        method: 'vote',
+        vote: {
+            partyID:partyID
+        }
+    },function(data,states){
+        //do something
+
+
+        if(data.vote.stutes==-1){
+            alert("未登录")
+            return ;
+
+        }
+
+        if(states=='success'){
+            document.getElementById("vote").src="/javascripts/dojox/mobile/tests/images/tab-icon-21h.png";
+            document.getElementById("vote").onclick="";
+        }
+
+
+
+
+    });
+
+
+}
 
 
 

@@ -475,6 +475,22 @@ var partyclass=Class(object,
         })
 
 
+    },
+
+    getVote:function(partyID,callback){
+        this.partyDb.findOne({where:{ID:partyID},attributes:['votes']})
+            .then(function(result){
+                if(result.dataValues.votes==null||result.dataValues.votes==''||result.dataValues.votes==[]){
+                    result.dataValues.votes=0;
+                }
+                callback(result.dataValues.votes);
+
+        }).catch(function(err){
+            console.error(err);
+            callback(-1);
+
+        });
+
     }
 }
 
