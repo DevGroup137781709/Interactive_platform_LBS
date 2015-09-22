@@ -21,9 +21,7 @@ require([
     "dojo/request/xhr",
     "dijit/_base/manager"
 
-
 ],function(parser,moblie,ready,ListItem,registry,dom){
-
 
 ready(function(){
 
@@ -51,12 +49,7 @@ ready(function(){
         var item=new ListItem({
             innerHTML:' <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true"> </center>'
         });
-
         ListStore.addChild(item);
-
-
-
-
     }
 
 

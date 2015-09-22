@@ -127,15 +127,18 @@ router.post('/', function(req, res, next) {
              * 注册  此处可做个优化,有空再说, 用findOrCreate函数
              * */
 
+            console.log(reqjson);
+
 
             var user=New(require('./user.class.js'),[reqjson]);
+
             resjson.registerRes={};
             user.checkNameAndEmailIsAble(function(flat){
 
                 if(flat==2) {
                     //不冲突,开始注册
-
                     user.addUser(function (state) {
+
                         if (state == 1) {
                             //成功
                             flat=2;
@@ -146,11 +149,20 @@ router.post('/', function(req, res, next) {
 
                         }
 
+
+
                         resjson.registerRes.state=flat;
                         res.json(resjson);
                         res.end();
 
                     });
+                }else{
+
+                    resjson.registerRes.state=flat;
+                    res.json(resjson);
+                    res.end();
+
+
                 }
 
 

@@ -549,7 +549,6 @@ router.get('/:type/:ID', function(req, res, next) {
                                     shows:result.show_actors,
                                     comments:comment,
                                     posterURL:result.poster
-
                                 });
 
                                 callback_2();

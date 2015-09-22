@@ -46,18 +46,15 @@ function reg(){
                             email:$('#email').val()}}
                     ,function(data,status){
                         //do something
-                        if($(data.registerRes.state)==0)
-                            $('#regsug').text("?注册失败,用户名重复");
-                        if($(data.registerRes.state)==1)
+
+                        if(data.registerRes.state==0)
+                            $('#regsug').text("注册失败,用户名重复");
+                        if(data.registerRes.state==1)
                             $('#regsug').text("注册失败,邮箱已被使用");
-                        if($(data.registerRes.state)==2)
+                        if(data.registerRes.state==2)
                         //
-                            if($(data.registerRes.state)==3)
+                            if(data.registerRes.state==3)
                                 $('#regsug').text("注册失败,内部错误");
-
-
-
-
 
                     })
             }
