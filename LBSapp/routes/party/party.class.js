@@ -183,7 +183,7 @@ var partyclass=Class(object,
         //通过ID获取晚会信息
         this.partyDb.findOne({where: {ID:partyID}, attributes: needed}).then(function (result) {
 
-         //   console.log(result);
+
 
             if(result.dataValues.show_actors!=undefined){
                 result.dataValues.show_actors = JSON.parse(result.dataValues.show_actors);
@@ -192,6 +192,20 @@ var partyclass=Class(object,
             if( result.dataValues.hostname!=undefined){
                 result.dataValues.hostname = JSON.parse(result.dataValues.hostname);
             }
+
+
+            var Ctool = require('../tool/tool.js');
+            var tool = new Ctool();
+            var i;
+            if(i=0,i<needed.length,i++){
+                if(needed[i]=='time'){
+                    result.dataValues.time=tool.SimpleDateFormat(result.dataValues.time);
+                }
+
+            }
+
+
+
 
             callback(result.dataValues);
 
@@ -378,9 +392,11 @@ var partyclass=Class(object,
         this.partyDb.findAll({where:{time:{$gte:dateObj}},attributes:['ID','name','time','location','type','poster'],
                order:[['createdAt', 'DESC']], limit:row}).then(function(results){
             var arr = [];
-
+            var Ctool = require('../tool/tool.js');
+            var tool = new Ctool();
             results.forEach(function (data) {
 
+                data.dataValues.time=tool.SimpleDateFormat(data.dataValues.time);
                 arr.push(data.dataValues);
             })
 
@@ -404,23 +420,31 @@ var partyclass=Class(object,
         var tool = new Ctool();
 
 
-        this.partyDb.findAll({where:{},attributes:['ID','name','time','location','location_lo_la','type','poster'],
-           limit:row,oder:[['updatedAt','ASC']]}).then(function(results){
+        this.partyDb.findAll({where:{},
+           limit:row,order:[['updatedAt','DESC']]}).then(function(results){
+
+
+
             var arr = [];
 
             results.forEach(function (data) {
+                console.log(data.dataValues);
 
                 var lng=data.dataValues.location_lo_la.split(',')[0];
                 var lat=data.dataValues.location_lo_la.split(',')[1];
                 var point2={};
                 point2.lng=lng;
                 point2.lat=lat;
+
                 if(tool.getDistance(point,point2)<distance){
+                    data.dataValues
+
                     arr.push(data.dataValues);
                 }
 
 
             });
+
 
             for(var i = 0;i<obtainedRows;i++){
 

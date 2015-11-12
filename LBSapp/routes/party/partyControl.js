@@ -186,6 +186,10 @@ router.post('/*', function(req, res, next) {
 
 
 
+
+
+
+
     /*
      * 处理上传海报,返回服务器海报储存地址,到时候前台一起返回给后台储存
      *
@@ -416,14 +420,18 @@ router.post('/*', function(req, res, next) {
             //获取评论,弹幕
             resJson.commentRes={};
             var party=New(require('./party.class.js'),[]);
-            var result=  party.getCommentInfo(reqJson.commentDetail.partyID,reqJson.commentDetail.type,reqJson.commentDetail.obtainedRows,reqJson.commentDetail.row);
-                    console.log(result);
-                    resJson.commentRes=result;
-                    res.json(resJson);
-                    res.end();
-                    if(reqJson.commentDetail.type==1){
-                        party.updateDanmu(result);
-                    }
+            party.getCommentInfo(reqJson.commentDetail.partyID,reqJson.commentDetail.type,reqJson.commentDetail.obtainedRows,reqJson.commentDetail.row,function(result){
+
+                resJson.commentRes=result;
+                res.json(resJson);
+                res.end();
+                console.log(resJson);
+                if(reqJson.commentDetail.type==1){
+                    party.updateDanmu(result);
+                }
+
+            });
+
 
             break;
 
@@ -431,10 +439,6 @@ router.post('/*', function(req, res, next) {
 
 
         case 'getNearbyParty':
-
-
-
-
 
 
             var party=New(require('./party.class.js'),[]);
@@ -449,6 +453,12 @@ router.post('/*', function(req, res, next) {
 
 
 
+            break;
+
+
+        default :
+            res.send("err");
+            res.end();
             break;
 
 

@@ -25,7 +25,8 @@
 			"dojox/mobile/TabBar",
 			"dojox/mobile/SwapView",
 			"dojox/mobile/PageIndicator",
-			"dojox/mobile/ScrollablePane"
+			"dojox/mobile/ScrollablePane",
+				"dojox/mobile/ToolBarButton"
 		]);
 
 
@@ -71,19 +72,24 @@
 		.test{
 			height: 40%;
 		}
+
+
 	</style>
 	<title>LBS</title>
 </head>
 <body>
-<h1 id="topHead" data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>主页</h1>
+<div id="topHead" data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'><div><div style="float:left;margin-top: 5px">&nbsp;&nbsp;&nbsp;<img height="30dp" width="30dp" src="/images/LOGO.png"></div>主页</div>
+
+</div>
 <div id="home" data-dojo-type="dojox.mobile.ScrollableView">
 
 
 	<% for(var i=1;i<=party.length;i++){ %>
 
 		<div data-dojo-type="dojox.mobile.SwapView"  data-dojo-props='variableHeight:true' >
-			<div class="test" data-dojo-type="dojox.mobile.ListItem" onclick="loadJS('/javascripts/partyInfo.js')" href="party/info/<%= party[i-1].ID%>">
+			<div  class="test" data-dojo-type="dojox.mobile.ListItem" onclick="loadJS('/javascripts/partyInfo.js')" href="party/info/<%= party[i-1].ID%>">
 				<img class="party" alt="404 NOT Found" src="<%= party[i-1].poster %>">
+
 			</div>
 			<div data-dojo-type="dojox.mobile.RoundRect">
 				<div><%= party[i-1].name %></div>
@@ -91,6 +97,7 @@
 				<div>地点:<%= party[i-1].location %></div>
 				<div>类型:<%= party[i-1].type %></div>
 			</div>
+
 		</div>
 
 	<% } %>

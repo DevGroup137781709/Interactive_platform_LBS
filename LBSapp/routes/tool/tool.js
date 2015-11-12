@@ -16,7 +16,7 @@ tool.prototype.uploadPoster=function(){
 tool.prototype.dealPoster=function(ID,type,address,callback){
    var fs=require('fs');
     var readStream=fs.createReadStream(address);
-    fs.mkdirSync(__dirname+'/../../public/images/'+type+'/'+ID);//ÌáÇ°ÐÂ½¨ÎÄ¼þ¼Ð,·ñÔò±¨´í
+    fs.mkdirSync(__dirname+'/../../public/images/'+type+'/'+ID);//ï¿½ï¿½Ç°ï¿½Â½ï¿½ï¿½Ä¼ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ò±¨´ï¿½
     var writeStream=fs.createWriteStream(__dirname+'/../../public/images/parties/'+ID+'/poster.jpg');
     readStream.pipe(writeStream);
     readStream.on('end',function(){
@@ -66,7 +66,21 @@ tool.prototype.getDistance=function(point1,point2){
 
 
 
-}
+},
+
+
+    tool.prototype.SimpleDateFormat=function(date){
+
+        var format="";
+        format+=date.getUTCFullYear()+"å¹´"
+        format+=(date.getMonth()+1)+"æœˆ"
+        format+=date.getDate()+"æ—¥"
+        format+=date.getHours()+":"
+        format+=date.getMinutes()+":"
+        format+=date.getSeconds()
+        return format;
+
+    }
 
 
 

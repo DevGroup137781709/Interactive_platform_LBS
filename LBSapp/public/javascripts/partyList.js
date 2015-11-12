@@ -1,4 +1,4 @@
-document.getElementById('topHead').innerHTML="附近晚会";
+document.getElementById('topHead').innerHTML='<div><div style="float:left;margin-top: 5px">&nbsp;&nbsp;&nbsp;<img height="30dp" width="30dp" src="/images/LOGO.png"></div>附近晚会</div>';
 var position={lat:0,lng:0};
 
 require([
@@ -118,7 +118,6 @@ require([
                 }
             },{enableHighAccuracy: true})
 
-
         }
 
 
@@ -136,10 +135,6 @@ var party_list_isSend=false;
                }
                 party_list_isSend=true;
             }
-
-
-
-
 
                 dateObj = new Date();
                 $.post('/party/',{

@@ -1,4 +1,4 @@
-document.getElementById('topHead').innerHTML="登录";
+document.getElementById('topHead').innerHTML='<div><div style="float:left;margin-top: 5px">&nbsp;&nbsp;&nbsp;<img height="30dp" width="30dp" src="/images/LOGO.png"></div>登录</div>';
 require([
     "dojo/dom",
     "dojox/mobile/parser",
