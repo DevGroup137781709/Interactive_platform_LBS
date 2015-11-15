@@ -136,7 +136,7 @@
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory" data-dojo-props='variableHeight:true'>节目表</h2>
     <ul data-dojo-type="dojox.mobile.RoundRectList">
 
-        <% if(shows.length==0){ %>
+        <% if(shows==null||shows.length==0){ %>
         <%# 表示暂无节目表 #%>
             <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
                 暂无节目表
@@ -157,8 +157,9 @@
                 </li>
 
         <% } %>
-
         <% } %>
+
+
     </ul>
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">详情</h2>
     <div data-dojo-type="dojox.mobile.RoundRect">

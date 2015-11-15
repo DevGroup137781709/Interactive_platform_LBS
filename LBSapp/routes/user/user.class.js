@@ -401,10 +401,12 @@ var userclass = Class(object,
             var _ID=this.ID;
             var _userDB=this.userData;
             this.userData.findOne({where: {ID:_ID}}).then(function (result) {
-
+                console.log(result);
 
                 if(result.dataValues.host_holdingpartys!=undefined){
                     result.dataValues.host_holdingpartys = JSON.parse(result.dataValues.host_holdingpartys);
+                }else if((result.dataValues.host_holdingpartys==undefined)||(result.dataValues.host_holdingpartys=='')){
+                    result.dataValues.host_holdingpartys =[];
                 }
 
                 result.dataValues.host_holdingpartys.push(partyID);

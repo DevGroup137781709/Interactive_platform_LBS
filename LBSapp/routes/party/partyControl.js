@@ -226,14 +226,33 @@ router.post('/*', function(req, res, next) {
 
                 form.parse(req, function (err, fields, files) {
 
-                    console.log(files);
+
                     if (err) {
                         res.clearCookie('posterPath');
                         res.end(0);
                     }
+                    if(files.uploadedfile!=undefined) {
 
-                    res.cookie('posterPath', {path: files.uploadedfile.path});
-                    res.end('1');
+                        if (files.uploadedfile.type != 'image/png' && files.uploadedfile.type != 'image/jpg' && files.uploadedfile.type != 'image/jpeg') {
+                            //格式不对就删除上传文件
+                            var fs = require('fs');
+                            fs.unlink(files.uploadedfile.path);
+                        } else {
+
+
+
+
+                                res.cookie('posterPath', {path: files.uploadedfile.path});
+                                res.end('1');
+
+
+                        }
+                    }
+
+
+
+
+
                 });
 
 
@@ -289,8 +308,6 @@ router.post('/*', function(req, res, next) {
 
 
                 party.addParty(reqJson.addPartyInfo,req.session.userName,req.session.userID, function (state) {
-
-
 
 
                     resJson.addPartyRes={};
@@ -471,6 +488,9 @@ router.post('/*', function(req, res, next) {
 
 router.get('/:type/:ID', function(req, res, next) {
 
+
+
+
     var CVMS=require('../VMS/VMS.js');
     var VMS=new CVMS();
 
@@ -563,6 +583,9 @@ router.get('/:type/:ID', function(req, res, next) {
 
                     }else{
                         //未登录
+
+
+
                         res.render('partyInfo',{
 
                             partyName:result.name,

@@ -323,6 +323,10 @@ router.post('/', function(req, res, next) {
 
 });
 router.get('/:type/:ID', function(req, res, next) {
+
+
+
+
     var ID=req.params.ID;
     if(req.params.ID==0){
         //ID为0自动转换为用户自身ID
@@ -353,11 +357,11 @@ router.get('/:type/:ID', function(req, res, next) {
 
             async.series({
                     one:function(callback_1){
-                        result.userInfo.user_takenpartys=[];//不显示策划者参加的晚会
+
 
                         if(result.userInfo.type==0){
                             //举办方,这里处理下晚会数组
-
+                            result.userInfo.user_takenpartys=[];//不显示策划者参加的晚会
 
                             if((result.userInfo.host_holdedpartys.length==0)&&(result.userInfo.host_holdingpartys.length==0)){
                                 result.userInfo.host_holdingpartys_names = [];

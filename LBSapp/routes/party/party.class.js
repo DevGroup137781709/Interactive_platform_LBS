@@ -430,7 +430,7 @@ var partyclass=Class(object,
             var arr = [];
 
             results.forEach(function (data) {
-                console.log(data.dataValues);
+
 
                 var lng=data.dataValues.location_lo_la.split(',')[0];
                 var lat=data.dataValues.location_lo_la.split(',')[1];

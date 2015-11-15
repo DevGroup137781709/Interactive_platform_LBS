@@ -130,7 +130,7 @@ var party_list_isSend=false;
         function addNewParty(){
             if(party_list_isSend==false){
 
-               for(var i=0;i<100;i++){
+               for(var i=0;i<5000;i++){
 
                }
                 party_list_isSend=true;
