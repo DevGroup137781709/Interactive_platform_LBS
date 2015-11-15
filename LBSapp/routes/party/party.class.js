@@ -183,26 +183,28 @@ var partyclass=Class(object,
         //通过ID获取晚会信息
         this.partyDb.findOne({where: {ID:partyID}, attributes: needed}).then(function (result) {
 
-
-
-            if(result.dataValues.show_actors!=undefined){
-                result.dataValues.show_actors = JSON.parse(result.dataValues.show_actors);
-            }
-
-            if( result.dataValues.hostname!=undefined){
-                result.dataValues.hostname = JSON.parse(result.dataValues.hostname);
-            }
-
-
-            var Ctool = require('../tool/tool.js');
-            var tool = new Ctool();
-            var i;
-            if(i=0,i<needed.length,i++){
-                if(needed[i]=='time'){
-                    result.dataValues.time=tool.SimpleDateFormat(result.dataValues.time);
+            if(result!=null){
+                if(result.dataValues.show_actors!=undefined){
+                    result.dataValues.show_actors = JSON.parse(result.dataValues.show_actors);
                 }
 
+                if( result.dataValues.hostname!=undefined){
+                    result.dataValues.hostname = JSON.parse(result.dataValues.hostname);
+                }
+
+
+                var Ctool = require('../tool/tool.js');
+                var tool = new Ctool();
+                var i;
+
+                for(i=0;i<needed.length;i++){
+                    if(needed[i]=='time'){
+                        result.dataValues.time=tool.SimpleDateFormat(result.dataValues.time);
+                    }
+
+                }
             }
+
 
 
 

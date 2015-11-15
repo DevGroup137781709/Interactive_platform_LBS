@@ -75,9 +75,26 @@ tool.prototype.getDistance=function(point1,point2){
         format+=date.getUTCFullYear()+"年"
         format+=(date.getMonth()+1)+"月"
         format+=date.getDate()+"日"
-        format+=date.getHours()+":"
-        format+=date.getMinutes()+":"
-        format+=date.getSeconds()
+        if(date.getHours()==0){
+            format+="00:"
+        }else{
+            format+=date.getHours()+":"
+        }
+
+        if(date.getMinutes()==0){
+            format+="00:"
+        }else{
+            format+=date.getMinutes()+":"
+        }
+
+        if(date.getSeconds()==0){
+            format+="00"
+        }else{
+            format+=date.getSeconds()
+        }
+
+
+
         return format;
 
     }

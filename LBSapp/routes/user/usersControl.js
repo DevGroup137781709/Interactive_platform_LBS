@@ -368,12 +368,17 @@ router.get('/:type/:ID', function(req, res, next) {
                                 result.userInfo.host_holdingpartys_names = [];
                                 async.each(result.userInfo.host_holdingpartys, function (data, callback) {
                                     party.getInfoByID(data, ['ID', 'name'], function (_res) {
-                                        result.userInfo.host_holdingpartys_names.push(_res.name);
+                                        if(_res!=null){
+                                            result.userInfo.host_holdingpartys_names.push(_res.name);
+                                        }
+
                                         if(result.userInfo.host_holdingpartys_names.length==result.userInfo.host_holdingpartys.length){
                                             result.userInfo.host_holdedpartys_names = [];
                                             async.each(result.userInfo.host_holdedpartys, function (data, callback) {
                                                 party.getInfoByID(data, ['ID', 'name'], function (_res) {
-                                                    result.userInfo.host_holdedpartys_names.push(_res.name);
+                                                    if(_res!=null) {
+                                                        result.userInfo.host_holdedpartys_names.push(_res.name);
+                                                    }
                                                     if(result.userInfo.host_holdedpartys_names.length==result.userInfo.host_holdedpartys.length){
                                                         callback_1();
                                                     }
@@ -392,7 +397,9 @@ router.get('/:type/:ID', function(req, res, next) {
                                 result.userInfo.host_holdedpartys_names = [];
                                 async.each(result.userInfo.host_holdedpartys, function (data, callback) {
                                     party.getInfoByID(data, ['ID', 'name'], function (_res) {
-                                        result.userInfo.host_holdedpartys_names.push(_res.name);
+                                        if(_res!=null) {
+                                            result.userInfo.host_holdedpartys_names.push(_res.name);
+                                        }
                                             if(result.userInfo.host_holdedpartys_names.length==result.userInfo.host_holdedpartys.length){
                                                 callback_1();
                                             }
@@ -403,7 +410,9 @@ router.get('/:type/:ID', function(req, res, next) {
                                 result.userInfo.host_holdingpartys_names = [];
                                 async.each(result.userInfo.host_holdingpartys, function (data, callback) {
                                     party.getInfoByID(data, ['ID', 'name'], function (_res) {
-                                        result.userInfo.host_holdingpartys_names.push(_res.name);
+                                        if(_res!=null) {
+                                            result.userInfo.host_holdingpartys_names.push(_res.name);
+                                        }
                                         if(result.userInfo.host_holdingpartys_names.length==result.userInfo.host_holdingpartys.length){
                                             callback_1();
 
@@ -427,9 +436,9 @@ router.get('/:type/:ID', function(req, res, next) {
                                 async.each(result.userInfo.user_takenpartys, function (data, callback) {
                                     result.userInfo.user_takenpartys_names = [];
                                     party.getInfoByID(data, ['ID', 'name'], function (_res) {
-
-                                        result.userInfo.user_takenpartys_names.push(_res.name);
-
+                                        if(_res!=null) {
+                                            result.userInfo.user_takenpartys_names.push(_res.name);
+                                        }
 
                                         if(result.userInfo.user_takenpartys_names.length==result.userInfo.user_takenpartys.length){
 

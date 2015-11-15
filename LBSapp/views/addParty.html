@@ -104,10 +104,16 @@
 
     <h2 data-dojo-type="dojox.mobile.RoundRectCategory">文件上传</h2>
     <div data-dojo-type="dojox.mobile.RoundRect">
+        <!--<center>-->
+    <!--<input id="loader" type="file" multiple="false" dojoType="dojox.form.Uploader"-->
+           <!--label="选择海报文件(小于1M)" url="/party/uploadposter/"-->
+           <!--/>-->
+        <!--</center>-->
         <center>
-    <input id="loader" type="file" multiple="false" dojoType="dojox.form.Uploader"
-           label="选择海报文件(小于1M)" url="/party/uploadposter"
-           />
+        <form method="post" action="/party/uploadposter" id="myForm" enctype="multipart/form-data" >
+            <input name="uploadedfile" multiple="false" type="file" data-dojo-type="dojox.form.Uploader" label="选择海报文件(小于1M)" id="uploader" />
+            <button  type="submit"  data-dojo-type="dijit.form.Button"  >上传海报</button>
+        </form>
         </center>
     </div>
 

@@ -182,14 +182,6 @@ router.post('/*', function(req, res, next) {
 
 
 
-
-
-
-
-
-
-
-
     /*
      * 处理上传海报,返回服务器海报储存地址,到时候前台一起返回给后台储存
      *
@@ -199,6 +191,8 @@ router.post('/*', function(req, res, next) {
     var reqJson=req.body;
     var resJson={};
     var session=req.session;
+
+
 
 
 
@@ -231,6 +225,8 @@ router.post('/*', function(req, res, next) {
             }else{
 
                 form.parse(req, function (err, fields, files) {
+
+                    console.log(files);
                     if (err) {
                         res.clearCookie('posterPath');
                         res.end(0);
@@ -243,8 +239,7 @@ router.post('/*', function(req, res, next) {
 
             }
 
-
-
+            return;
 
 
         }else{
@@ -518,12 +513,8 @@ router.get('/:type/:ID', function(req, res, next) {
                         var user=New(require('../user/user.class.js'),[req.session.userID]);
                         user.getInfo(function(userResult){
 
-
                             var isTaken=0;
-
-
                             userResult.userInfo.user_takenpartys.forEach(function(each){
-
                                 if(each==req.params.ID){
                                     isTaken=1;
                                 }
