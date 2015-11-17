@@ -127,6 +127,8 @@ function send(){
         },function(data,status){
             //do something
 
+        //    location.reload(true);
+
 
 
         });
@@ -160,7 +162,7 @@ function send(){
 
             //do something
 
-
+            location.reload(true)
         });
 
 

@@ -341,7 +341,7 @@ var userclass = Class(object,
                     }
 
 
-                    _DB.update({user_takenpartys: result.userInfo.user_takenpartys.toString()}, {where: {ID: result.userInfo.ID}}).then(function (affectedRows) {
+                    _DB.update({user_takenpartys: JSON.stringify(result.userInfo.user_takenpartys)}, {where: {ID: result.userInfo.ID}}).then(function (affectedRows) {
                         if (affectedRows == 0) {
 
                             state = 0;
@@ -369,7 +369,7 @@ var userclass = Class(object,
                 this.getInfo(function (result) {
                     result.userInfo.user_takenpartys.push(partyID);
 
-                    _DB.update({user_takenpartys: result.userInfo.user_takenpartys.toString()}, {where: {ID: result.userInfo.ID}}).then(function (affectedRows) {
+                    _DB.update({user_takenpartys: JSON.stringify(result.userInfo.user_takenpartys)}, {where: {ID: result.userInfo.ID}}).then(function (affectedRows) {
                         if (affectedRows == 0) {
 
                             state = 0;

@@ -113,6 +113,8 @@ var router = express.Router();
 /* GET home page. */
 router.post('/', function(req, res, next) {
 
+
+
     var reqjson;//ȡ����������
     reqjson=req.body;
 
