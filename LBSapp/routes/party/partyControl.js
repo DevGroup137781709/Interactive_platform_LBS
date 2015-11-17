@@ -231,18 +231,18 @@ router.post('/*', function(req, res, next) {
                         res.clearCookie('posterPath');
                         res.end(0);
                     }
-                    if(files.uploadedfile!=undefined) {
+                    if(files.file!=undefined) {
 
-                        if (files.uploadedfile.type != 'image/png' && files.uploadedfile.type != 'image/jpg' && files.uploadedfile.type != 'image/jpeg') {
+                        if (files.file.type != 'image/png' && files.file.type != 'image/jpg' && files.file.type != 'image/jpeg') {
                             //格式不对就删除上传文件
                             var fs = require('fs');
-                            fs.unlink(files.uploadedfile.path);
+                            fs.unlink(files.file.path);
                         } else {
 
 
 
 
-                                res.cookie('posterPath', {path: files.uploadedfile.path});
+                                res.cookie('posterPath', {path: files.file.path});
                                 res.end('1');
 
 
@@ -263,6 +263,7 @@ router.post('/*', function(req, res, next) {
 
         }else{
             res.end('0');
+            return;
         }
     }
 
@@ -370,7 +371,7 @@ router.post('/*', function(req, res, next) {
 
                         party.reNew(reqJson.reNewPartyInfo.ID,reqJson.reNewPartyInfo,function(state){
                             resJson.reNewRes=state;
-                            console.log('11')
+
                             res.json(resJson);
                             res.end();
 
@@ -439,7 +440,7 @@ router.post('/*', function(req, res, next) {
                 res.end();
                 console.log(resJson);
                 if(reqJson.commentDetail.type==1){
-                    party.updateDanmu(result);
+                 //   party.updateDanmu(result);
                 }
 
             });

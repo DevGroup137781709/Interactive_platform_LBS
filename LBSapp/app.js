@@ -17,6 +17,7 @@ var uesrsControl =require('./routes/user/usersControl');
 var partyControl =require('./routes/party/partyControl');
 var map =require('./routes/map');
 var test =require('./routes/test');
+var upLoader =require('./routes/upLoader');
 //Â·ÓÉÅäÖÃ
 var app = express();
 var ejs = require('ejs');
@@ -32,7 +33,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: 'qianzise',cookie: { maxAge: 600*1000}}));
+app.use(session({ secret: 'Qianzise',cookie: { maxAge: 300*1000}}));
 app.use('/', routes);
 app.use('/users', users);
 app.use('/register', register);
@@ -41,7 +42,7 @@ app.use('/user/', uesrsControl);
 app.use('/party/', partyControl);
 app.use('/map', map);
 app.use('/test', test);
-
+app.use('/upLoader', upLoader);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

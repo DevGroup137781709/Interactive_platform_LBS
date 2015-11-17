@@ -11,7 +11,7 @@
 <title>注册页面</title>
 <link href="/stylesheets/register/boilerplate.css" rel="stylesheet" type="text/css">
 <link href="/stylesheets/register/register.css" rel="stylesheet" type="text/css">
-	<link href="/javascripts/dist/dropzone.css" rel="stylesheet" type="text/css">
+	<link href="/javascripts/dist/base.css" rel="stylesheet" type="text/css">
 <!--
 To learn more about the conditional comments around the html tags at the top of the file:
 paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/
@@ -40,7 +40,7 @@ Do the following if you're using your customized build of modernizr (http://www.
 <script>
 	var able=false;
 	var url='/user/';//提交注册处理页面
-	
+
 
 
 	function checkname(){
@@ -59,8 +59,8 @@ Do the following if you're using your customized build of modernizr (http://www.
 					})
 
 		}
-		
-		
+
+
 		function login(){
 			$.post(url,{
 						method:'login',
@@ -77,7 +77,7 @@ Do the following if you're using your customized build of modernizr (http://www.
 
 						$('#able').text(data.login.state);
 					})
-		
+
 		}
 
 
@@ -255,14 +255,14 @@ Do the following if you're using your customized build of modernizr (http://www.
 
 
 	}
-		
+
 
 </script>
 
 
 
 <form>
-  
+
   <p>
     <label for="username">用户名:</label>
       <input type="text" id="username"name="username" >
@@ -277,7 +277,7 @@ Do the following if you're using your customized build of modernizr (http://www.
     </p>
     <p>
     	<input type="button" onclick="login();" name="submitLogin" id="submitLogin" value="登录">
-      
+
       <input type="button" onclick="checkname();" name="button" id="button" value="注册">
 		<input type="button" onclick="a();" name="button1" id="getInfo" value="getInfo">
 		<input type="button" onclick="b();" name="button1" id="out" value="out">
@@ -291,7 +291,7 @@ Do the following if you're using your customized build of modernizr (http://www.
     </p>
     <hr>
     <p>&nbsp;</p>
-  
+
 </form>
 
 

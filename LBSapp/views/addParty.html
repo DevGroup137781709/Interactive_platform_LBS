@@ -6,12 +6,14 @@
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','Button']" ></script>
     <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
-    <script src="/javascripts/jquery-2.1.4.js"></script>
+
+
 
     <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2f0fwiWAc4xm8mdCDkXUrFUs"></script>
     <script type="text/javascript" src="/javascripts/addParty.js" >
-
     </script>
+
+    <script src="/javascripts/jquery-2.1.4.js"></script>
 
 
     <style>
@@ -41,7 +43,8 @@
         晚会名称:</br><input id="new_name" data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" selectOnClick="true"></br>
         晚会时间:</br><input id="new_time" data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" selectOnClick="true"></br>
         晚会地点:</br><input id="new_location" data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" selectOnClick="true" value="点击选择地点" onclick="window.open('/map'); "></br>
-            <div id="new_location_detail"></div>
+            <input id="new_location_detail" data-dojo-type="dojox/mobile/TextBox" intermediateChanges="true" selectOnClick="true"></br>
+            <!--<div id="new_location_detail"></div>-->
         </center>
 
     </div>
@@ -72,27 +75,7 @@
             </li>
 
             <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
-                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
-                </center>
-            </li>
-            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
-                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
-                </center>
-            </li>
-            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
-                <center><input data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
-                </center>
-            </li>
-            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
-                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
-                </center>
-            </li>
-            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
-                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
-                </center>
-            </li>
-            <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'name="show" class="showList">
-                <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true">
+                <center><input  data-dojo-type="dojox/mobile/TextBox" width="20%" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" width="20%" class="showActors" intermediateChanges="true" selectOnClick="true">
                 </center>
             </li>
 
@@ -106,15 +89,20 @@
     <div data-dojo-type="dojox.mobile.RoundRect">
         <!--<center>-->
     <!--<input id="loader" type="file" multiple="false" dojoType="dojox.form.Uploader"-->
-           <!--label="选择海报文件(小于1M)" url="/party/uploadposter/"-->
+           <!--label="选择海报文件(小于1M)" url="/party/uploadposter/" -->
            <!--/>-->
         <!--</center>-->
-        <center>
-        <form method="post" action="/party/uploadposter" id="myForm" enctype="multipart/form-data" >
-            <input name="uploadedfile" multiple="false" type="file" data-dojo-type="dojox.form.Uploader" label="选择海报文件(小于1M)" id="uploader" />
-            <button  type="submit"  data-dojo-type="dijit.form.Button"  >上传海报</button>
-        </form>
-        </center>
+
+        <!--<form method="post" action="/party/uploadposter" id="myForm" enctype="multipart/form-data" >-->
+            <!--<input  multiple="false"  data-dojo-type="dojox.form.Uploader" label="海报文件(小于1M)" id="uploader" />-->
+             <!--</br> <input  type="submit" label="Submit"  data-dojo-type="dijit.form.Button"/>-->
+        <!--</form>-->
+        <iframe width="100%" height="40" frameborder="0" src="/uploader/">
+
+            <!--<form id="my-awesome-dropzone" action="/party/uploadposter" class="dropzone"></form>-->
+        </iframe>
+
+
     </div>
 
     <div data-dojo-type="dojox.mobile.RoundRect">

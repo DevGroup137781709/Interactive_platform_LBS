@@ -391,6 +391,7 @@ var partyclass=Class(object,
         //获取最新添加的晚会信息
         var dateObj = new Date();
 
+
         this.partyDb.findAll({where:{time:{$gte:dateObj}},attributes:['ID','name','time','location','type','poster'],
                order:[['createdAt', 'DESC']], limit:row}).then(function(results){
             var arr = [];
@@ -451,6 +452,14 @@ var partyclass=Class(object,
             for(var i = 0;i<obtainedRows;i++){
 
                 arr.pop();
+            }
+
+
+
+
+            for(var j=0;j<arr.length;j++){
+                arr[j].time=tool.SimpleDateFormat(arr[j].time);
+
             }
 
 

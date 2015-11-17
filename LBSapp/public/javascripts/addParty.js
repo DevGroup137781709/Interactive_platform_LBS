@@ -2,6 +2,8 @@
  * Created by qianzise on 2015/8/4.
  */
 
+
+
 require([
     "dojox/mobile/parser",
     "dojox/mobile",
@@ -17,7 +19,7 @@ require([
     "dojox/mobile/Button",
     "dojox/form/Uploader",
     "dojox/embed/Flash",
-    "dojox/form/uploader/plugins/IFrame",
+    //"dojox/form/uploader/plugins/IFrame",
     "dojo/request/xhr",
     "dijit/_base/manager"
 
@@ -47,7 +49,7 @@ ready(function(){
 
     var addShowList=function(){
         var item=new ListItem({
-            innerHTML:' <center><input  data-dojo-type="dojox/mobile/TextBox" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true"> </center>'
+            innerHTML:' <center><input  data-dojo-type="dojox/mobile/TextBox" width="20%" class="showName" intermediateChanges="true" selectOnClick="true">--<input  data-dojo-type="dojox/mobile/TextBox" class="showActors" intermediateChanges="true" selectOnClick="true"> </center>'
         });
         ListStore.addChild(item);
     }
@@ -115,7 +117,7 @@ function send(){
         addPartyInfo : {
             name : dijit.byId("new_name").get('value'),
             time : dijit.byId("new_time").get('value'),
-            location : document.getElementById("new_location_detail").innerHTML,
+            location : dijit.byId("new_location_detail").get('value'),
             location_lo_la: dijit.byId("new_location").get('value'),
             type:dijit.byId("new_type").get('value'),
             show_actors:showObj,
@@ -202,7 +204,8 @@ setInterval(function(){
         arr.push(getCookie('newPartyLng'));
         arr.push(getCookie('newPartyLat'));
         dijit.byId("new_location").set('value',arr);
-        document.getElementById('new_location_detail').innerHTML=getCookie('newLocation');
+        dijit.byId("new_location_detail").set('value',getCookie('newLocation'));
+        //document.getElementById('new_location_detail').innerHTML=getCookie('newLocation');
 
     }
 

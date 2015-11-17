@@ -4,7 +4,7 @@
     <meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
     <meta name="apple-mobile-web-app-capable" content="yes"/>
-    <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar']" ></script>
+    <script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','Button']" ></script>
     <script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true"></script>
     <script src="/javascripts/jquery-2.1.4.js"></script>
     <script type="text/javascript">
@@ -31,16 +31,21 @@
 <body>
 <div id="userinfo" data-dojo-type="dojox.mobile.ScrollableView">
     <!--<h1 data-dojo-type="dojox.mobile.Heading" data-dojo-props='fixed:"top"'>用户信息</h1>-->
-    <div data-dojo-type="dojox.mobile.RoundRect" style="height: 60px">
-        <iframe style="width: 50px;height: 50px;float: left" id="headicon"><img src="https://ss0.bdstatic.com/5aV1bjqh_Q23odCf/static/superplus/img/logo_white_ee663702.png" width="128" height="128" /></iframe><div style="padding:15px">昵称:<br><label><%= userName %></label></div><br>
+    <div data-dojo-type="dojox.mobile.RoundRect" >
+        <table border="0">
+            <tr>
+                <td> <img src="/images/LOGO.png" width="50px" height="50px" border="1" /></td>
+                <td><div style="padding:15px">昵称:<br><label><%= userName %></label></div></td>
+            </tr>
+        </table>
 
     </div>
     <div data-dojo-type="dojox.mobile.RoundRect">
         性别:
         <% if(userSex=='女'){ %>
-        <img src="/images/pic/woman.png" width="45" height="45" />
+        <img src="/images/pic/woman.png" width="24" height="24" />
         <% }else if(userSex=='男'){ %>
-        <img src="/images/pic/man.png" width="45" height="45" />
+        <img src="/images/pic/man.png" width="24" height="24" />
         <% } %>
         <br>
 
@@ -59,12 +64,11 @@
         <% } %>
 
         <br>
-
+</div>
+    <div data-dojo-type="dojox.mobile.RoundRect">
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='url:"party/add/1"'  id="addParty_page" onclick="loadJS('/javascripts/addParty.js')">
             新建晚会
         </li>
-
-
     </div>
 
     <div data-dojo-type="dojox.mobile.RoundRect">
@@ -97,9 +101,6 @@
 
 
     <div data-dojo-type="dojox.mobile.RoundRect">
-        其他<br>
-
-
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='url:"/"' onclick="loadJS('/javascripts/userInfo.js');loginOut()">
             退出登录
         </li>

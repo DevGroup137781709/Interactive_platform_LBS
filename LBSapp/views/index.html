@@ -5,8 +5,8 @@
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8"/>
 	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no"/>
 	<meta name="apple-mobile-web-app-capable" content="yes"/>
-
-	<script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','PageIndicator']" ></script>
+	<link href="/javascripts/dist/dropzone.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="/javascripts/dojox/mobile/deviceTheme.js" data-dojo-config="mblThemeFiles: ['base','TabBar','PageIndicator','Button']" ></script>
 	<script type="text/javascript" src="/javascripts/dojo/dojo.js" data-dojo-config="async: true, parseOnLoad: true, mblAlwaysHideAddressBar: true"></script>
 	<script src="/javascripts/jquery-2.1.4.js"></script>
 	<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=2f0fwiWAc4xm8mdCDkXUrFUs"></script>
@@ -15,6 +15,7 @@
 			"dojo/_base/connect",
 			"dojo/dom",
 			"dojo/ready",
+			"dojox/mobile/Button",
 			"dojox/mobile/parser",
 			"dojox/mobile",
 			"dojox/mobile/compat",
@@ -105,11 +106,11 @@
 
 </div>
 <ul data-dojo-type="dojox.mobile.TabBar" data-dojo-props='fixed:"bottom"' style="border-bottom:none;">
-	<li  data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"/javascripts/dojox/mobile/tests/images/i-icon-3.png", icon2:"/javascripts/dojox/mobile/tests/images/i-icon-1.png",selected:true, moveTo:"home" ' onclick="document.getElementById('topHead').innerHTML='<div><div style=&quot;float:left;margin-top: 5px&quot;>&nbsp;&nbsp;&nbsp;<img height=&quot;30dp&quot; width=&quot;30dp&quot; src=&quot;/images/LOGO.png&quot;></div>登录</div>'">主页</li>
-	<li id="partyList_page" data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"/javascripts/dojox/mobile/tests/images/i-icon-3.png", icon2:"/javascripts/dojox/mobile/tests/images/i-icon-1.png",url:"party/list/1" ' onclick="loadJS('/javascripts/partyList.js')">晚会信息</li>
+	<li  data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"/javascripts/dojox/mobile/tests/images/tab-icon-33.png", icon2:"/javascripts/dojox/mobile/tests/images/tab-icon-33h.png",selected:true, moveTo:"home" ' onclick="document.getElementById('topHead').innerHTML='<div><div style=&quot;float:left;margin-top: 5px&quot;>&nbsp;&nbsp;&nbsp;<img height=&quot;30dp&quot; width=&quot;30dp&quot; src=&quot;/images/LOGO.png&quot;></div>主页</div>'">主页</li>
+	<li id="partyList_page" data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"/javascripts/dojox/mobile/tests/images/tab-icon-15.png", icon2:"/javascripts/dojox/mobile/tests/images/tab-icon-15h.png",url:"party/list/1" ' onclick="loadJS('/javascripts/partyList.js')">晚会信息</li>
 	<!--<li id="login_page" data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props='icon1:"/images/users/userbtm.png", icon2:"/images/users/userbtm.png",url:"login"' onclick="loadJS('/javascripts/login.js');">个人信息</li>-->
 <script>
-	var text='<li id="login_page" data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props=\'icon1:"/javascripts/dojox/mobile/tests/images/i-icon-3.png", icon2:"/javascripts/dojox/mobile/tests/images/i-icon-1.png",url:"login/'+Math.random()+'"\' onclick="loadJS(\'/javascripts/login.js\');">个人信息</li>'
+	var text='<li id="login_page" data-dojo-type="dojox.mobile.TabBarButton" data-dojo-props=\'icon1:"/javascripts/dojox/mobile/tests/images/tab-icon-29.png", icon2:"/javascripts/dojox/mobile/tests/images/tab-icon-29h.png",url:"login/'+Math.random()+'"\' onclick="loadJS(\'/javascripts/login.js\');">个人信息</li>'
 //此处是为了解决login页面被缓存后无法正确或许到后台跳转信息
 	document.write(text);
 

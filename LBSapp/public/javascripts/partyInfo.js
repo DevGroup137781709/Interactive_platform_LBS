@@ -284,6 +284,11 @@ function renew(){
 
     }
 
+  var time=dijit.byId("new_time").get('value');
+  time=  time.replace(/年/g,'-');
+    time= time.replace(/月/g,'-');
+    time= time.replace(/日/g,' ');
+
 
 
     $.post('/party/',{
@@ -291,7 +296,7 @@ function renew(){
         reNewPartyInfo : {
             ID:document.getElementById("party").innerHTML,
             name : dijit.byId("new_name").get('value'),
-            time : dijit.byId("new_time").get('value'),
+            time : time,
             location : document.getElementById("new_location_detail").innerHTML,
             location_lo_la: dijit.byId("new_location").get('value'),
             type:dijit.byId("new_type").get('value'),
@@ -301,15 +306,17 @@ function renew(){
         }
     },function(data,status){
         //do something
-        if(data.addPartyRes.state==-1){
+
+
+        if(data.reNewRes==-1){
             //没登录
             alert('没登录')
 
-        }else if(data.addPartyRes.state==0){
+        }else if(data.reNewRes==0){
             //未知错误
             alert('未知错误')
 
-        }else if(data.addPartyRes.state==1){
+        }else if(data.reNewRes==1){
             //成功
             alert('成功');
             delCookie('newPartyLng');
@@ -354,13 +361,18 @@ function getCookie(name)
         return null;
 }
 
+
+
 setInterval(function(){
     var arr=[];
-    if(getCookie('newPartyLng')!=null&&getCookie('newPartyLat')!=null){
+    if(getCookie('newPartyLng')!=null&&getCookie('newPartyLat')!=null&&dijit.byId("new_location_detail").get('value')=='点击选择地点'){
         arr.push(getCookie('newPartyLng'));
         arr.push(getCookie('newPartyLat'));
         dijit.byId("new_location").set('value',arr);
-        document.getElementById('new_location_detail').innerHTML=getCookie('newLocation');
+        dijit.byId("new_location_detail").set('value',getCookie('newLocation'));
+        clearCookie('newPartyLng');
+        clearCookie('newPartyLat');
+        clearCookie('newLocation');
 
     }
 

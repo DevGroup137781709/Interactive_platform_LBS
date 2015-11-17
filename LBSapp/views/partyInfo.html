@@ -13,6 +13,11 @@
 
     </script>
     <style>
+        Myitalic {
+            font-style:italic;
+        }
+
+
         button {
             width: 120px;
             margin: 15px 10px 0;
@@ -65,14 +70,14 @@
     <ul data-dojo-type="dojox.mobile.RoundRectList" >
         <li   data-dojo-type="dojox.mobile.ListItem"  data-dojo-props='variableHeight:true' >
             <div id="party" hidden><%= partyID %></div>
-          活动名称:<div class="info"><%= partyName %></div><input id="new_name" data-dojo-type="dojox/mobile/TextBox" value="<%= partyName %>" intermediateChanges="true" selectOnClick="true" class="edit" style="width:100%;display:none">
+         活动名称: <div class="info"><%= partyName %></div><input id="new_name" data-dojo-type="dojox/mobile/TextBox" value="<%= partyName %>" intermediateChanges="true" selectOnClick="true" class="edit" style="width:100%;display:none">
 
         </li>
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
             活动时间: <div class="info"><%= partyTime %></div><input id="new_time" data-dojo-type="dojox/mobile/TextBox" value="<%= partyTime %>" intermediateChanges="true" selectOnClick="true" class="edit" style="width:100%;display:none">
         </li>
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>
-            活动地点:<div class="info"><%= partyLocation %></div><input id="new_location" data-dojo-type="dojox/mobile/TextBox" value="<%= partyLocation_lo_la %>" intermediateChanges="true" selectOnClick="true" value="点击选择地点" class="edit" style="width:100%;display:none" onclick="window.open('/map'); ">
+            活动地点:<div class="info"><%= partyLocation %></div><input id="new_location" data-dojo-type="dojox/mobile/TextBox" value="<%= partyLocation_lo_la %>" intermediateChanges="true" selectOnClick="true" value="点击选择地点" class="edit" style="width:100%;display:none" onmousedown="window.open('/map');" onclick="window.open('/map'); ">
             <div class="edit" style="display:none"><br><div id="new_location_detail"><%= partyLocation%></div> </div>
         </li>
         <li data-dojo-type="dojox.mobile.ListItem" data-dojo-props='variableHeight:true'>

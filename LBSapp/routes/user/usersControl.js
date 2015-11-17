@@ -1,23 +1,23 @@
 /*
 *
-* ÓÃ»§ÐÅÏ¢½»»¥¿ØÖÆÆ÷
-* ±¾¿ØÖÆÆ÷ÓÃÓÚ´¦ÀíµÇÂ¼£¬×¢²á£¬»ñÈ¡ÓÃ»§ÐÅÏ¢µÈÓÃ»§Ïà¹ØµÄÇëÇó
-* 1.×¢²áÐÅÏ¢µÄ´¦Àí,
-*               ¼ì²éÓÃ»§ÃûÊÇ·ñ³åÍ»[Íê³É][ÖÐÎÄ+Ó¢ÎÄ²âÊÔÍê±Ï]
-*               µÇÂ¼ÐÅÏ¢ÑéÖ¤[Íê³É][ÖÐÎÄ+Ó¢ÎÄ²âÊÔÍê±Ï]
+* ï¿½Ã»ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú´ï¿½ï¿½ï¿½ï¿½Â¼ï¿½ï¿½×¢ï¿½á£¬ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½Øµï¿½ï¿½ï¿½ï¿½ï¿½
+* 1.×¢ï¿½ï¿½ï¿½ï¿½Ï¢ï¿½Ä´ï¿½ï¿½ï¿½,
+*               ï¿½ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½Í»[ï¿½ï¿½ï¿½][ï¿½ï¿½ï¿½ï¿½+Ó¢ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]
+*               ï¿½ï¿½Â¼ï¿½ï¿½Ï¢ï¿½ï¿½Ö¤[ï¿½ï¿½ï¿½][ï¿½ï¿½ï¿½ï¿½+Ó¢ï¿½Ä²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½]
 *
-* AJAX´«Èëjson¸ñÊ½ÈçÏÂ£º
-*        £û
-*         method:'register','login','getUserInfo','logout','changePassword','takePartIn', 'vote'                  //Èç¹ûÊÇµÇÂ¼µÄ»°,Ö»ÐèÒª´«Ò»¸öname»òÕßemail,Èç¹ûÁ½Õß¶¼ÓÐ,ÔòÄ¬ÈÏÓÃ»§ÃûÓÅÏÈÓÊÏä
+* AJAXï¿½ï¿½ï¿½ï¿½jsonï¿½ï¿½Ê½ï¿½ï¿½ï¿½Â£ï¿½
+*        ï¿½ï¿½
+*         method:'register','login','getUserInfo','logout','changePassword','takePartIn', 'vote'                  //ï¿½ï¿½ï¿½ï¿½Çµï¿½Â¼ï¿½Ä»ï¿½,Ö»ï¿½ï¿½Òªï¿½ï¿½Ò»ï¿½ï¿½nameï¿½ï¿½ï¿½ï¿½email,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ß¶ï¿½ï¿½ï¿½,ï¿½ï¿½Ä¬ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 *         userInfo{
-*                   userType: 0²ß»®Õß 1¹ÛÖÚ Ä¬ÈÏ1
+*                   userType: 0ï¿½ß»ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ Ä¬ï¿½ï¿½1
 *                   name:
-*                   sex: 0Å® 1ÄÐ
+*                   sex: 0Å® 1ï¿½ï¿½
 *                   email:
 *                   password:
 *                   newPassword:
 *                    }
-*         £ý
+*         ï¿½ï¿½
 *
 *         takePartIn:{
 *                       partyID:
@@ -28,13 +28,13 @@
 *
 *
 *
-* ´«³öjson¸ñÊ½
+* ï¿½ï¿½ï¿½ï¿½jsonï¿½ï¿½Ê½
 *        {
 *        registerRes:{
-*                      state:0×¢²áÊ§°ÜÓÃ»§ÃûÖØ¸´,1×¢²áÊ§°ÜÓÊÏäÒÑ¾­Ê¹ÓÃ¹ý,2×¢²á³É¹¦,3ÄÚ²¿Î´Öª´íÎó
+*                      state:0×¢ï¿½ï¿½Ê§ï¿½ï¿½ï¿½Ã»ï¿½ï¿½ï¿½ï¿½Ø¸ï¿½,1×¢ï¿½ï¿½Ê§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ñ¾ï¿½Ê¹ï¿½Ã¹ï¿½,2×¢ï¿½ï¿½É¹ï¿½,3ï¿½Ú²ï¿½Î´Öªï¿½ï¿½ï¿½ï¿½
 *                       },
 *        loginRes:{
-*                   state: 0Î´ÕÒµ½ÓÃ»§Ãû 1ÃÜÂë´íÎó 2ÃÜÂëÕýÈ·
+*                   state: 0Î´ï¿½Òµï¿½ï¿½Ã»ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·
 *               },
 *         userInfo;{
 *                       ID:
@@ -49,7 +49,7 @@
 *
 *                   },
 *         changePasswordRes:{
-*                               state:0 ÐÞ¸ÄÊ§°Ü 1³É¹¦
+*                               state:0 ï¿½Þ¸ï¿½Ê§ï¿½ï¿½ 1ï¿½É¹ï¿½
 *
 *                           }
 *
@@ -60,12 +60,12 @@
 *
 *
 * */
-//Óï·¨¸ÊÂ¶£º
+//ï¿½ï·¨ï¿½ï¿½Â¶ï¿½ï¿½
 
 
-var object =    //¶¨ÒåÐ¡Ð´µÄobject»ù±¾Àà£¬ÓÃÓÚÊµÏÖ×î»ù´¡µÄ·½·¨µÈ
+var object =    //ï¿½ï¿½ï¿½ï¿½Ð¡Ð´ï¿½ï¿½objectï¿½ï¿½ï¿½ï¿½ï¿½à£¬ï¿½ï¿½ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½
 {
-    isA: function(aType)   //Ò»¸öÅÐ¶ÏÀàÓëÀàÖ®¼äÒÔ¼°¶ÔÏóÓëÀàÖ®¼ä¹ØÏµµÄ»ù´¡·½·¨
+    isA: function(aType)   //Ò»ï¿½ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Ïµï¿½Ä»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
         var self = this;
         while(self)
@@ -78,25 +78,25 @@ var object =    //¶¨ÒåÐ¡Ð´µÄobject»ù±¾Àà£¬ÓÃÓÚÊµÏÖ×î»ù´¡µÄ·½·¨µÈ
     }
 };
 
-function Class(aBaseClass, aClassDefine)    //´´½¨ÀàµÄº¯Êý£¬ÓÃÓÚÉùÃ÷Àà¼°¼Ì³Ð¹ØÏµ
+function Class(aBaseClass, aClassDefine)    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½à¼°ï¿½Ì³Ð¹ï¿½Ïµ
 {
-    function class_()   //´´½¨ÀàµÄÁÙÊ±º¯Êý¿Ç
+    function class_()   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        this.Type = aBaseClass;    //ÎÒÃÇ¸øÃ¿Ò»¸öÀàÔ¼¶¨Ò»¸öTypeÊôÐÔ£¬ÒýÓÃÆä¼Ì³ÐµÄÀà
+        this.Type = aBaseClass;    //ï¿½ï¿½ï¿½Ç¸ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ò»ï¿½ï¿½Typeï¿½ï¿½ï¿½Ô£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì³Ðµï¿½ï¿½ï¿½
         for(var member in aClassDefine)
-            this[member] = aClassDefine[member];    //¸´ÖÆÀàµÄÈ«²¿¶¨Òåµ½µ±Ç°´´½¨µÄÀà
+            this[member] = aClassDefine[member];    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È«ï¿½ï¿½ï¿½ï¿½ï¿½åµ½ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     };
     class_.prototype = aBaseClass;
     return new class_();
 };
 
-function New(aClass, aParams)   //´´½¨¶ÔÏóµÄº¯Êý£¬ÓÃÓÚÈÎÒâÀàµÄ¶ÔÏó´´½¨
+function New(aClass, aParams)   //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ó´´½ï¿½
 {
-    function new_()     //´´½¨¶ÔÏóµÄÁÙÊ±º¯Êý¿Ç
+    function new_()     //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     {
-        this.Type = aClass;    //ÎÒÃÇÒ²¸øÃ¿Ò»¸ö¶ÔÏóÔ¼¶¨Ò»¸öTypeÊôÐÔ£¬¾Ý´Ë¿ÉÒÔ·ÃÎÊµ½¶ÔÏóËùÊôµÄÀà
+        this.Type = aClass;    //ï¿½ï¿½ï¿½ï¿½Ò²ï¿½ï¿½Ã¿Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½Ò»ï¿½ï¿½Typeï¿½ï¿½ï¿½Ô£ï¿½ï¿½Ý´Ë¿ï¿½ï¿½Ô·ï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (aClass.Create)
-            aClass.Create.apply(this, aParams);   //ÎÒÃÇÔ¼¶¨ËùÓÐÀàµÄ¹¹Ôìº¯Êý¶¼½ÐCreate£¬ÕâºÍDELPHI±È½ÏÏàËÆ
+            aClass.Create.apply(this, aParams);   //ï¿½ï¿½ï¿½ï¿½Ô¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ä¹ï¿½ï¿½ìº¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Createï¿½ï¿½ï¿½ï¿½ï¿½DELPHIï¿½È½ï¿½ï¿½ï¿½ï¿½ï¿½
     };
     new_.prototype = aClass;
     return new new_();
@@ -113,18 +113,18 @@ var router = express.Router();
 /* GET home page. */
 router.post('/', function(req, res, next) {
 
-    var reqjson;//È¡»ØÀ´µÄÊý¾Ý
+    var reqjson;//È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     reqjson=req.body;
 
  //   reqjson=JSON.parse(req.body.data);
-    var resjson={};//·¢ËÍ³öÈ¥µÄÊý¾Ý
+    var resjson={};//ï¿½ï¿½ï¿½Í³ï¿½È¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     resjson.userInfo={};
 
     switch (reqjson.method)
     {
         case 'register':
             /*
-             * ×¢²á  ´Ë´¦¿É×ö¸öÓÅ»¯,ÓÐ¿ÕÔÙËµ, ÓÃfindOrCreateº¯Êý
+             * ×¢ï¿½ï¿½  ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Å»ï¿½,ï¿½Ð¿ï¿½ï¿½ï¿½Ëµ, ï¿½ï¿½findOrCreateï¿½ï¿½ï¿½ï¿½
              * */
 
             console.log(reqjson);
@@ -136,15 +136,15 @@ router.post('/', function(req, res, next) {
             user.checkNameAndEmailIsAble(function(flat){
 
                 if(flat==2) {
-                    //²»³åÍ»,¿ªÊ¼×¢²á
+                    //ï¿½ï¿½ï¿½ï¿½Í»,ï¿½ï¿½Ê¼×¢ï¿½ï¿½
                     user.addUser(function (state) {
 
                         if (state == 1) {
-                            //³É¹¦
+                            //ï¿½É¹ï¿½
                             flat=2;
 
                         } else if (state == 0) {
-                            //Ê§°Ü
+                            //Ê§ï¿½ï¿½
                             flat=3;
 
                         }
@@ -172,22 +172,25 @@ router.post('/', function(req, res, next) {
             break;
         case 'login':
             /*
-             * µÇÂ¼
+             * ï¿½ï¿½Â¼
              * */
             var user=New(require('./user.class.js'),[reqjson]);
 
             resjson.login={};
             user.doLogin(function(flat,userInfo){
-                //flat  0Î´ÕÒµ½ÓÃ»§Ãû 1ÃÜÂë´íÎó 2ÃÜÂëÕýÈ·
+                //flat  0Î´ï¿½Òµï¿½ï¿½Ã»ï¿½ï¿½ï¿½ 1ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 2ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È·
 
                 if(flat==2){
                     req.session.userID=userInfo.ID;
                     req.session.userName=userInfo.name;
                     req.session.userType=userInfo.type;
-                    req.session.isLogin='yes';//ÉèÖÃµÇÂ¼³É¹¦sesion
+                    req.session.isLogin='yes';//ï¿½ï¿½ï¿½Ãµï¿½Â¼ï¿½É¹ï¿½sesion
 
                 }
+
                     resjson.login.state=flat;
+                console.log(resjson);
+                console.log(req.session);
                     res.json(resjson);
                     res.end();
 
@@ -197,7 +200,7 @@ router.post('/', function(req, res, next) {
             break;
         case 'getUserInfo':
             /*
-            * »ñÈ¡ÓÃ»§ÏêÏ¸ÐÅÏ¢
+            * ï¿½ï¿½È¡ï¿½Ã»ï¿½ï¿½ï¿½Ï¸ï¿½ï¿½Ï¢
             * */
 
 
@@ -210,7 +213,7 @@ router.post('/', function(req, res, next) {
 
 
             if(VMS.isLogin(req.session)){
-                //ÑéÖ¤ÓÃ»§ÒÑ¾­µÇÂ¼³É¹¦
+                //ï¿½ï¿½Ö¤ï¿½Ã»ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Â¼ï¿½É¹ï¿½
 
                 user.getInfo(function(result){
 
@@ -224,16 +227,16 @@ router.post('/', function(req, res, next) {
         case 'logout':
 
             /*
-            * ÍË³öµÇÂ¼
+            * ï¿½Ë³ï¿½ï¿½ï¿½Â¼
             * */
             console.log('111');
-            req.session.destroy();//Ïú»Ùsession
+            req.session.destroy();//ï¿½ï¿½ï¿½ï¿½session
             console.log('2222');
             res.end();
             break;
         case 'changePassword':
             /*
-            * ÐÞ¸ÄÃÜÂëÇëÇó  0ÐÞ¸ÄÊ§°Ü 1ÐÞ¸Ä³É¹¦
+            * ï¿½Þ¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½  0ï¿½Þ¸ï¿½Ê§ï¿½ï¿½ 1ï¿½Þ¸Ä³É¹ï¿½
             * */
             var user=New(require('./user.class.js'),[req.session.userID]);
 
@@ -288,7 +291,7 @@ router.post('/', function(req, res, next) {
 
             var VMS=new CVMS();
             if(VMS.isLogin(req.session)) {
-                //ÓÃ»§ÒÑ¾­µÇÂ¼
+                //ï¿½Ã»ï¿½ï¿½Ñ¾ï¿½ï¿½ï¿½Â¼
                 var user=New(require('./user.class.js'),[req.session.userID]);
                 user.voteForParty(reqjson.vote.partyID,req.session.userID,1,function(stutes){
 
@@ -329,7 +332,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
     var ID=req.params.ID;
     if(req.params.ID==0){
-        //IDÎª0×Ô¶¯×ª»»ÎªÓÃ»§×ÔÉíID
+        //IDÎª0ï¿½Ô¶ï¿½×ªï¿½ï¿½Îªï¿½Ã»ï¿½ï¿½ï¿½ï¿½ï¿½ID
         ID=req.session.userID;
 
     }
@@ -338,8 +341,8 @@ router.get('/:type/:ID', function(req, res, next) {
 
         /**
          *
-         *  infoÒ³Ãæ
-         *  urlµØÖ· /user/info/
+         *  infoÒ³ï¿½ï¿½
+         *  urlï¿½ï¿½Ö· /user/info/
          *
          *
          *
@@ -360,8 +363,8 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
                         if(result.userInfo.type==0){
-                            //¾Ù°ì·½,ÕâÀï´¦ÀíÏÂÍí»áÊý×é
-                            result.userInfo.user_takenpartys=[];//²»ÏÔÊ¾²ß»®Õß²Î¼ÓµÄÍí»á
+                            //ï¿½Ù°ì·½,ï¿½ï¿½ï¿½ï´¦ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+                            result.userInfo.user_takenpartys=[];//ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ß»ï¿½ï¿½ß²Î¼Óµï¿½ï¿½ï¿½ï¿½
 
                             if((result.userInfo.host_holdedpartys.length==0)&&(result.userInfo.host_holdingpartys.length==0)){
                                 result.userInfo.host_holdingpartys_names = [];
@@ -434,7 +437,7 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
                         }else{
-                            //ÆÕÍ¨ÓÃ»§,ÕâÀïÊÇ´¦ÀíÏÂÍí»áÊý×é,
+                            //ï¿½ï¿½Í¨ï¿½Ã»ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½Ç´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,
 
                             if(result.userInfo.user_takenpartys.length!=0){
                                 async.each(result.userInfo.user_takenpartys, function (data, callback) {
