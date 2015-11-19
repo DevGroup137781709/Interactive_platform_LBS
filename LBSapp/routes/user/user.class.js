@@ -228,7 +228,7 @@ var userclass = Class(object,
                     } else if (result.sex == 1) {
                         resjson.userInfo.sex = '男';
                     }
-                    if (""==result.host_holdingpartys||result.host_holdingpartys==null) {
+                    if ("" == result.host_holdingpartys || result.host_holdingpartys == null) {
                         resjson.userInfo.host_holdingpartys = [];
 
                     } else {
@@ -236,7 +236,7 @@ var userclass = Class(object,
 
                     }
 
-                    if (""==result.host_holdedpartys||result.host_holdedpartys==null){
+                    if ("" == result.host_holdedpartys || result.host_holdedpartys == null) {
                         resjson.userInfo.host_holdedpartys = [];
 
                     } else {
@@ -244,7 +244,7 @@ var userclass = Class(object,
 
                     }
 
-                    if (""==result.user_takenpartys||result.user_takenpartys==null) {
+                    if ("" == result.user_takenpartys || result.user_takenpartys == null) {
 
                         resjson.userInfo.user_takenpartys = [];
 
@@ -255,7 +255,6 @@ var userclass = Class(object,
 
 
                     resjson.userInfo.registerTime = result.registerTime;
-
 
 
                     callback(resjson);
@@ -396,23 +395,24 @@ var userclass = Class(object,
 
         },
 
-        holdParty: function (partyID,callback) {
+        holdParty: function (partyID, callback) {
             //用户更新所添加的晚会信息函数
-            var _ID=this.ID;
-            var _userDB=this.userData;
-            this.userData.findOne({where: {ID:_ID}}).then(function (result) {
+            var _ID = this.ID;
+            var _userDB = this.userData;
+            this.userData.findOne({where: {ID: _ID}}).then(function (result) {
                 console.log(result);
 
-                if(result.dataValues.host_holdingpartys!=undefined){
+                if (result.dataValues.host_holdingpartys != undefined) {
                     result.dataValues.host_holdingpartys = JSON.parse(result.dataValues.host_holdingpartys);
-                }else if((result.dataValues.host_holdingpartys==undefined)||(result.dataValues.host_holdingpartys=='')){
-                    result.dataValues.host_holdingpartys =[];
+                } else if ((result.dataValues.host_holdingpartys == undefined) || (result.dataValues.host_holdingpartys == '')) {
+                    result.dataValues.host_holdingpartys = [];
                 }
 
                 result.dataValues.host_holdingpartys.push(partyID);
 
                 _userDB.update({host_holdingpartys: JSON.stringify(result.dataValues.host_holdingpartys)}, {
-                    where: {ID: _ID}}).then(function (affectedRows) {
+                    where: {ID: _ID}
+                }).then(function (affectedRows) {
                     var state;
                     if (affectedRows == 0) {
                         //失败
@@ -433,8 +433,6 @@ var userclass = Class(object,
                 });
 
 
-
-
             }).catch(function (err) {
                 //未知错误
                 callback(0);
@@ -444,58 +442,66 @@ var userclass = Class(object,
 
         },
 
-        getListofRow:function(userID,row,callback){
-            var _result=[];
-            this.userData.findOne({where:{ID:userID},attributes:[row]}).then(function(result){
-                if(result==null||result==''){
+        getListofRow: function (userID, row, callback) {
+            var _result = [];
+            this.userData.findOne({where: {ID: userID}, attributes: [row]}).then(function (result) {
+                if (result == null || result == '') {
                     callback(_result);
-                }else{
+                } else {
                     JSON.parse
-                    _result=JSON.parse(result.dataValues[row]);
+                    _result = JSON.parse(result.dataValues[row]);
                     callback(_result);
                 }
 
-            }).catch(function(err){
-               console.error(err);
+            }).catch(function (err) {
+                console.error(err);
                 callback(_result);
             });
 
         },
 
 
-        voteForParty:function(partyID,userID,staues,callback){
+        voteForParty: function (partyID, userID, staues, callback) {
             var _DB = this.userData;
 
-            if(staues==0){
+            if (staues == 0) {
                 //取消投票
 
-            }else if(staues==1){
+            } else if (staues == 1) {
                 //投票
-                this.getListofRow(userID,"votes",function(result){
-                    var hasVoted=false;
-                    result.forEach(function(data){
-                        if(data==partyID){
-                            //已经投票过了
-                            hasVoted=true;
-                            callback(0);
-                            return;
-                        }
-                    })
+                this.getListofRow(userID, "votes", function (result) {
+                    var hasVoted = false;
+                    if (result == null) {
+                        callback(0);
+                        return;
+                    } else {
+                        result.forEach(function (data) {
+                            if (data == partyID) {
+                                //已经投票过了
+                                hasVoted = true;
+                                callback(0);
+                                return;
+                            }
+                        })
 
-                    if(!hasVoted){
+
+                    }
+
+
+                    if (!hasVoted) {
                         //没投票
                         result.push(partyID);
-                        _DB.update({votes:JSON.stringify(result)}, {where: {ID: userID}}).then(function (affectedRows) {
+                        _DB.update({votes: JSON.stringify(result)}, {where: {ID: userID}}).then(function (affectedRows) {
 
-                            var flag=0;
-                            if(affectedRows){
+                            var flag = 0;
+                            if (affectedRows) {
 
-                                var party=New(require("../party/party.class.js"),[]);
-                                party.vote(partyID,function(){
+                                var party = New(require("../party/party.class.js"), []);
+                                party.vote(partyID, function () {
 
 
                                 });
-                                flag=1;
+                                flag = 1;
                             }
                             callback(flag);
                         }).catch(function (err) {
@@ -507,19 +513,13 @@ var userclass = Class(object,
                     }
 
 
-
                 });
-
 
 
             }
 
 
         }
-
-
-
-        
 
 
     });

@@ -440,7 +440,7 @@ router.post('/*', function(req, res, next) {
                 res.end();
                 console.log(resJson);
                 if(reqJson.commentDetail.type==1){
-                 //   party.updateDanmu(result);
+        //            party.updateDanmu(result);
                 }
 
             });

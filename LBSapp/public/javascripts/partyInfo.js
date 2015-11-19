@@ -84,10 +84,10 @@ function send(){
 
 
         if(dijit.byId("size").get('value')=='on'){
-            size=1;
+            size=2;
 
         }else if(dijit.byId("size").get('value')=='off'){
-            size=0;
+            size=1;
 
         }
 
