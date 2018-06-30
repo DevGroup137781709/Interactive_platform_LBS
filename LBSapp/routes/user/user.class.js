@@ -115,29 +115,29 @@ var userclass = Class(object,
 
         checkNameAndEmailIsAble: function (callback) {
             //检查邮箱和用户名是否可用
-            var _name = this.userJson.userInfo.name;
-            var _email = this.userJson.userInfo.email;
+            var _name = this.userJson.userInfo.name;//获取传入的用户名
+            var _email = this.userJson.userInfo.email;//获取传入的email
 
             var _userData = this.userData;
 
-            //此处必须同步异步回调的结果,
+            //此处必须同步异步回调的结果,使用了async包进行异步结果的同步
             async.series({
 
                 name: function (callback) {
 
-                    _userData.findOne({where: {name: _name}}).then(function (user) {
-                        if (user == null) {
-                            callback(null, 0);
+                    _userData.findOne({where: {name: _name}}).then(function (user) {//在数据库查询是否已经存在该用户名
+                        if (user == null) {//查询结果为空,则不存在相同用户名用户
+                            callback(null, 0);//回调,进入第二个异步同步块email,并设置结果为0
                         } else {
-                            callback(null, 1);
+                            callback(null, 1);//回调,进入第二个异步同步块email,并设置结果为1
                         }
 
                     });
 
                 },
                 email: function (callback) {
-                    _userData.findOne({where: {email: _email}}).then(function (user) {
-                        if (user == null) {
+                    _userData.findOne({where: {email: _email}}).then(function (user) {//在数据库查询是否已经存在改email
+                        if (user == null) {//查询结果为空,则不存在相同email用户
                             callback(null, 0);
                         } else {
                             callback(null, 1);
@@ -146,15 +146,12 @@ var userclass = Class(object,
                     });
                 }
 
-
             }, function (err, results) {
-
-
                 if (err) {
-                    callback('err');
+                    callback('err');//如果err则报错
                 }
                 var flat = 0;
-                //1表示对应项冲突,0表示不冲突
+                //0,1表示对应项冲突,2表示不冲突
                 //这里results为一个对象{ name: 1|0, email: 1|0 }
                 if (results.name == 1) {
                     //用户名冲突
@@ -467,13 +464,16 @@ var userclass = Class(object,
             if (staues == 0) {
                 //取消投票
 
+
+
+
+
             } else if (staues == 1) {
                 //投票
                 this.getListofRow(userID, "votes", function (result) {
                     var hasVoted = false;
                     if (result == null) {
-                        callback(0);
-                        return;
+
                     } else {
                         result.forEach(function (data) {
                             if (data == partyID) {

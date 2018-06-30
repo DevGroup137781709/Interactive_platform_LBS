@@ -110,7 +110,7 @@ require([
             var geolocation = new BMap.Geolocation();
             geolocation.getCurrentPosition(function(r){
                 if(this.getStatus() == BMAP_STATUS_SUCCESS){
-                   position.lat=r.point.lat;
+                       position.lat=r.point.lat;
                    position.lng=r.point.lng;
                 }
                 else {
@@ -142,7 +142,7 @@ var party_list_isSend=false;
                     getNearbyParty:{
                         point:position,
                         distance:document.getElementById('range').innerHTML,
-                        newOrOld:'old',
+                        newOrOld:'old',//废弃`
                         type:'歌舞',
                         obtainedRows:numOfParty,//这个参数用在 newOrold为new时,传递给后台你现在所拿到信息的条数
                         rows:10,//这个参数只在 newOrold为old 有用,用于指定需要后台返回晚会信息的条数

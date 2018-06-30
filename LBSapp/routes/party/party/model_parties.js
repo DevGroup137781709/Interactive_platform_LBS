@@ -32,14 +32,6 @@ party.sync().catch(function(err){
 
 });;
 
-//
-//user.findOne({where:{id:2}}).then(function(user){
-//    if(user==null){
-//        console.log('ss')
-//
-//    }
-//
-//
-//});
+
 
 module.exports = party;

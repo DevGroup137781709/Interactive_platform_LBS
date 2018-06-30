@@ -1,79 +1,79 @@
 /*
-*
-* �û���Ϣ����������
-* �����������ڴ����¼��ע�ᣬ��ȡ�û���Ϣ���û���ص�����
-* 1.ע����Ϣ�Ĵ���,
-*               ����û����Ƿ��ͻ[���][����+Ӣ�Ĳ������]
-*               ��¼��Ϣ��֤[���][����+Ӣ�Ĳ������]
-*
-* AJAX����json��ʽ���£�
-*        ��
-*         method:'register','login','getUserInfo','logout','changePassword','takePartIn', 'vote'                  //����ǵ�¼�Ļ�,ֻ��Ҫ��һ��name����email,������߶���,��Ĭ���û�����������
-*         userInfo{
-*                   userType: 0�߻��� 1���� Ĭ��1
-*                   name:
-*                   sex: 0Ů 1��
-*                   email:
-*                   password:
-*                   newPassword:
-*                    }
-*         ��
-*
-*         takePartIn:{
-*                       partyID:
-*         }
-*         vote:{
-*               partyID:
-*         }
-*
-*
-*
-* ����json��ʽ
-*        {
-*        registerRes:{
-*                      state:0ע��ʧ���û����ظ�,1ע��ʧ�������Ѿ�ʹ�ù�,2ע��ɹ�,3�ڲ�δ֪����
-*                       },
-*        loginRes:{
-*                   state: 0δ�ҵ��û��� 1������� 2������ȷ
-*               },
-*         userInfo;{
-*                       ID:
-*                       type:
-*                       name:
-*                       email:
-*                       sex:
-*                       host_holdingpartys:
-*                       host_holdedpartys:
-*                       user_takenpartys:
-*                       registerTime:
-*
-*                   },
-*         changePasswordRes:{
-*                               state:0 �޸�ʧ�� 1�ɹ�
-*
-*                           }
-*
-*        }
-*
-*
+ *
+ * �û���Ϣ����������
+ * �����������ڴ����¼��ע�ᣬ��ȡ�û���Ϣ���û���ص�����
+ * 1.ע����Ϣ�Ĵ���,
+ *               ����û����Ƿ��ͻ[���][����+Ӣ�Ĳ������]
+ *               ��¼��Ϣ��֤[���][����+Ӣ�Ĳ������]
+ *
+ * AJAX����json��ʽ���£�
+ *        ��
+ *         method:'register','login','getUserInfo','logout','changePassword','takePartIn', 'vote'                  //����ǵ�¼�Ļ�,ֻ��Ҫ��һ��name����email,������߶���,��Ĭ���û�����������
+ *         userInfo{
+ *                   userType: 0�߻��� 1���� Ĭ��1
+ *                   name:
+ *                   sex: 0Ů 1��
+ *                   email:
+ *                   password:
+ *                   newPassword:
+ *                    }
+ *         ��
+ *
+ *         takePartIn:{
+ *                       partyID:
+ *         }
+ *         vote:{
+ *               partyID:
+ *         }
+ *
+ *
+ *
+ * ����json��ʽ
+ *        {
+ *        registerRes:{
+ *                      state:0ע��ʧ���û����ظ�,1ע��ʧ�������Ѿ�ʹ�ù�,2ע��ɹ�,3�ڲ�δ֪����
+ *                       },
+ *        loginRes:{
+ *                   state: 0δ�ҵ��û��� 1������� 2������ȷ
+ *               },
+ *         userInfo;{
+ *                       ID:
+ *                       type:
+ *                       name:
+ *                       email:
+ *                       sex:
+ *                       host_holdingpartys:
+ *                       host_holdedpartys:
+ *                       user_takenpartys:
+ *                       registerTime:
+ *
+ *                   },
+ *         changePasswordRes:{
+ *                               state:0 �޸�ʧ�� 1�ɹ�
+ *
+ *                           }
+ *
+ *        }
+ *
+ *
 
-*
-*
-* */
+ *
+ *
+ * */
 //�﷨��¶��
 
 
 var object =    //����Сд��object�����࣬����ʵ��������ķ�����
 {
-    isA: function(aType)   //һ���ж�������֮���Լ���������֮���ϵ�Ļ�������
+    isA: function (aType)   //һ���ж�������֮���Լ���������֮���ϵ�Ļ�������
     {
         var self = this;
-        while(self)
-        {
+        while (self) {
             if (self == aType)
                 return true;
             self = self.Type;
-        };
+        }
+        ;
         return false;
     }
 };
@@ -83,7 +83,7 @@ function Class(aBaseClass, aClassDefine)    //������ĺ�����
     function class_()   //���������ʱ������
     {
         this.Type = aBaseClass;    //���Ǹ�ÿһ����Լ��һ��Type���ԣ�������̳е���
-        for(var member in aClassDefine)
+        for (var member in aClassDefine)
             this[member] = aClassDefine[member];    //�������ȫ�����嵽��ǰ��������
     };
     class_.prototype = aBaseClass;
@@ -103,64 +103,63 @@ function New(aClass, aParams)   //��������ĺ�������
 };
 
 
-
-
-
 var express = require('express');
 var router = express.Router();
 
 
 /* GET home page. */
-router.post('/', function(req, res, next) {
+router.post('/', function (req, res, next) {
 
 
+    console.log(req.session);
+    console.log(req.body.method);
+    console.log("---------------------------------");
 
     var reqjson;//ȡ����������
-    reqjson=req.body;
+    reqjson = req.body;
 
- //   reqjson=JSON.parse(req.body.data);
-    var resjson={};//���ͳ�ȥ������
-    resjson.userInfo={};
+    //   reqjson=JSON.parse(req.body.data);
+    var resjson = {};//���ͳ�ȥ������
+    resjson.userInfo = {};
 
-    switch (reqjson.method)
-    {
+    switch (reqjson.method) {
         case 'register':
             /*
-             * ע��  �˴��������Ż�,�п���˵, ��findOrCreate����
+             * ע
+             * state 0 用户名重复,1邮箱重复 2成功注册 3内部错误
              * */
 
             console.log(reqjson);
 
 
-            var user=New(require('./user.class.js'),[reqjson]);
+            var user = New(require('./user.class.js'), [reqjson]);
 
-            resjson.registerRes={};
-            user.checkNameAndEmailIsAble(function(flat){
+            resjson.registerRes = {};
+            user.checkNameAndEmailIsAble(function (flat) {
 
-                if(flat==2) {
-                    //����ͻ,��ʼע��
+                if (flat == 2) {
+                    //用户名和邮箱可用
                     user.addUser(function (state) {
 
                         if (state == 1) {
                             //�ɹ�
-                            flat=2;
+                            flat = 2;
 
                         } else if (state == 0) {
                             //ʧ��
-                            flat=3;
+                            flat = 3;
 
                         }
 
 
-
-                        resjson.registerRes.state=flat;
+                        resjson.registerRes.state = flat;
                         res.json(resjson);
                         res.end();
 
                     });
-                }else{
+                } else {
 
-                    resjson.registerRes.state=flat;
+                    resjson.registerRes.state = flat;
                     res.json(resjson);
                     res.end();
 
@@ -176,25 +175,23 @@ router.post('/', function(req, res, next) {
             /*
              * ��¼
              * */
-            var user=New(require('./user.class.js'),[reqjson]);
+            var user = New(require('./user.class.js'), [reqjson]);
 
-            resjson.login={};
-            user.doLogin(function(flat,userInfo){
-                //flat  0δ�ҵ��û��� 1������� 2������ȷ
+            resjson.login = {};
+            user.doLogin(function (flat, userInfo) {
+                //flat  0未找到用户名 1密码错误 2密码正确
 
-                if(flat==2){
-                    req.session.userID=userInfo.ID;
-                    req.session.userName=userInfo.name;
-                    req.session.userType=userInfo.type;
-                    req.session.isLogin='yes';//���õ�¼�ɹ�sesion
+                if (flat == 2) {
+                    req.session.userID = userInfo.ID;
+                    req.session.userName = userInfo.name;
+                    req.session.userType = userInfo.type;
+                    req.session.isLogin = 'yes';//���õ�¼�ɹ�sesion
 
                 }
-
-                    resjson.login.state=flat;
-                console.log(resjson);
                 console.log(req.session);
-                    res.json(resjson);
-                    res.end();
+                resjson.login.state = flat;
+                res.json(resjson);
+                res.end();
 
 
             });
@@ -202,24 +199,21 @@ router.post('/', function(req, res, next) {
             break;
         case 'getUserInfo':
             /*
-            * ��ȡ�û���ϸ��Ϣ
-            * */
+             * ��ȡ�û���ϸ��Ϣ
+             * */
 
 
+            var user = New(require('./user.class.js'), [req.session.userID]);
+            var CVMS = require('../VMS/VMS.js');
+            var VMS = new CVMS();
 
 
-
-            var user=New(require('./user.class.js'),[req.session.userID]);
-            var CVMS=require('../VMS/VMS.js');
-            var VMS=new CVMS();
-
-
-            if(VMS.isLogin(req.session)){
+            if (VMS.isLogin(req.session)) {
                 //��֤�û��Ѿ���¼�ɹ�
 
-                user.getInfo(function(result){
+                user.getInfo(function (result) {
 
-                    resjson=result;
+                    resjson = result;
                     res.json(resjson);
                     res.end();
 
@@ -229,8 +223,8 @@ router.post('/', function(req, res, next) {
         case 'logout':
 
             /*
-            * �˳���¼
-            * */
+             * �˳���¼
+             * */
             console.log('111');
             req.session.destroy();//����session
             console.log('2222');
@@ -238,18 +232,18 @@ router.post('/', function(req, res, next) {
             break;
         case 'changePassword':
             /*
-            * �޸���������  0�޸�ʧ�� 1�޸ĳɹ�
-            * */
-            var user=New(require('./user.class.js'),[req.session.userID]);
+             * �޸���������  0�޸�ʧ�� 1�޸ĳɹ�
+             * */
+            var user = New(require('./user.class.js'), [req.session.userID]);
 
-            var CVMS=require('../VMS/VMS.js');
-            var VMS=new CVMS();
-            if(VMS.isLogin(req.session)) {
+            var CVMS = require('../VMS/VMS.js');
+            var VMS = new CVMS();
+            if (VMS.isLogin(req.session)) {
 
 
-                user.changeInfo('password',reqjson.userInfo.password,reqjson.userInfo.newPassword, function (state) {
-                    resjson.changePasswordRes={};
-                    resjson.changePasswordRes.state=state;
+                user.changeInfo('password', reqjson.userInfo.password, reqjson.userInfo.newPassword, function (state) {
+                    resjson.changePasswordRes = {};
+                    resjson.changePasswordRes.state = state;
                     res.send(resjson);
 
 
@@ -261,48 +255,46 @@ router.post('/', function(req, res, next) {
 
 
         case 'takePartIn':
-            var user=New(require('./user.class.js'),[req.session.userID]);
+            var user = New(require('./user.class.js'), [req.session.userID]);
 
-            var CVMS=require('../VMS/VMS.js');
+            var CVMS = require('../VMS/VMS.js');
 
-            var VMS=new CVMS();
-            if(VMS.isLogin(req.session)) {
+            var VMS = new CVMS();
+            if (VMS.isLogin(req.session)) {
 
-                user.takePartIn(reqjson.takePartIn.partyID,reqjson.takePartIn.state,function(state){
-                    res.json({takePartIn:{state:state}});
+                user.takePartIn(reqjson.takePartIn.partyID, reqjson.takePartIn.state, function (state) {
+                    res.json({takePartIn: {state: state}});
                     res.end();
 
                 })
 
 
-            }else{
-                res.json({takePartIn:{state:-1}})
+            } else {
+                res.json({takePartIn: {state: -1}})
                 res.end();
             }
 
             break;
 
 
-
-
         case 'vote':
 
-            reqjson.vote.partyID=parseInt(reqjson.vote.partyID);
+            reqjson.vote.partyID = parseInt(reqjson.vote.partyID);
 
-            var CVMS=require('../VMS/VMS.js');
+            var CVMS = require('../VMS/VMS.js');
 
-            var VMS=new CVMS();
-            if(VMS.isLogin(req.session)) {
+            var VMS = new CVMS();
+            if (VMS.isLogin(req.session)) {
                 //�û��Ѿ���¼
-                var user=New(require('./user.class.js'),[req.session.userID]);
-                user.voteForParty(reqjson.vote.partyID,req.session.userID,1,function(stutes){
+                var user = New(require('./user.class.js'), [req.session.userID]);
+                user.voteForParty(reqjson.vote.partyID, req.session.userID, 1, function (stutes) {
 
-                    if(stutes==1){
-                        resjson.vote={};
-                        resjson.vote.stutes=1;
-                    }else{
-                        resjson.vote={};
-                        resjson.vote.stutes=0;
+                    if (stutes == 1) {
+                        resjson.vote = {};
+                        resjson.vote.stutes = 1;
+                    } else {
+                        resjson.vote = {};
+                        resjson.vote.stutes = 0;
                     }
 
                     res.json(resjson);
@@ -311,11 +303,11 @@ router.post('/', function(req, res, next) {
                 });
 
 
-            }else{
+            } else {
 
                 console.log('111111111111111111111111111111111111111111111111111111111');
-                resjson.vote={};
-                resjson.vote.stutes=-1;
+                resjson.vote = {};
+                resjson.vote.stutes = -1;
                 res.json(resjson);
                 res.end();
 
@@ -327,19 +319,17 @@ router.post('/', function(req, res, next) {
     }
 
 });
-router.get('/:type/:ID', function(req, res, next) {
+router.get('/:type/:ID', function (req, res, next) {
 
 
-
-
-    var ID=req.params.ID;
-    if(req.params.ID==0){
+    var ID = req.params.ID;
+    if (req.params.ID == 0) {
         //IDΪ0�Զ�ת��Ϊ�û�����ID
-        ID=req.session.userID;
+        ID = req.session.userID;
 
     }
 
-    if(req.params.type.toLowerCase()=='info') {
+    if (req.params.type.toLowerCase() == 'info') {
 
         /**
          *
@@ -361,143 +351,138 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
             async.series({
-                    one:function(callback_1){
+                one: function (callback_1) {
 
 
-                        if(result.userInfo.type==0){
-                            //�ٰ췽,���ﴦ�����������
-                            result.userInfo.user_takenpartys=[];//����ʾ�߻��߲μӵ����
+                    if (result.userInfo.type == 0) {
+                        //�ٰ췽,���ﴦ�����������
+                        result.userInfo.user_takenpartys = [];//����ʾ�߻��߲μӵ����
 
-                            if((result.userInfo.host_holdedpartys.length==0)&&(result.userInfo.host_holdingpartys.length==0)){
-                                result.userInfo.host_holdingpartys_names = [];
-                                result.userInfo.host_holdedpartys_names = [];
-                                callback_1();
-                                return ;
-                            }else if(result.userInfo.host_holdingpartys.length!=0&&result.userInfo.host_holdedpartys.length!=0){
-                                result.userInfo.host_holdingpartys_names = [];
-                                async.each(result.userInfo.host_holdingpartys, function (data, callback) {
-                                    party.getInfoByID(data, ['ID', 'name'], function (_res) {
-                                        if(_res!=null){
-                                            result.userInfo.host_holdingpartys_names.push(_res.name);
-                                        }
+                        if ((result.userInfo.host_holdedpartys.length == 0) && (result.userInfo.host_holdingpartys.length == 0)) {
+                            result.userInfo.host_holdingpartys_names = [];
+                            result.userInfo.host_holdedpartys_names = [];
+                            callback_1();
+                            return;
+                        } else if (result.userInfo.host_holdingpartys.length != 0 && result.userInfo.host_holdedpartys.length != 0) {
+                            result.userInfo.host_holdingpartys_names = [];
+                            async.each(result.userInfo.host_holdingpartys, function (data, callback) {
+                                party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                                    if (_res != null) {
+                                        result.userInfo.host_holdingpartys_names.push(_res.name);
+                                    }
 
-                                        if(result.userInfo.host_holdingpartys_names.length==result.userInfo.host_holdingpartys.length){
-                                            result.userInfo.host_holdedpartys_names = [];
-                                            async.each(result.userInfo.host_holdedpartys, function (data, callback) {
-                                                party.getInfoByID(data, ['ID', 'name'], function (_res) {
-                                                    if(_res!=null) {
-                                                        result.userInfo.host_holdedpartys_names.push(_res.name);
-                                                    }
-                                                    if(result.userInfo.host_holdedpartys_names.length==result.userInfo.host_holdedpartys.length){
-                                                        callback_1();
-                                                    }
-                                                });
+                                    if (result.userInfo.host_holdingpartys_names.length == result.userInfo.host_holdingpartys.length) {
+                                        result.userInfo.host_holdedpartys_names = [];
+                                        async.each(result.userInfo.host_holdedpartys, function (data, callback) {
+                                            party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                                                if (_res != null) {
+                                                    result.userInfo.host_holdedpartys_names.push(_res.name);
+                                                }
+                                                if (result.userInfo.host_holdedpartys_names.length == result.userInfo.host_holdedpartys.length) {
+                                                    callback_1();
+                                                }
                                             });
+                                        });
 
-                                        }
-
-
-                                    });
-
-
-                                });
-
-                            }else if(result.userInfo.host_holdedpartys.length!=0&&result.userInfo.host_holdingpartys.length==0){
-                                result.userInfo.host_holdedpartys_names = [];
-                                async.each(result.userInfo.host_holdedpartys, function (data, callback) {
-                                    party.getInfoByID(data, ['ID', 'name'], function (_res) {
-                                        if(_res!=null) {
-                                            result.userInfo.host_holdedpartys_names.push(_res.name);
-                                        }
-                                            if(result.userInfo.host_holdedpartys_names.length==result.userInfo.host_holdedpartys.length){
-                                                callback_1();
-                                            }
-                                    });
-                                });
-
-                            }else if(result.userInfo.host_holdedpartys.length==0&&result.userInfo.host_holdingpartys.length!=0){
-                                result.userInfo.host_holdingpartys_names = [];
-                                async.each(result.userInfo.host_holdingpartys, function (data, callback) {
-                                    party.getInfoByID(data, ['ID', 'name'], function (_res) {
-                                        if(_res!=null) {
-                                            result.userInfo.host_holdingpartys_names.push(_res.name);
-                                        }
-                                        if(result.userInfo.host_holdingpartys_names.length==result.userInfo.host_holdingpartys.length){
-                                            callback_1();
-
-                                        }
-
-
-                                    });
-
-                                });
-
-
-
-                            }
-
-
-
-                        }else{
-                            //��ͨ�û�,�����Ǵ������������,
-
-                            if(result.userInfo.user_takenpartys.length!=0){
-                                async.each(result.userInfo.user_takenpartys, function (data, callback) {
-                                    result.userInfo.user_takenpartys_names = [];
-                                    party.getInfoByID(data, ['ID', 'name'], function (_res) {
-                                        if(_res!=null) {
-                                            result.userInfo.user_takenpartys_names.push(_res.name);
-                                        }
-
-                                        if(result.userInfo.user_takenpartys_names.length==result.userInfo.user_takenpartys.length){
-
-                                            callback_1();
-                                        }
-
-
-                                    });
+                                    }
 
 
                                 });
 
 
-                            }else{
-                                result.userInfo.user_takenpartys_names = []
-                                callback_1();
-                            }
+                            });
+
+                        } else if (result.userInfo.host_holdedpartys.length != 0 && result.userInfo.host_holdingpartys.length == 0) {
+                            result.userInfo.host_holdedpartys_names = [];
+                            async.each(result.userInfo.host_holdedpartys, function (data, callback) {
+                                party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                                    if (_res != null) {
+                                        result.userInfo.host_holdedpartys_names.push(_res.name);
+                                    }
+                                    if (result.userInfo.host_holdedpartys_names.length == result.userInfo.host_holdedpartys.length) {
+                                        callback_1();
+                                    }
+                                });
+                            });
+
+                        } else if (result.userInfo.host_holdedpartys.length == 0 && result.userInfo.host_holdingpartys.length != 0) {
+                            result.userInfo.host_holdingpartys_names = [];
+                            async.each(result.userInfo.host_holdingpartys, function (data, callback) {
+                                party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                                    if (_res != null) {
+                                        result.userInfo.host_holdingpartys_names.push(_res.name);
+                                    }
+                                    if (result.userInfo.host_holdingpartys_names.length == result.userInfo.host_holdingpartys.length) {
+                                        callback_1();
+
+                                    }
+
+
+                                });
+
+                            });
 
 
                         }
 
 
+                    } else {
+                        //��ͨ�û�,�����Ǵ������������,
+
+                        if (result.userInfo.user_takenpartys.length != 0) {
+                            async.each(result.userInfo.user_takenpartys, function (data, callback) {
+                                result.userInfo.user_takenpartys_names = [];
+                                party.getInfoByID(data, ['ID', 'name'], function (_res) {
+                                    if (_res != null) {
+                                        result.userInfo.user_takenpartys_names.push(_res.name);
+                                    }
+
+                                    if (result.userInfo.user_takenpartys_names.length == result.userInfo.user_takenpartys.length) {
+
+                                        callback_1();
+                                    }
 
 
-                    },
-                    two:function(callback_2) {
+                                });
 
 
-                           res.render('userinfo', {
-                               userName: result.userInfo.name,
-                               userType:result.userInfo.type,
-                               userEmail: result.userInfo.email,
-                               userSex: result.userInfo.sex,
-                               takenpartys: result.userInfo.user_takenpartys_names,
-                               takenpartys_ID:result.userInfo.user_takenpartys,
-                               holdingpartys: result.userInfo.host_holdingpartys_names,
-                               holdingpartys_ID:result.userInfo.host_holdingpartys,
-                               holdedpartys:result.userInfo.host_holdedpartys_names,
-                               holdedpartys_ID:result.userInfo.host_holdedpartys
-
-                           });
+                            });
 
 
-                           res.end();
-                        callback_2();
-                   }
-        }),function(err,result){
+                        } else {
+                            result.userInfo.user_takenpartys_names = []
+                            callback_1();
+                        }
+
+
+                    }
+
+
+                },
+                two: function (callback_2) {
+
+
+                    res.render('userinfo', {
+                        userName: result.userInfo.name,
+                        userType: result.userInfo.type,
+                        userEmail: result.userInfo.email,
+                        userSex: result.userInfo.sex,
+                        takenpartys: result.userInfo.user_takenpartys_names,
+                        takenpartys_ID: result.userInfo.user_takenpartys,
+                        holdingpartys: result.userInfo.host_holdingpartys_names,
+                        holdingpartys_ID: result.userInfo.host_holdingpartys,
+                        holdedpartys: result.userInfo.host_holdedpartys_names,
+                        holdedpartys_ID: result.userInfo.host_holdedpartys
+
+                    });
+
+
+                    res.end();
+                    callback_2();
+                }
+            }), function (err, result) {
 
                 console.error(err);
-
 
 
             };
@@ -506,9 +491,6 @@ router.get('/:type/:ID', function(req, res, next) {
 
 
     }
-
-
-
 
 
 });

@@ -47,10 +47,7 @@ function New(aClass, aParams)   //创建对象的函数，用于任意类的对象创建
 router.get('/', function(req, res, next) {
 
 
-
-
     var party=New(require('./party/party.class.js'),[]);
-
 
     party.getNewPartys(3,function(result){
 

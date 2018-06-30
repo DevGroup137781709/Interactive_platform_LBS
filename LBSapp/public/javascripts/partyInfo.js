@@ -95,13 +95,13 @@ function send(){
         content=dijit.byId("content").get('value');
 
         if(dijit.byId("rb_Scroll").get('checked')==true){
-            type=1;
+            type=1;//1是滚动
 
         }else if(dijit.byId("rb_Top").get('checked')==true){
-            type=2;
+            type=2;//2是顶部
 
         }else if(dijit.byId("rb_Bottom").get('checked')==true){
-            type=3;
+            type=3;//3是底部
 
         }
 

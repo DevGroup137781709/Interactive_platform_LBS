@@ -5,25 +5,27 @@
  *
  *
  * 传入json格式:{
- *               method:'addParty','getPartyInfo','renewPartyInfo','sendComment','getComment'
- *               addPartyInfo:{
- *                       name:
- *                       time:
- *                       location:
- *                       location_lo_la:
- *                       type:
- *                       show_actors:
+ *               method:'addParty','getPartyInfo','renewPartyInfo','sendComment','getComment' //这个是指定要执行的命令
+ *               addPartyInfo:{  //添加晚会信息的时候,必须附带这个格式
+ *                       name: 晚会名称
+ *                       time: 晚会时间,必须格式化时间形如 2016-10-9 15:13:09
+ *                       location: 晚会的举办地点
+ *                       location_lo_la: 晚会的经纬度  经纬度由逗号隔开
+ *                       type: 晚会的种类
+ *                       show_actors: 这个是个节目表
  *                                       [{show:'XXX',actors:'XXX,XXX,XXX'},,,,,,]
  *
  *
- *                       hostname:  //用逗号分开
+ *                       hostname:  //举办方名称,用逗号分开
  *                       poster://这个参数不用传给我,前台上传海报文件后,我已经把海报临时地址存在cookies中了
- *                       detail:
+ *                       detail:  //晚会的详细说明
  *
  *
  *                       }
  *               detail:{
- *                           location:
+ *                          //获取晚会信息的时候必须附上这个格式
+ *
+ *                           location://当前观众所在的经纬度信息,逗号隔开
  *                           range://这个参数先废除,以后在加这个功能,这个是用来确定详细地理范围的,用米表示的
  *                           type://传入想要获取的晚会类型
  *                           newOrOld:'new','old'//默认new
@@ -272,7 +274,7 @@ router.post('/*', function(req, res, next) {
 
 
 
-
+    console.log(req.session);
 
 
 
@@ -284,7 +286,7 @@ router.post('/*', function(req, res, next) {
     var VMS=new CVMS();
 
 
-    switch (reqJson.method)
+        switch (reqJson.method)
     {
         case 'addParty':
             /*
@@ -351,7 +353,7 @@ router.post('/*', function(req, res, next) {
 
 
 
-        case 'renewPartyInfo':
+            case 'renewPartyInfo':
 
             /*
              * 更新晚会信息,验证策划者登录
@@ -404,6 +406,8 @@ router.post('/*', function(req, res, next) {
             //发送弹幕或者评论
             console.log('sendComment')
 
+
+
             resJson.commentRes={};
 
             if(VMS.isLogin(req.session)){
@@ -440,7 +444,7 @@ router.post('/*', function(req, res, next) {
                 res.end();
                 console.log(resJson);
                 if(reqJson.commentDetail.type==1){
-        //            party.updateDanmu(result);
+                    party.updateDanmu(result);
                 }
 
             });
@@ -449,12 +453,10 @@ router.post('/*', function(req, res, next) {
             break;
 
 
-
-
         case 'getNearbyParty':
 
-
             var party=New(require('./party.class.js'),[]);
+
             party.getPartyInDistanceAroundPoint(reqJson.getNearbyParty.point,reqJson.getNearbyParty.distance,reqJson.getNearbyParty.rows,reqJson.getNearbyParty.obtainedRows,function(result){
                 resJson.partyInfo=[];
                 resJson.partyInfo=result;
@@ -465,6 +467,94 @@ router.post('/*', function(req, res, next) {
             })
 
 
+
+            break;
+
+
+        case 'getPartyDetailInfo':
+
+            var async = require('async');
+            var party=New(require('./party.class.js'),[]);
+            var comment;
+            async.series({
+                one: function (callback_1) {
+                    //先异步取得晚会评论信息
+
+                    party.getCommentInfo(reqJson.ID,0,0,10,function(result){
+
+                        comment=result;
+
+                        callback_1();
+
+                    })
+
+                },
+                two: function (callback_2) {
+
+
+                    party.getInfoByID(reqJson.ID,['name','time','location','location_lo_la','type','publisher','show_actors','hostname','poster','detail','votes'],function(result){
+
+
+                        var resJson={};
+                            resJson.partyName=result.name;
+                            resJson.partyName=result.name,
+                            resJson.partyID=reqJson.ID,
+                            resJson.votes=result.votes,
+                            resJson.partyTime=result.time,
+                            resJson.partyLocation=result.location,
+                            resJson.partyLocation_lo_la=result.location_lo_la,
+                            resJson.partyType=result.type,
+                            resJson.detail=result.detail,
+                            resJson.partyPublisher=result.publisher,
+                            resJson.partyHosts=result.hostname,
+                            resJson.shows=result.show_actors,
+                            resJson.comments=comment,
+                            resJson.posterURL=result.poster
+
+                            res.send(resJson);
+
+                        callback_2();
+
+                    })
+
+
+
+
+                }
+
+
+            })
+
+
+            break;
+
+
+    /**
+     * 传入格式
+     *
+     * method:getNewParties
+     * num:要获取最新多少的晚会
+     *
+     *
+     * 传出格式[数组形式]
+     * ID:
+     * name:
+     * time:
+     * location:
+     * poster:
+     *
+     *
+     */
+        case 'getNewParties':
+
+
+            var party=New(require('./party.class.js'),[]);
+            party.getNewPartys(reqJson.num,function(result){
+
+                res.send(result);
+                res.end();
+
+            });
 
             break;
 
@@ -488,8 +578,6 @@ router.post('/*', function(req, res, next) {
 
 
 router.get('/:type/:ID', function(req, res, next) {
-
-
 
 
     var CVMS=require('../VMS/VMS.js');

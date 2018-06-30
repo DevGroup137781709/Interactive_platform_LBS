@@ -68,11 +68,8 @@ var partyclass=Class(object,
             if (_hostname[i] == hostname) {
                 json.hostname = _hostname.slice(0, i).concat(_hostname.slice(i + 1, this.length));
             }
-
         }
         json.hostname = [hostname].concat(json.hostname);
-
-
 
         var Db = this.partyDb;
         //创建新的晚会信息到数据库
@@ -95,7 +92,6 @@ var partyclass=Class(object,
                     callback(0);
                 } else {
                     //创建成功
-
                     var Ctool = require('../tool/tool.js');
                     var tool = new Ctool();
                     tool.dealPoster(party.ID,'parties', party.poster, function (state) {
@@ -108,30 +104,19 @@ var partyclass=Class(object,
                                 if (affectedRows == 0) {
                                     //添加海报地址失败
                                     callback(0);
-
                                 } else {
                                     //添加晚会成功,更新主办方主持晚会列表信息
                                     var user=New(require('../user/user.class.js'),[hostID]);
                                     user.holdParty(party.ID,function(state){
-
                                         callback(state);
-
                                     })
-
-
-
                                 }
-
                             }).catch(function (err) {
                                 console.error(err);
                                 callback(0);
-
                             });
-
-
                         }
                     })
-
                 }
             }).catch(function (err) {
                 console.error(err);
@@ -139,8 +124,8 @@ var partyclass=Class(object,
                     callback(0);
                 }
             })
-
     },
+
 
     getInfo: function (detail, callback) {
         //获得晚会信息,用于更新
@@ -179,42 +164,44 @@ var partyclass=Class(object,
 
     },
 
+    /*
+     partyID:要获取的晚会信息的ID
+     needed:所需要的晚会信息列表
+     callback:回调
+
+     */
     getInfoByID:function(partyID,needed,callback){
         //通过ID获取晚会信息
-        this.partyDb.findOne({where: {ID:partyID}, attributes: needed}).then(function (result) {
+        this.partyDb.findOne({where: {ID:partyID}, attributes: needed}).then(function (result) {//先在数据库中找到相应的数据,并且只获取相应的属性
 
-            if(result!=null){
-                if(result.dataValues.show_actors!=undefined){
-                    result.dataValues.show_actors = JSON.parse(result.dataValues.show_actors);
+            if(result!=null){//检验下是否为空
+                //不为空则
+                if(result.dataValues.show_actors!=undefined){//检验下节目表是否未定义
+                    result.dataValues.show_actors = JSON.parse(result.dataValues.show_actors);//已经定义的话则去获取节目表json形式,并且解析json
                 }
 
-                if( result.dataValues.hostname!=undefined){
-                    result.dataValues.hostname = JSON.parse(result.dataValues.hostname);
+                if( result.dataValues.hostname!=undefined){//检验下举办方是否未定义
+                    result.dataValues.hostname = JSON.parse(result.dataValues.hostname);//已经定义的话,获取举办方json数组,并且解析
                 }
 
-
-                var Ctool = require('../tool/tool.js');
+                var Ctool = require('../tool/tool.js');//导入自己写的工具包,用于后面的格式化时间
                 var tool = new Ctool();
                 var i;
 
                 for(i=0;i<needed.length;i++){
-                    if(needed[i]=='time'){
-                        result.dataValues.time=tool.SimpleDateFormat(result.dataValues.time);
+                    if(needed[i]=='time'){//如果获取的信息中包含时间
+                        result.dataValues.time=tool.SimpleDateFormat(result.dataValues.time);//用工具包格式化时间
                     }
 
                 }
             }
 
-
-
-
-
-            callback(result.dataValues);
+            callback(result.dataValues);//回调返回信息
 
 
         }).catch(function (err) {
             console.error(err);
-            callback(null);
+            callback(null);//出错则返回空
 
         });
 
@@ -287,6 +274,7 @@ var partyclass=Class(object,
 
         }else if(type==0){
             //评论
+
             this.msgDb.create({
                 userName:userName,
                 partyID:partyID,
@@ -341,10 +329,10 @@ var partyclass=Class(object,
         }else if(type==0){
             this.msgDb.findAll({where:{partyID:partyID,type:type},attributes:['ID','partyID','userName','content','time'],
             offset:obtainedRows,limit:row,order:[['updatedAt','ASC']]}).then(function(results){
-            var arr = [];
+                var arr = [];
 
-            results.forEach(function (data) {
-                arr.push(data.dataValues);
+                results.forEach(function (data) {
+                    arr.push(data.dataValues);
             })
 
             callback(arr);
@@ -372,8 +360,6 @@ var partyclass=Class(object,
                 }else{
                     state=1;
                 }
-
-
             }).catch(function(err){
                 console.error(err);
                 state=0;
